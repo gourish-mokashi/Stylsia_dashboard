@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '../lib/supabase';
-import type { DatabaseProduct, DatabaseBrand } from '../types/database';
+import { useState, useEffect, useCallback } from "react";
+import { supabase } from "../lib/supabase";
+import type { DatabaseProduct, DatabaseBrand } from "../types/database";
 
 interface AdminProduct extends DatabaseProduct {
-  brand: Pick<DatabaseBrand, 'id' | 'name'>;
+  brand: Pick<DatabaseBrand, "id" | "name">;
 }
 
 interface UseAdminProductsReturn {
@@ -11,7 +11,10 @@ interface UseAdminProductsReturn {
   loading: boolean;
   error: string | null;
   refreshData: () => Promise<void>;
-  updateProductStatus: (productId: string, status: DatabaseProduct['status']) => Promise<void>;
+  updateProductStatus: (
+    productId: string,
+    status: DatabaseProduct["status"]
+  ) => Promise<void>;
 }
 
 export function useAdminProducts(): UseAdminProductsReturn {
@@ -25,15 +28,17 @@ export function useAdminProducts(): UseAdminProductsReturn {
       setError(null);
 
       const { data, error: fetchError } = await supabase
-        .from('products')
-        .select(`
+        .from("products")
+        .select(
+          `
           *,
           brand:brands!inner(
             id,
             name
           )
-        `)
-        .order('created_at', { ascending: false });
+        `
+        )
+        .order("created_at", { ascending: false });
 
       if (fetchError) {
         throw new Error(fetchError.message);
@@ -41,39 +46,46 @@ export function useAdminProducts(): UseAdminProductsReturn {
 
       setProducts(data || []);
     } catch (err) {
-      console.error('Failed to fetch products:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch products');
+      console.error("Failed to fetch products:", err);
+      setError(err instanceof Error ? err.message : "Failed to fetch products");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const updateProductStatus = useCallback(async (productId: string, status: DatabaseProduct['status']) => {
-    try {
-      const { error: updateError } = await supabase
-        .from('products')
-        .update({ 
-          status, 
-          updated_at: new Date().toISOString() 
-        })
-        .eq('id', productId);
+  const updateProductStatus = useCallback(
+    async (productId: string, status: DatabaseProduct["status"]) => {
+      try {
+        const { error: updateError } = await supabase
+          .from("products")
+          .update({
+            status,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", productId);
 
-      if (updateError) {
-        throw new Error(updateError.message);
+        if (updateError) {
+          throw new Error(updateError.message);
+        }
+
+        // Update local state
+        setProducts((prev) =>
+          prev.map((product) =>
+            product.id === productId
+              ? { ...product, status, updated_at: new Date().toISOString() }
+              : product
+          )
+        );
+      } catch (err) {
+        console.error("Failed to update product status:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to update product status"
+        );
+        throw err;
       }
-
-      // Update local state
-      setProducts(prev => prev.map(product => 
-        product.id === productId 
-          ? { ...product, status, updated_at: new Date().toISOString() }
-          : product
-      ));
-    } catch (err) {
-      console.error('Failed to update product status:', err);
-      setError(err instanceof Error ? err.message : 'Failed to update product status');
-      throw err;
-    }
-  }, []);
+    },
+    []
+  );
 
   const refreshData = useCallback(async () => {
     await fetchProducts();

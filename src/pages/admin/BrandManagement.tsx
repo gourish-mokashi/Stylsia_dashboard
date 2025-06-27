@@ -1,8 +1,21 @@
-import { useState } from 'react';
-import { Search, Filter, MoreVertical, Pause, Play, Trash2, CheckCircle, XCircle, RefreshCw, AlertTriangle, Info, Users } from 'lucide-react';
-import Button from '../../components/ui/Button';
-import { useAdminBrands } from '../../hooks/useAdminBrands';
-import type { DatabaseBrand } from '../../types/database';
+import { useState } from "react";
+import {
+  Search,
+  Filter,
+  MoreVertical,
+  Pause,
+  Play,
+  Trash2,
+  CheckCircle,
+  XCircle,
+  RefreshCw,
+  AlertTriangle,
+  Info,
+  Users,
+} from "lucide-react";
+import Button from "../../components/ui/Button";
+import { useAdminBrands } from "../../hooks/useAdminBrands";
+import type { DatabaseBrand } from "../../types/database";
 
 interface BrandWithStats extends DatabaseBrand {
   product_count: number;
@@ -13,46 +26,54 @@ interface BrandManagementState {
   searchTerm: string;
   statusFilter: string;
   sortBy: string;
-  sortOrder: 'asc' | 'desc';
+  sortOrder: "asc" | "desc";
   currentPage: number;
   itemsPerPage: number;
 }
 
 export default function BrandManagement() {
   const [state, setState] = useState<BrandManagementState>({
-    searchTerm: '',
-    statusFilter: 'all',
-    sortBy: 'name',
-    sortOrder: 'asc',
+    searchTerm: "",
+    statusFilter: "all",
+    sortBy: "name",
+    sortOrder: "asc",
     currentPage: 1,
     itemsPerPage: 10,
   });
 
-  const [selectedBrand, setSelectedBrand] = useState<BrandWithStats | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState<BrandWithStats | null>(
+    null
+  );
   const [showConfirmDialog, setShowConfirmDialog] = useState<{
     show: boolean;
-    type: 'pause' | 'remove' | 'activate';
+    type: "pause" | "remove" | "activate";
     brand: BrandWithStats | null;
-  }>({ show: false, type: 'pause', brand: null });
+  }>({ show: false, type: "pause", brand: null });
 
-  const { brands, loading, error, refreshData, updateBrandStatus } = useAdminBrands();
+  const { brands, loading, error, refreshData, updateBrandStatus } =
+    useAdminBrands();
 
   const filteredBrands = brands
-    .filter(brand => {
-      const matchesSearch = brand.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-                           (brand.contact_email && brand.contact_email.toLowerCase().includes(state.searchTerm.toLowerCase()));
-      const matchesStatus = state.statusFilter === 'all' || brand.status === state.statusFilter;
+    .filter((brand) => {
+      const matchesSearch =
+        brand.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
+        (brand.contact_email &&
+          brand.contact_email
+            .toLowerCase()
+            .includes(state.searchTerm.toLowerCase()));
+      const matchesStatus =
+        state.statusFilter === "all" || brand.status === state.statusFilter;
       return matchesSearch && matchesStatus;
     })
     .sort((a, b) => {
       const aValue = a[state.sortBy as keyof BrandWithStats];
       const bValue = b[state.sortBy as keyof BrandWithStats];
-      
+
       if (!aValue && !bValue) return 0;
       if (!aValue) return 1;
       if (!bValue) return -1;
-      
-      if (state.sortOrder === 'asc') {
+
+      if (state.sortOrder === "asc") {
         return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
       } else {
         return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
@@ -67,17 +88,18 @@ export default function BrandManagement() {
   );
 
   const handleSort = (field: string) => {
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       sortBy: field,
-      sortOrder: prev.sortBy === field && prev.sortOrder === 'asc' ? 'desc' : 'asc',
+      sortOrder:
+        prev.sortBy === field && prev.sortOrder === "asc" ? "desc" : "asc",
     }));
   };
 
   const handleToggleStatus = (brand: BrandWithStats) => {
     setShowConfirmDialog({
       show: true,
-      type: brand.status === 'active' ? 'pause' : 'activate',
+      type: brand.status === "active" ? "pause" : "activate",
       brand,
     });
   };
@@ -85,7 +107,7 @@ export default function BrandManagement() {
   const handleRemoveBrand = (brand: BrandWithStats) => {
     setShowConfirmDialog({
       show: true,
-      type: 'remove',
+      type: "remove",
       brand,
     });
   };
@@ -96,30 +118,30 @@ export default function BrandManagement() {
     const { brand, type } = showConfirmDialog;
 
     try {
-      if (type === 'remove') {
+      if (type === "remove") {
         // For now, just set status to inactive instead of deleting
-        await updateBrandStatus(brand.id, 'inactive');
+        await updateBrandStatus(brand.id, "inactive");
       } else {
         // Toggle status
-        const newStatus = type === 'activate' ? 'active' : 'suspended';
+        const newStatus = type === "activate" ? "active" : "suspended";
         await updateBrandStatus(brand.id, newStatus);
       }
     } catch (error) {
-      console.error('Error performing action:', error);
+      console.error("Error performing action:", error);
     }
 
-    setShowConfirmDialog({ show: false, type: 'pause', brand: null });
+    setShowConfirmDialog({ show: false, type: "pause", brand: null });
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'active':
+      case "active":
         return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case 'pending':
+      case "pending":
         return <CheckCircle className="h-4 w-4 text-amber-500" />;
-      case 'suspended':
+      case "suspended":
         return <XCircle className="h-4 w-4 text-red-500" />;
-      case 'inactive':
+      case "inactive":
         return <XCircle className="h-4 w-4 text-slate-500" />;
       default:
         return null;
@@ -128,27 +150,29 @@ export default function BrandManagement() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-800';
-      case 'pending':
-        return 'bg-amber-100 text-amber-800';
-      case 'suspended':
-        return 'bg-red-100 text-red-800';
-      case 'inactive':
-        return 'bg-slate-100 text-slate-800';
+      case "active":
+        return "bg-green-100 text-green-800";
+      case "pending":
+        return "bg-amber-100 text-amber-800";
+      case "suspended":
+        return "bg-red-100 text-red-800";
+      case "inactive":
+        return "bg-slate-100 text-slate-800";
       default:
-        return 'bg-slate-100 text-slate-800';
+        return "bg-slate-100 text-slate-800";
     }
   };
 
   const formatTimeAgo = (dateString: string | null) => {
-    if (!dateString) return 'Never';
-    
+    if (!dateString) return "Never";
+
     const date = new Date(dateString);
     const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Just now';
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60)
+    );
+
+    if (diffInMinutes < 1) return "Just now";
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
     return `${Math.floor(diffInMinutes / 1440)}d ago`;
@@ -168,7 +192,9 @@ export default function BrandManagement() {
             </div>
             <div className="flex items-center space-x-2 bg-blue-50 px-3 py-2 rounded-lg">
               <Users className="h-4 w-4 text-blue-600" />
-              <span className="text-sm font-medium text-blue-700">Total Brands: ...</span>
+              <span className="text-sm font-medium text-blue-700">
+                Total Brands: ...
+              </span>
             </div>
           </div>
 
@@ -229,7 +255,7 @@ export default function BrandManagement() {
               Manage and monitor all brands on the platform
             </p>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-lg">
               <Users className="h-5 w-5 text-blue-600" />
@@ -254,17 +280,29 @@ export default function BrandManagement() {
                   type="text"
                   placeholder="Search brands by name or email..."
                   value={state.searchTerm}
-                  onChange={(e) => setState(prev => ({ ...prev, searchTerm: e.target.value, currentPage: 1 }))}
+                  onChange={(e) =>
+                    setState((prev) => ({
+                      ...prev,
+                      searchTerm: e.target.value,
+                      currentPage: 1,
+                    }))
+                  }
                   className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
             </div>
-            
+
             {/* Status Filter */}
             <div className="flex gap-3">
               <select
                 value={state.statusFilter}
-                onChange={(e) => setState(prev => ({ ...prev, statusFilter: e.target.value, currentPage: 1 }))}
+                onChange={(e) =>
+                  setState((prev) => ({
+                    ...prev,
+                    statusFilter: e.target.value,
+                    currentPage: 1,
+                  }))
+                }
                 className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
@@ -273,7 +311,7 @@ export default function BrandManagement() {
                 <option value="suspended">Suspended</option>
                 <option value="inactive">Inactive</option>
               </select>
-              
+
               <Button variant="outline" icon={Filter}>
                 More Filters
               </Button>
@@ -287,13 +325,12 @@ export default function BrandManagement() {
             <div className="p-12 text-center">
               <Users className="h-12 w-12 text-slate-400 mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                {state.searchTerm ? 'No brands found' : 'No brands registered'}
+                {state.searchTerm ? "No brands found" : "No brands registered"}
               </h3>
               <p className="text-slate-600">
-                {state.searchTerm 
-                  ? 'Try adjusting your search terms.' 
-                  : 'Brands will appear here once they register on the platform.'
-                }
+                {state.searchTerm
+                  ? "Try adjusting your search terms."
+                  : "Brands will appear here once they register on the platform."}
               </p>
             </div>
           ) : (
@@ -320,27 +357,27 @@ export default function BrandManagement() {
                   <thead className="bg-slate-50">
                     <tr>
                       <th
-                        onClick={() => handleSort('name')}
+                        onClick={() => handleSort("name")}
                         className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100"
                       >
                         <div className="flex items-center space-x-1">
                           <span>Brand Name</span>
-                          {state.sortBy === 'name' && (
+                          {state.sortBy === "name" && (
                             <span className="text-blue-500">
-                              {state.sortOrder === 'asc' ? '↑' : '↓'}
+                              {state.sortOrder === "asc" ? "↑" : "↓"}
                             </span>
                           )}
                         </div>
                       </th>
                       <th
-                        onClick={() => handleSort('product_count')}
+                        onClick={() => handleSort("product_count")}
                         className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100"
                       >
                         <div className="flex items-center space-x-1">
                           <span>Product Count</span>
-                          {state.sortBy === 'product_count' && (
+                          {state.sortBy === "product_count" && (
                             <span className="text-blue-500">
-                              {state.sortOrder === 'asc' ? '↑' : '↓'}
+                              {state.sortOrder === "asc" ? "↑" : "↓"}
                             </span>
                           )}
                         </div>
@@ -374,27 +411,41 @@ export default function BrandManagement() {
                 <div className="bg-white px-4 py-3 border-t border-slate-200 sm:px-6">
                   <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0">
                     <div className="text-sm text-slate-700 text-center sm:text-left">
-                      Showing {((state.currentPage - 1) * state.itemsPerPage) + 1} to{' '}
-                      {Math.min(state.currentPage * state.itemsPerPage, filteredBrands.length)} of{' '}
-                      {filteredBrands.length} brands
+                      Showing {(state.currentPage - 1) * state.itemsPerPage + 1}{" "}
+                      to{" "}
+                      {Math.min(
+                        state.currentPage * state.itemsPerPage,
+                        filteredBrands.length
+                      )}{" "}
+                      of {filteredBrands.length} brands
                     </div>
                     <div className="flex space-x-2">
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
                         disabled={state.currentPage === 1}
-                        onClick={() => setState(prev => ({ ...prev, currentPage: prev.currentPage - 1 }))}
+                        onClick={() =>
+                          setState((prev) => ({
+                            ...prev,
+                            currentPage: prev.currentPage - 1,
+                          }))
+                        }
                       >
                         Previous
                       </Button>
                       <span className="px-3 py-1 text-sm text-slate-700">
                         Page {state.currentPage} of {totalPages}
                       </span>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
                         disabled={state.currentPage === totalPages}
-                        onClick={() => setState(prev => ({ ...prev, currentPage: prev.currentPage + 1 }))}
+                        onClick={() =>
+                          setState((prev) => ({
+                            ...prev,
+                            currentPage: prev.currentPage + 1,
+                          }))
+                        }
                       >
                         Next
                       </Button>
@@ -422,7 +473,9 @@ export default function BrandManagement() {
             type={showConfirmDialog.type}
             brand={showConfirmDialog.brand}
             onConfirm={confirmAction}
-            onCancel={() => setShowConfirmDialog({ show: false, type: 'pause', brand: null })}
+            onCancel={() =>
+              setShowConfirmDialog({ show: false, type: "pause", brand: null })
+            }
           />
         )}
       </div>
@@ -431,12 +484,12 @@ export default function BrandManagement() {
 }
 
 // Brand Mobile Card Component
-function BrandMobileCard({ 
-  brand, 
-  onInfo, 
-  onToggleStatus, 
+function BrandMobileCard({
+  brand,
+  onInfo,
+  onToggleStatus,
   onRemove,
-  getStatusColor
+  getStatusColor,
 }: {
   brand: BrandWithStats;
   onInfo: () => void;
@@ -452,11 +505,17 @@ function BrandMobileCard({
         <div className="flex-1">
           <div className="flex items-center space-x-2 mb-2">
             <h3 className="font-medium text-slate-900">{brand.name}</h3>
-            <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(brand.status)}`}>
+            <span
+              className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                brand.status
+              )}`}
+            >
               {brand.status}
             </span>
           </div>
-          <p className="text-sm text-slate-600">{brand.contact_email || 'No email'}</p>
+          <p className="text-sm text-slate-600">
+            {brand.contact_email || "No email"}
+          </p>
           <div className="mt-2 text-sm text-slate-500">
             <span className="font-medium">{brand.product_count}</span> products
           </div>
@@ -464,7 +523,7 @@ function BrandMobileCard({
             Joined: {new Date(brand.created_at).toLocaleDateString()}
           </div>
         </div>
-        
+
         <div className="relative">
           <button
             onClick={() => setShowActions(!showActions)}
@@ -472,25 +531,38 @@ function BrandMobileCard({
           >
             <MoreVertical className="h-4 w-4" />
           </button>
-          
+
           {showActions && (
             <div className="absolute right-0 top-8 bg-white border border-slate-200 rounded-lg shadow-lg z-10 min-w-32">
               <button
-                onClick={() => { onInfo(); setShowActions(false); }}
+                onClick={() => {
+                  onInfo();
+                  setShowActions(false);
+                }}
                 className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center"
               >
                 <Info className="h-3 w-3 mr-2" />
                 Info
               </button>
               <button
-                onClick={() => { onToggleStatus(); setShowActions(false); }}
+                onClick={() => {
+                  onToggleStatus();
+                  setShowActions(false);
+                }}
                 className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center"
               >
-                {brand.status === 'active' ? <Pause className="h-3 w-3 mr-2" /> : <Play className="h-3 w-3 mr-2" />}
-                {brand.status === 'active' ? 'Pause' : 'Activate'}
+                {brand.status === "active" ? (
+                  <Pause className="h-3 w-3 mr-2" />
+                ) : (
+                  <Play className="h-3 w-3 mr-2" />
+                )}
+                {brand.status === "active" ? "Pause" : "Activate"}
               </button>
               <button
-                onClick={() => { onRemove(); setShowActions(false); }}
+                onClick={() => {
+                  onRemove();
+                  setShowActions(false);
+                }}
                 className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center text-red-600"
               >
                 <Trash2 className="h-3 w-3 mr-2" />
@@ -505,13 +577,13 @@ function BrandMobileCard({
 }
 
 // Brand Table Row Component
-function BrandTableRow({ 
-  brand, 
-  onInfo, 
-  onToggleStatus, 
+function BrandTableRow({
+  brand,
+  onInfo,
+  onToggleStatus,
   onRemove,
   getStatusIcon,
-  getStatusColor
+  getStatusColor,
 }: {
   brand: BrandWithStats;
   onInfo: () => void;
@@ -525,20 +597,28 @@ function BrandTableRow({
       <td className="px-6 py-4 whitespace-nowrap">
         <div>
           <div className="text-sm font-medium text-slate-900">{brand.name}</div>
-          <div className="text-sm text-slate-500">{brand.contact_email || 'No email'}</div>
+          <div className="text-sm text-slate-500">
+            {brand.contact_email || "No email"}
+          </div>
           <div className="text-xs text-slate-400 mt-1">
             Joined: {new Date(brand.created_at).toLocaleDateString()}
           </div>
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm text-slate-900 font-medium">{brand.product_count}</div>
+        <div className="text-sm text-slate-900 font-medium">
+          {brand.product_count}
+        </div>
         <div className="text-sm text-slate-500">products</div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           {getStatusIcon(brand.status)}
-          <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(brand.status)}`}>
+          <span
+            className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
+              brand.status
+            )}`}
+          >
             {brand.status}
           </span>
         </div>
@@ -558,10 +638,14 @@ function BrandTableRow({
             size="sm"
             variant="outline"
             onClick={onToggleStatus}
-            icon={brand.status === 'active' ? Pause : Play}
-            className={brand.status === 'active' ? "text-amber-600 hover:text-amber-700" : "text-green-600 hover:text-green-700"}
+            icon={brand.status === "active" ? Pause : Play}
+            className={
+              brand.status === "active"
+                ? "text-amber-600 hover:text-amber-700"
+                : "text-green-600 hover:text-green-700"
+            }
           >
-            {brand.status === 'active' ? 'Pause' : 'Activate'}
+            {brand.status === "active" ? "Pause" : "Activate"}
           </Button>
           <Button
             size="sm"
@@ -583,7 +667,7 @@ function BrandDetailModal({
   brand,
   onClose,
   getStatusColor,
-  formatTimeAgo
+  formatTimeAgo,
 }: {
   brand: BrandWithStats;
   onClose: () => void;
@@ -593,66 +677,101 @@ function BrandDetailModal({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" onClick={onClose}></div>
-        
+        <div
+          className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity"
+          onClick={onClose}
+        ></div>
+
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg leading-6 font-medium text-slate-900">
                 Brand Details
               </h3>
-              <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(brand.status)}`}>
+              <span
+                className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                  brand.status
+                )}`}
+              >
                 {brand.status}
               </span>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700">Brand Name</label>
+                <label className="block text-sm font-medium text-slate-700">
+                  Brand Name
+                </label>
                 <p className="mt-1 text-sm text-slate-900">{brand.name}</p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Contact Email</label>
-                <p className="mt-1 text-sm text-slate-900">{brand.contact_email || 'Not provided'}</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Contact Email
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {brand.contact_email || "Not provided"}
+                </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Phone</label>
-                <p className="mt-1 text-sm text-slate-900">{brand.contact_phone || 'Not provided'}</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Phone
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {brand.contact_phone || "Not provided"}
+                </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Website</label>
-                <p className="mt-1 text-sm text-slate-900">{brand.website || 'Not provided'}</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Website
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {brand.website || "Not provided"}
+                </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Product Count</label>
-                <p className="mt-1 text-sm text-slate-900">{brand.product_count} products</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Product Count
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {brand.product_count} products
+                </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Join Date</label>
-                <p className="mt-1 text-sm text-slate-900">{new Date(brand.created_at).toLocaleDateString()}</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Join Date
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {new Date(brand.created_at).toLocaleDateString()}
+                </p>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-medium text-slate-700">Last Activity</label>
+                <label className="block text-sm font-medium text-slate-700">
+                  Last Activity
+                </label>
                 <p className="mt-1 text-sm text-slate-900">
                   {formatTimeAgo(brand.last_activity)}
                 </p>
               </div>
             </div>
-            
+
             {brand.description && (
               <div className="mt-4">
-                <label className="block text-sm font-medium text-slate-700">Description</label>
-                <p className="mt-1 text-sm text-slate-900">{brand.description}</p>
+                <label className="block text-sm font-medium text-slate-700">
+                  Description
+                </label>
+                <p className="mt-1 text-sm text-slate-900">
+                  {brand.description}
+                </p>
               </div>
             )}
           </div>
-          
+
           <div className="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <Button onClick={onClose} className="w-full sm:w-auto">
               Close
@@ -669,42 +788,42 @@ function ConfirmationDialog({
   type,
   brand,
   onConfirm,
-  onCancel
+  onCancel,
 }: {
-  type: 'pause' | 'remove' | 'activate';
+  type: "pause" | "remove" | "activate";
   brand: BrandWithStats;
   onConfirm: () => void;
   onCancel: () => void;
 }) {
   const getDialogContent = () => {
     switch (type) {
-      case 'pause':
+      case "pause":
         return {
-          title: 'Suspend Brand',
+          title: "Suspend Brand",
           message: `Are you sure you want to suspend ${brand.name}? This will prevent them from adding new products.`,
-          confirmText: 'Suspend',
-          confirmClass: 'bg-amber-600 hover:bg-amber-700',
+          confirmText: "Suspend",
+          confirmClass: "bg-amber-600 hover:bg-amber-700",
         };
-      case 'activate':
+      case "activate":
         return {
-          title: 'Activate Brand',
+          title: "Activate Brand",
           message: `Are you sure you want to activate ${brand.name}? This will allow them to add products again.`,
-          confirmText: 'Activate',
-          confirmClass: 'bg-green-600 hover:bg-green-700',
+          confirmText: "Activate",
+          confirmClass: "bg-green-600 hover:bg-green-700",
         };
-      case 'remove':
+      case "remove":
         return {
-          title: 'Remove Brand',
+          title: "Remove Brand",
           message: `Are you sure you want to remove ${brand.name}? This will set their status to inactive.`,
-          confirmText: 'Remove',
-          confirmClass: 'bg-red-600 hover:bg-red-700',
+          confirmText: "Remove",
+          confirmClass: "bg-red-600 hover:bg-red-700",
         };
       default:
         return {
-          title: 'Confirm Action',
-          message: 'Are you sure you want to proceed?',
-          confirmText: 'Confirm',
-          confirmClass: 'bg-blue-600 hover:bg-blue-700',
+          title: "Confirm Action",
+          message: "Are you sure you want to proceed?",
+          confirmText: "Confirm",
+          confirmClass: "bg-blue-600 hover:bg-blue-700",
         };
     }
   };
@@ -714,8 +833,11 @@ function ConfirmationDialog({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" onClick={onCancel}></div>
-        
+        <div
+          className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity"
+          onClick={onCancel}
+        ></div>
+
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="sm:flex sm:items-start">
@@ -727,9 +849,7 @@ function ConfirmationDialog({
                   {content.title}
                 </h3>
                 <div className="mt-2">
-                  <p className="text-sm text-slate-500">
-                    {content.message}
-                  </p>
+                  <p className="text-sm text-slate-500">{content.message}</p>
                 </div>
               </div>
             </div>
