@@ -1,119 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { Clock, AlertTriangle, RefreshCw, LogOut } from 'lucide-react';
-import { useAdminAuth } from '../../contexts/AdminAuthContext';
-import Button from '../ui/Button';
+import { AlertTriangle, X } from "lucide-react";
+import Button from "../ui/Button";
 
 interface SessionWarningModalProps {
   isOpen: boolean;
   onClose: () => void;
+  timeLeft: number;
   onExtend: () => void;
-  onSignOut: () => void;
-  timeLeft: number; // in milliseconds
 }
 
 export default function SessionWarningModal({
   isOpen,
   onClose,
+  timeLeft,
   onExtend,
-  onSignOut,
-  timeLeft
 }: SessionWarningModalProps) {
-  const [countdown, setCountdown] = useState(timeLeft);
-  const [extending, setExtending] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    setCountdown(timeLeft);
-    
-    const interval = setInterval(() => {
-      setCountdown(prev => {
-        const newTime = prev - 1000;
-        if (newTime <= 0) {
-          onSignOut();
-          return 0;
-        }
-        return newTime;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [isOpen, timeLeft, onSignOut]);
-
-  const handleExtend = async () => {
-    setExtending(true);
-    try {
-      await onExtend();
-      onClose();
-    } catch (error) {
-      console.error('Failed to extend session:', error);
-    } finally {
-      setExtending(false);
-    }
-  };
-
-  const formatTime = (ms: number) => {
-    const minutes = Math.floor(ms / (1000 * 60));
-    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  };
-
   if (!isOpen) return null;
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        
-        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-        
-        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div className="sm:flex sm:items-start">
-              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-amber-100 sm:mx-0 sm:h-10 sm:w-10">
-                <AlertTriangle className="h-6 w-6 text-amber-600" />
-              </div>
-              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Session Expiring Soon
-                </h3>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Your admin session will expire in{' '}
-                    <span className="font-mono font-bold text-amber-600">
-                      {formatTime(countdown)}
-                    </span>
-                    . Would you like to extend your session?
-                  </p>
-                </div>
-                
-                <div className="mt-4 bg-gray-50 rounded-lg p-4">
-                  <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Clock className="h-4 w-4" />
-                    <span>For security, sessions automatically expire after periods of inactivity.</span>
-                  </div>
-                </div>
+      <div className="flex items-center justify-center min-h-full p-4 text-center">
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" />
+
+        <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 max-w-md w-full p-6 transform transition-all">
+          <div className="flex items-start">
+            <div className="flex-shrink-0">
+              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
+                <AlertTriangle className="h-6 w-6 text-white" />
               </div>
             </div>
-          </div>
-          
-          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <Button
-              onClick={handleExtend}
-              loading={extending}
-              icon={RefreshCw}
-              className="w-full sm:w-auto sm:ml-3"
+            <div className="ml-4 flex-1">
+              <h3 className="text-lg font-bold text-slate-900 mb-2">
+                Session Expiring Soon
+              </h3>
+              <p className="text-sm text-slate-600 mb-4">
+                Your admin session will expire in{" "}
+                <span className="font-semibold text-amber-600">
+                  {minutes}:{seconds.toString().padStart(2, "0")}
+                </span>
+                . Would you like to extend your session?
+              </p>
+              <div className="flex space-x-3">
+                <Button
+                  onClick={onExtend}
+                  size="sm"
+                  className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white"
+                >
+                  Extend Session
+                </Button>
+                <Button
+                  onClick={onClose}
+                  variant="outline"
+                  size="sm"
+                  className="border-slate-200 text-slate-700 hover:bg-slate-50"
+                >
+                  Sign Out
+                </Button>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              className="ml-4 text-slate-400 hover:text-slate-600 transition-colors"
             >
-              {extending ? 'Extending...' : 'Extend Session'}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={onSignOut}
-              icon={LogOut}
-              className="mt-3 w-full sm:mt-0 sm:w-auto text-red-600 border-red-300 hover:bg-red-50"
-            >
-              Sign Out Now
-            </Button>
+              <X className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </div>

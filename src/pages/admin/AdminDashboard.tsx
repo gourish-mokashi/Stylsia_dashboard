@@ -267,10 +267,10 @@ export default function AdminDashboard() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Admin Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-600 mt-1">
               Loading dashboard data...
             </p>
           </div>
@@ -284,13 +284,13 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {[...Array(4)].map((_, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 animate-pulse">
+            <div key={index} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 animate-pulse">
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-gray-200 rounded-lg"></div>
-                <div className="w-16 h-4 bg-gray-200 rounded"></div>
+                <div className="w-10 h-10 bg-slate-200 rounded-lg"></div>
+                <div className="w-16 h-4 bg-slate-200 rounded"></div>
               </div>
-              <div className="w-20 h-8 bg-gray-200 rounded mb-2"></div>
-              <div className="w-24 h-4 bg-gray-200 rounded"></div>
+              <div className="w-20 h-8 bg-slate-200 rounded mb-2"></div>
+              <div className="w-24 h-4 bg-slate-200 rounded"></div>
             </div>
           ))}
         </div>
@@ -304,10 +304,10 @@ export default function AdminDashboard() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Admin Dashboard
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-slate-600 mt-1">
               Error loading dashboard data
             </p>
           </div>
@@ -393,12 +393,12 @@ export default function AdminDashboard() {
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <span className="text-sm font-medium text-gray-500">Admin</span>
+            <span className="text-sm font-medium text-slate-500">Admin</span>
           </li>
           <li>
             <div className="flex items-center">
-              <span className="text-gray-400">/</span>
-              <span className="ml-1 text-sm font-medium text-gray-900 md:ml-2">Dashboard</span>
+              <span className="text-slate-400">/</span>
+              <span className="ml-1 text-sm font-medium text-slate-900 md:ml-2">Dashboard</span>
             </div>
           </li>
         </ol>
@@ -407,14 +407,14 @@ export default function AdminDashboard() {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
             Admin Dashboard
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-slate-600 mt-1">
             Welcome back! Here's what's happening with your platform today.
           </p>
           {lastUpdated && (
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-slate-500 mt-1">
               Last updated: {formatTimeAgo(lastUpdated.toISOString())}
             </p>
           )}
@@ -472,12 +472,12 @@ export default function AdminDashboard() {
       </div>
 
       {/* Enhanced Quick Actions Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div className="p-6 border-b border-gray-200">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+        <div className="p-6 border-b border-slate-200">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
-              <p className="text-sm text-gray-600 mt-1">
+              <h2 className="text-lg font-semibold text-slate-900">Quick Actions</h2>
+              <p className="text-sm text-slate-600 mt-1">
                 Frequently used administrative functions and tools
               </p>
             </div>
@@ -485,13 +485,13 @@ export default function AdminDashboard() {
             <div className="flex flex-col sm:flex-row gap-3">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Search actions..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent w-full sm:w-64"
+                  className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent w-full sm:w-64"
                   aria-label="Search quick actions"
                 />
               </div>
@@ -500,7 +500,7 @@ export default function AdminDashboard() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 aria-label="Filter actions by category"
               >
                 {categories.map((category) => (
@@ -514,7 +514,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Category Tabs */}
-        <div className="px-6 py-3 border-b border-gray-200 bg-gray-50">
+        <div className="px-6 py-3 border-b border-slate-200 bg-slate-50">
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => {
               const Icon = category.icon;
@@ -527,7 +527,7 @@ export default function AdminDashboard() {
                   className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? 'bg-red-100 text-red-700 border border-red-200'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                   aria-pressed={isActive}
                   aria-label={`Filter by ${category.name}`}
@@ -544,11 +544,11 @@ export default function AdminDashboard() {
         <div className="p-6">
           {filteredActions.length === 0 ? (
             <div className="text-center py-8">
-              <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">
                 No actions found
               </h3>
-              <p className="text-gray-600">
+              <p className="text-slate-600">
                 Try adjusting your search terms or category filter.
               </p>
             </div>
@@ -561,7 +561,7 @@ export default function AdminDashboard() {
                 return (
                   <div
                     key={action.id}
-                    className={`group relative p-6 border border-gray-200 rounded-lg hover:border-red-300 hover:shadow-md transition-all duration-200 ${
+                    className={`group relative p-6 border border-slate-200 rounded-lg hover:border-red-300 hover:shadow-md transition-all duration-200 ${
                       action.priority === 'high' ? 'ring-1 ring-red-100' : ''
                     }`}
                   >
@@ -581,7 +581,7 @@ export default function AdminDashboard() {
                         <div className={`p-3 rounded-lg transition-colors ${
                           action.priority === 'high' ? 'bg-red-100 text-red-600' :
                           action.priority === 'medium' ? 'bg-blue-100 text-blue-600' :
-                          'bg-gray-100 text-gray-600'
+                          'bg-slate-100 text-slate-600'
                         } group-hover:scale-110 transition-transform`}>
                           {isLoading ? (
                             <RefreshCw className="h-6 w-6 animate-spin" />
@@ -591,12 +591,12 @@ export default function AdminDashboard() {
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 group-hover:text-red-700 transition-colors mb-2">
+                          <h3 className="font-semibold text-slate-900 group-hover:text-red-700 transition-colors mb-2">
                             {action.title}
                           </h3>
                           <p 
                             id={`${action.id}-description`}
-                            className="text-sm text-gray-600 leading-relaxed"
+                            className="text-sm text-slate-600 leading-relaxed"
                           >
                             {action.description}
                           </p>

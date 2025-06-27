@@ -84,16 +84,16 @@ export default function AdminSettings() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
           Admin Settings
         </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">
+        <p className="text-slate-600 mt-1">
           Manage platform settings and configurations
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
+      <div className="border-b border-slate-200">
         <nav className="-mb-px flex space-x-8 overflow-x-auto">
           {tabs.map((tab) => (
             <button
@@ -101,8 +101,8 @@ export default function AdminSettings() {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm whitespace-nowrap ${
                 activeTab === tab.id
-                  ? 'border-red-500 text-red-600 dark:text-red-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+                  ? 'border-red-500 text-red-600'
+                  : 'border-transparent text-slate-500 hover:text-slate-700'
               }`}
             >
               <tab.icon className="h-4 w-4" />
@@ -113,11 +113,11 @@ export default function AdminSettings() {
       </div>
 
       {/* Tab Content */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-200">
         {/* Global Settings */}
         {activeTab === 'global' && (
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Platform Configuration</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-6">Platform Configuration</h2>
             
             {/* Success message */}
             {saveSuccess && (
@@ -129,39 +129,39 @@ export default function AdminSettings() {
             
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 mb-2">
                   Platform Name
                 </label>
                 <input
                   type="text"
                   value={globalSettings.platformName}
                   onChange={(e) => handleGlobalSettingsChange('platformName', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Max Products per Brand
                   </label>
                   <input
                     type="number"
                     value={globalSettings.maxProductsPerBrand}
                     onChange={(e) => handleGlobalSettingsChange('maxProductsPerBrand', parseInt(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-slate-700 mb-2">
                     Commission Rate (%)
                   </label>
                   <input
                     type="number"
                     value={globalSettings.commissionRate}
                     onChange={(e) => handleGlobalSettingsChange('commissionRate', parseFloat(e.target.value))}
-                    className="w-full px-3 py-2 border border-gray-300  dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                    className="w-full px-3 py-2 border border-slate-300  rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -169,8 +169,8 @@ export default function AdminSettings() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">Maintenance Mode</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Temporarily disable the platform</p>
+                    <h3 className="text-sm font-medium text-slate-900">Maintenance Mode</h3>
+                    <p className="text-sm text-slate-600">Temporarily disable the platform</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -179,14 +179,14 @@ export default function AdminSettings() {
                       onChange={(e) => handleGlobalSettingsChange('maintenanceMode', e.target.checked)}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                   </label>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">New Registrations</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Allow new brand registrations</p>
+                    <h3 className="text-sm font-medium text-slate-900">New Registrations</h3>
+                    <p className="text-sm text-slate-600">Allow new brand registrations</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -195,14 +195,14 @@ export default function AdminSettings() {
                       onChange={(e) => handleGlobalSettingsChange('newRegistrations', e.target.checked)}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                   </label>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 dark:text-white">Product Approval Required</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Require admin approval for new products</p>
+                    <h3 className="text-sm font-medium text-slate-900">Product Approval Required</h3>
+                    <p className="text-sm text-slate-600">Require admin approval for new products</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
@@ -211,7 +211,7 @@ export default function AdminSettings() {
                       onChange={(e) => handleGlobalSettingsChange('productApprovalRequired', e.target.checked)}
                       className="sr-only peer"
                     />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                   </label>
                 </div>
               </div>
@@ -234,29 +234,29 @@ export default function AdminSettings() {
         {activeTab === 'users' && (
           <div className="p-6">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Admin Users</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Admin Users</h2>
               <Button>Add New User</Button>
             </div>
             
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-700">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       User
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Role
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-white divide-y divide-gray-200">
                   {[
                     { id: 1, name: 'John Admin', email: 'admin@stylsia.com', role: 'admin', status: 'active' },
                     { id: 2, name: 'Sarah Manager', email: 'sarah@stylsia.com', role: 'manager', status: 'active' },
@@ -265,29 +265,29 @@ export default function AdminSettings() {
                     <tr key={user.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div>
-                          <div className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                          <div className="text-sm font-medium text-slate-900">{user.name}</div>
+                          <div className="text-sm text-slate-500">{user.email}</div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400">
+                        <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
                           {user.role}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
                           user.status === 'active'
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400'
-                            : 'bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400'
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
                         }`}>
                           {user.status}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 mr-3">
+                        <button className="text-red-600 hover:text-red-900 mr-3">
                           Edit
                         </button>
-                        <button className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
+                        <button className="text-red-600 hover:text-red-900">
                           Delete
                         </button>
                       </td>
@@ -302,18 +302,18 @@ export default function AdminSettings() {
         {/* Security Settings */}
         {activeTab === 'security' && (
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Security Settings</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-6">Security Settings</h2>
             
             <div className="space-y-6">
               <div>
-                <h3 className="text-md font-medium text-gray-900 dark:text-white mb-3">Password Policy</h3>
+                <h3 className="text-md font-medium text-slate-900 mb-3">Password Policy</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Minimum Password Length</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Minimum number of characters required</p>
+                      <p className="text-sm font-medium text-slate-700">Minimum Password Length</p>
+                      <p className="text-xs text-slate-500">Minimum number of characters required</p>
                     </div>
-                    <select className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                    <select className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                       <option value="8">8 characters</option>
                       <option value="10">10 characters</option>
                       <option value="12">12 characters</option>
@@ -322,21 +322,21 @@ export default function AdminSettings() {
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Require Special Characters</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Passwords must contain special characters</p>
+                      <p className="text-sm font-medium text-slate-700">Require Special Characters</p>
+                      <p className="text-xs text-slate-500">Passwords must contain special characters</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input type="checkbox" className="sr-only peer" checked />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                      <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                     </label>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Password Expiry</p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">Force password reset after period</p>
+                      <p className="text-sm font-medium text-slate-700">Password Expiry</p>
+                      <p className="text-xs text-slate-500">Force password reset after period</p>
                     </div>
-                    <select className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                    <select className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                       <option value="never">Never</option>
                       <option value="30">30 days</option>
                       <option value="60">60 days</option>
@@ -347,15 +347,15 @@ export default function AdminSettings() {
               </div>
               
               <div>
-                <h3 className="text-md font-medium text-gray-900 dark:text-white mb-3">Two-Factor Authentication</h3>
+                <h3 className="text-md font-medium text-slate-900 mb-3">Two-Factor Authentication</h3>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">Require 2FA for Admins</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">All admin users must use two-factor authentication</p>
+                    <p className="text-sm font-medium text-slate-700">Require 2FA for Admins</p>
+                    <p className="text-xs text-slate-500">All admin users must use two-factor authentication</p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input type="checkbox" className="sr-only peer" />
-                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
                   </label>
                 </div>
               </div>
@@ -372,7 +372,7 @@ export default function AdminSettings() {
         {/* Audit Logs */}
         {activeTab === 'logs' && (
           <div className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Audit Logs</h2>
+            <h2 className="text-lg font-semibold text-slate-900 mb-6">Audit Logs</h2>
             <AuditLogViewer showFilters={true} limit={10} />
           </div>
         )}

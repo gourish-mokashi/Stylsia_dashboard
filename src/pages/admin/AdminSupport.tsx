@@ -86,7 +86,7 @@ export default function AdminSupport() {
       case 'resolved':
         return <CheckCircle className="h-4 w-4 text-green-500" />;
       case 'closed':
-        return <CheckCircle className="h-4 w-4 text-gray-500" />;
+        return <CheckCircle className="h-4 w-4 text-slate-500" />;
       default:
         return null;
     }
@@ -101,22 +101,22 @@ export default function AdminSupport() {
       case 'resolved':
         return 'bg-green-100 text-green-800';
       case 'closed':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-100 text-slate-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-100 text-slate-800';
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'low':
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-100 text-slate-800';
       case 'medium':
         return 'bg-amber-100 text-amber-800';
       case 'high':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-slate-100 text-slate-800';
     }
   };
 
@@ -182,16 +182,16 @@ export default function AdminSupport() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
             Support Requests
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-slate-600 mt-1">
             Loading support requests...
           </p>
         </div>
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading support requests...</p>
+          <p className="text-slate-600">Loading support requests...</p>
         </div>
       </div>
     );
@@ -201,10 +201,10 @@ export default function AdminSupport() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
             Support Requests
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-slate-600 mt-1">
             Error loading support requests
           </p>
         </div>
@@ -228,66 +228,66 @@ export default function AdminSupport() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
           Support Requests
         </h1>
-        <p className="text-gray-600 mt-1">
+        <p className="text-slate-600 mt-1">
           Manage and respond to brand partner support requests
         </p>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
               <AlertCircle className="h-5 w-5 text-blue-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-600">New</p>
-              <p className="text-xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-slate-600">New</p>
+              <p className="text-xl font-bold text-slate-900">
                 {supportRequests.filter(r => r.status === 'new').length}
               </p>
             </div>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
           <div className="flex items-center">
             <div className="p-2 bg-amber-100 rounded-lg">
               <Clock className="h-5 w-5 text-amber-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-600">In Progress</p>
-              <p className="text-xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-slate-600">In Progress</p>
+              <p className="text-xl font-bold text-slate-900">
                 {supportRequests.filter(r => r.status === 'in_progress').length}
               </p>
             </div>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
           <div className="flex items-center">
             <div className="p-2 bg-green-100 rounded-lg">
               <CheckCircle className="h-5 w-5 text-green-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-600">Resolved</p>
-              <p className="text-xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-slate-600">Resolved</p>
+              <p className="text-xl font-bold text-slate-900">
                 {supportRequests.filter(r => r.status === 'resolved').length}
               </p>
             </div>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
           <div className="flex items-center">
             <div className="p-2 bg-red-100 rounded-lg">
               <AlertCircle className="h-5 w-5 text-red-600" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-600">High Priority</p>
-              <p className="text-xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-slate-600">High Priority</p>
+              <p className="text-xl font-bold text-slate-900">
                 {supportRequests.filter(r => r.priority === 'high').length}
               </p>
             </div>
@@ -296,17 +296,17 @@ export default function AdminSupport() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-4">
         <div className="flex flex-col lg:flex-row gap-4">
           <div className="flex-1">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search by brand, email, or subject..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -315,7 +315,7 @@ export default function AdminSupport() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="all">All Status</option>
               <option value="new">New</option>
@@ -327,7 +327,7 @@ export default function AdminSupport() {
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+              className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
             >
               <option value="all">All Priority</option>
               <option value="low">Low</option>
@@ -343,14 +343,14 @@ export default function AdminSupport() {
       </div>
 
       {/* Support Requests Table */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
         {filteredRequests.length === 0 ? (
           <div className="p-12 text-center">
-            <Mail className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <Mail className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">
               No support requests found
             </h3>
-            <p className="text-gray-600">
+            <p className="text-slate-600">
               {searchTerm || statusFilter !== 'all' || priorityFilter !== 'all'
                 ? 'Try adjusting your search or filters.'
                 : 'Support requests will appear here when brands submit them.'}
@@ -364,14 +364,14 @@ export default function AdminSupport() {
                 {filteredRequests.map((request) => (
                   <div 
                     key={request.id} 
-                    className="p-4 hover:bg-gray-50 transition-colors cursor-pointer"
+                    className="p-4 hover:bg-slate-50 transition-colors cursor-pointer"
                     onClick={() => setSelectedRequest(request)}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div>
-                        <h3 className="font-medium text-gray-900">{request.subject}</h3>
-                        <p className="text-sm text-gray-600">{request.brand || 'Unknown Brand'}</p>
-                        <p className="text-xs text-gray-500">{request.email || 'unknown@example.com'}</p>
+                        <h3 className="font-medium text-slate-900">{request.subject}</h3>
+                        <p className="text-sm text-slate-600">{request.brand || 'Unknown Brand'}</p>
+                        <p className="text-xs text-slate-500">{request.email || 'unknown@example.com'}</p>
                       </div>
                       <div className="flex flex-col items-end space-y-1">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(request.status)}`}>
@@ -383,11 +383,11 @@ export default function AdminSupport() {
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-slate-500">
                         {formatDate(request.created_at)}
                       </span>
                       {request.has_attachment && (
-                        <Paperclip className="h-4 w-4 text-gray-400" />
+                        <Paperclip className="h-4 w-4 text-slate-400" />
                       )}
                     </div>
                   </div>
@@ -398,24 +398,24 @@ export default function AdminSupport() {
             {/* Desktop Table View */}
             <div className="hidden lg:block overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+                <thead className="bg-slate-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Brand
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Subject
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Priority
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Date
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -424,22 +424,22 @@ export default function AdminSupport() {
                   {filteredRequests.map((request) => (
                     <tr 
                       key={request.id} 
-                      className="hover:bg-gray-50 transition-colors cursor-pointer"
+                      className="hover:bg-slate-50 transition-colors cursor-pointer"
                       onClick={() => setSelectedRequest(request)}
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{request.brand || 'Unknown Brand'}</div>
-                            <div className="text-sm text-gray-500">{request.email || 'unknown@example.com'}</div>
+                            <div className="text-sm font-medium text-slate-900">{request.brand || 'Unknown Brand'}</div>
+                            <div className="text-sm text-slate-500">{request.email || 'unknown@example.com'}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900 max-w-xs truncate">{request.subject}</div>
+                        <div className="text-sm text-slate-900 max-w-xs truncate">{request.subject}</div>
                         <div className="flex items-center mt-1">
                           {request.has_attachment && (
-                            <div className="flex items-center text-xs text-gray-500">
+                            <div className="flex items-center text-xs text-slate-500">
                               <Paperclip className="h-3 w-3 mr-1" />
                               <span>Attachment</span>
                             </div>
@@ -459,7 +459,7 @@ export default function AdminSupport() {
                           {request.priority}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                         {formatDate(request.created_at)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -487,14 +487,14 @@ export default function AdminSupport() {
       {selectedRequest && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setSelectedRequest(null)}></div>
+            <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" onClick={() => setSelectedRequest(null)}></div>
             
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      <h3 className="text-lg leading-6 font-medium text-slate-900">
                         Support Request Details
                       </h3>
                       <div className="flex items-center space-x-2">
@@ -507,34 +507,34 @@ export default function AdminSupport() {
                       </div>
                     </div>
                     
-                    <div className="mt-4 border-t border-gray-200 pt-4">
+                    <div className="mt-4 border-t border-slate-200 pt-4">
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-500">From</p>
+                        <p className="text-sm font-medium text-slate-500">From</p>
                         <div className="mt-1">
-                          <p className="text-sm text-gray-900">{selectedRequest.brand || 'Unknown Brand'}</p>
-                          <p className="text-sm text-gray-600">{selectedRequest.email || 'unknown@example.com'}</p>
+                          <p className="text-sm text-slate-900">{selectedRequest.brand || 'Unknown Brand'}</p>
+                          <p className="text-sm text-slate-600">{selectedRequest.email || 'unknown@example.com'}</p>
                         </div>
                       </div>
                       
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-500">Subject</p>
-                        <p className="mt-1 text-sm text-gray-900">{selectedRequest.subject}</p>
+                        <p className="text-sm font-medium text-slate-500">Subject</p>
+                        <p className="mt-1 text-sm text-slate-900">{selectedRequest.subject}</p>
                       </div>
                       
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-500">Description</p>
-                        <div className="mt-1 p-3 bg-gray-50 rounded-lg">
-                          <p className="text-sm text-gray-900 whitespace-pre-wrap">{selectedRequest.description}</p>
+                        <p className="text-sm font-medium text-slate-500">Description</p>
+                        <div className="mt-1 p-3 bg-slate-50 rounded-lg">
+                          <p className="text-sm text-slate-900 whitespace-pre-wrap">{selectedRequest.description}</p>
                         </div>
                       </div>
                       
                       {selectedRequest.has_attachment && (
                         <div className="mb-4">
-                          <p className="text-sm font-medium text-gray-500">Attachment</p>
+                          <p className="text-sm font-medium text-slate-500">Attachment</p>
                           <div className="mt-1">
-                            <div className="flex items-center space-x-2 p-2 border border-gray-200 rounded-lg">
-                              <Paperclip className="h-4 w-4 text-gray-400" />
-                              <span className="text-sm text-gray-900">attachment.pdf</span>
+                            <div className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg">
+                              <Paperclip className="h-4 w-4 text-slate-400" />
+                              <span className="text-sm text-slate-900">attachment.pdf</span>
                               <Button 
                                 size="sm" 
                                 variant="outline" 
@@ -554,15 +554,15 @@ export default function AdminSupport() {
                       )}
                       
                       <div className="mb-4">
-                        <p className="text-sm font-medium text-gray-500">Timestamps</p>
+                        <p className="text-sm font-medium text-slate-500">Timestamps</p>
                         <div className="mt-1 grid grid-cols-2 gap-4">
                           <div>
-                            <p className="text-xs text-gray-500">Created</p>
-                            <p className="text-sm text-gray-900">{formatDate(selectedRequest.created_at)}</p>
+                            <p className="text-xs text-slate-500">Created</p>
+                            <p className="text-sm text-slate-900">{formatDate(selectedRequest.created_at)}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500">Last Updated</p>
-                            <p className="text-sm text-gray-900">{formatDate(selectedRequest.updated_at)}</p>
+                            <p className="text-xs text-slate-500">Last Updated</p>
+                            <p className="text-sm text-slate-900">{formatDate(selectedRequest.updated_at)}</p>
                           </div>
                         </div>
                       </div>
@@ -582,7 +582,7 @@ export default function AdminSupport() {
                 </div>
               </div>
               
-              <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <div className="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <Button
                   onClick={() => handleReplyToEmail(selectedRequest.id)}
                   icon={Mail}
@@ -595,7 +595,7 @@ export default function AdminSupport() {
                   <select
                     value={selectedRequest.status}
                     onChange={(e) => handleUpdateStatus(selectedRequest.id, e.target.value as SupportRequest['status'])}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                    className="block w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   >
                     <option value="new">New</option>
                     <option value="in_progress">In Progress</option>
@@ -621,7 +621,7 @@ export default function AdminSupport() {
       {showAuditLog && selectedRequest && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setShowAuditLog(false)}></div>
+            <div className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" onClick={() => setShowAuditLog(false)}></div>
             
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
               <AuditLogViewer 

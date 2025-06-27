@@ -233,7 +233,7 @@ export default function AdminDashboard() {
   const hasError = error && !stats;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       <div className="container-responsive py-4 sm:py-6">
         <Header
           title="Admin Dashboard"
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
               icon={RefreshCw}
               loading={statsLoading}
               aria-label="Refresh dashboard data"
-              className="border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-blue-500"
+              className="border-slate-300 text-slate-700 hover:bg-slate-50 focus:ring-blue-500"
             >
               Refresh
             </Button>
@@ -265,9 +265,9 @@ export default function AdminDashboard() {
 
           {/* Loading State */}
           {isLoading && (
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div className="bg-white rounded-lg shadow-sm border border-slate-200 p-12 text-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading admin dashboard data...</p>
+              <p className="text-slate-600">Loading admin dashboard data...</p>
             </div>
           )}
 
@@ -301,9 +301,9 @@ export default function AdminDashboard() {
           )}
 
           {/* Quick Actions */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 animate-slide-up">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 animate-slide-up">
             <div className="p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-6">
                 Admin Quick Actions
               </h2>
 
@@ -351,7 +351,7 @@ export default function AdminDashboard() {
                   onClick={handleManageSettings}
                   icon={Settings}
                   aria-label="Configure platform settings"
-                  className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400 focus:ring-blue-500 transition-all duration-200"
+                  className="border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-slate-400 focus:ring-blue-500 transition-all duration-200"
                 >
                   Platform Settings
                 </Button>
@@ -360,9 +360,9 @@ export default function AdminDashboard() {
           </div>
 
           {/* Recent Activities Section */}
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200 animate-slide-up">
+          <div className="bg-white rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow duration-200 animate-slide-up">
             <div className="p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-6">
+              <h2 className="text-lg font-semibold text-slate-900 mb-6">
                 Recent Platform Activities
               </h2>
 
@@ -380,7 +380,7 @@ export default function AdminDashboard() {
                     ) => (
                       <div
                         key={index}
-                        className="flex items-center space-x-4 p-4 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                        className="flex items-center space-x-4 p-4 border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors duration-200"
                         style={{ animationDelay: `${index * 0.1}s` }}
                       >
                         <div className="flex-shrink-0">
@@ -389,10 +389,10 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">
+                          <p className="text-sm font-medium text-slate-900">
                             {activity.action} on {activity.table_name}
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-slate-500">
                             {formatTimeAgo(activity.created_at)}
                           </p>
                         </div>
@@ -402,11 +402,11 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <Package className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-slate-900 mb-2">
                     No Recent Activity
                   </h3>
-                  <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  <p className="text-slate-600 mb-6 max-w-md mx-auto">
                     Platform activity will appear here as brands register and
                     products are added to the marketplace.
                   </p>
@@ -420,13 +420,13 @@ export default function AdminDashboard() {
             !hasError &&
             systemStats.totalBrands === 0 &&
             systemStats.totalProducts === 0 && (
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 animate-slide-up">
+              <div className="bg-white rounded-lg shadow-sm border border-slate-200 animate-slide-up">
                 <div className="p-6 text-center">
                   <Shield className="h-12 w-12 text-blue-500 mx-auto mb-4" />
-                  <h2 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h2 className="text-lg font-semibold text-slate-900 mb-2">
                     Welcome to Stylsia Admin Dashboard
                   </h2>
-                  <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  <p className="text-slate-600 mb-6 max-w-md mx-auto">
                     Your admin dashboard is ready. Start by managing brand
                     registrations and product approvals to build your fashion
                     marketplace.
