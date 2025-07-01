@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  Menu,
-  Search,
-  Sun,
-  Moon,
-  LogOut,
-  User,
-  Clock,
-  Shield,
-} from "lucide-react";
+import { useState } from "react";
+import { Menu, Search, LogOut, User, Shield } from "lucide-react";
 import { useAdminAuth } from "../../contexts/AdminAuthContext";
-import Button from "../ui/Button";
 
 interface AdminHeaderProps {
   sidebarOpen: boolean;
@@ -21,78 +11,13 @@ export default function AdminHeader({
   sidebarOpen,
   setSidebarOpen,
 }: AdminHeaderProps) {
-  const [darkMode, setDarkMode] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [sessionTimeLeft, setSessionTimeLeft] = useState<string>("");
-  const { user, signOut, sessionExpiry, refreshSession, isSessionValid } =
-    useAdminAuth();
-
-  // Update session countdown
-  useEffect(() => {
-    if (!sessionExpiry) return;
-
-    const updateCountdown = () => {
-      const now = new Date();
-      const timeLeft = sessionExpiry.getTime() - now.getTime();
-
-      if (timeLeft <= 0) {
-        setSessionTimeLeft("Expired");
-        return;
-      }
-
-      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-
-      if (hours > 0) {
-        setSessionTimeLeft(`${hours}h ${minutes}m`);
-      } else {
-        setSessionTimeLeft(`${minutes}m`);
-      }
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 60000); // Update every minute
-
-    return () => clearInterval(interval);
-  }, [sessionExpiry]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  const { user, signOut } = useAdminAuth();
 
   const handleSignOut = async () => {
     await signOut();
     setShowProfileMenu(false);
   };
-
-  const handleRefreshSession = async () => {
-    const success = await refreshSession();
-    if (!success) {
-      console.warn("Failed to refresh session");
-    }
-  };
-
-  const getSessionStatus = () => {
-    if (!sessionExpiry)
-      return { color: "text-slate-500", status: "No session" };
-
-    const now = new Date();
-    const timeLeft = sessionExpiry.getTime() - now.getTime();
-    const minutesLeft = Math.floor(timeLeft / (1000 * 60));
-
-    if (timeLeft <= 0) {
-      return { color: "text-red-500", status: "Expired" };
-    } else if (minutesLeft <= 5) {
-      return { color: "text-amber-500", status: "Expiring soon" };
-    } else if (minutesLeft <= 30) {
-      return { color: "text-yellow-500", status: "Active" };
-    } else {
-      return { color: "text-green-500", status: "Active" };
-    }
-  };
-
-  const sessionStatus = getSessionStatus();
 
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-white/20 shadow-lg">
@@ -120,40 +45,9 @@ export default function AdminHeader({
 
         {/* Right side */}
         <div className="flex items-center space-x-3">
-          {/* Session Status */}
-          {sessionExpiry && (
-            <div className="hidden md:flex items-center space-x-2 px-3 py-1 bg-slate-50 rounded-lg">
-              <Clock className={`h-4 w-4 ${sessionStatus.color}`} />
-              <span className="text-sm text-slate-600">
-                Session: {sessionTimeLeft}
-              </span>
-              {sessionTimeLeft !== "Expired" && (
-                <button
-                  onClick={handleRefreshSession}
-                  className="text-xs text-blue-600 hover:text-blue-700"
-                  title="Refresh session"
-                >
-                  Refresh
-                </button>
-              )}
-            </div>
-          )}
-
           {/* Mobile search button */}
           <button className="sm:hidden p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-100">
             <Search className="h-5 w-5" />
-          </button>
-
-          {/* Dark mode toggle */}
-          <button
-            onClick={toggleDarkMode}
-            className="p-2 text-slate-400 hover:text-slate-600 transition-colors rounded-lg hover:bg-slate-100"
-          >
-            {darkMode ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
           </button>
 
           {/* Profile dropdown */}
@@ -185,34 +79,6 @@ export default function AdminHeader({
                       </span>
                     </div>
                   </div>
-
-                  {/* Session Info */}
-                  {sessionExpiry && (
-                    <div className="px-3 py-2 text-xs bg-slate-50 rounded-lg mb-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-600">Session Status:</span>
-                        <span className={sessionStatus.color}>
-                          {sessionStatus.status}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between mt-1">
-                        <span className="text-slate-600">Time Left:</span>
-                        <span className="text-slate-900">
-                          {sessionTimeLeft}
-                        </span>
-                      </div>
-                      {!isSessionValid() && (
-                        <div className="mt-2">
-                          <button
-                            onClick={handleRefreshSession}
-                            className="w-full text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
-                          >
-                            Refresh Session
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
 
                   {/* Sign Out */}
                   <button

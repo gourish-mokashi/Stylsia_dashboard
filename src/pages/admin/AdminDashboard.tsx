@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   Users,
   Package,
@@ -11,26 +10,9 @@ import {
 } from "lucide-react";
 import StatsCard from "../../components/ui/StatsCard";
 import Button from "../../components/ui/Button";
-import SessionWarningModal from "../../components/admin/SessionWarningModal";
-import { useAdminAuth } from "../../contexts/AdminAuthContext";
-import { useSessionManager } from "../../hooks/useSessionManager";
 import { useAdminData } from "../../hooks/useAdminData";
-import { supabase } from "../../lib/supabase";
 
 export default function AdminDashboard() {
-  const [showSessionWarning, setShowSessionWarning] = useState(false);
-  const [sessionTimeLeft, setSessionTimeLeft] = useState(0);
-  const [systemStats, setSystemStats] = useState({
-    totalBrands: 0,
-    activeBrands: 0,
-    totalProducts: 0,
-    pendingProducts: 0,
-    supportRequests: 0,
-    newSupportRequests: 0,
-  });
-  const [loading, setLoading] = useState(true);
-
-  const { refreshSession, signOut, sessionExpiry } = useAdminAuth();
   const {
     stats,
     recentActivity,
@@ -39,82 +21,6 @@ export default function AdminDashboard() {
     lastUpdated,
     refreshData,
   } = useAdminData();
-
-  // Fetch system stats
-  useEffect(() => {
-    const fetchSystemStats = async () => {
-      try {
-        // Get brand stats
-        const { data: brands, error: brandsError } = await supabase
-          .from("brands")
-          .select("id, status", { count: "exact" });
-
-        if (brandsError) throw brandsError;
-
-        const activeBrands =
-          brands?.filter((b) => b.status === "active").length || 0;
-
-        // Get product stats
-        const { data: products, error: productsError } = await supabase
-          .from("products")
-          .select("id, status", { count: "exact" });
-
-        if (productsError) throw productsError;
-
-        const pendingProducts =
-          products?.filter((p) => p.status === "pending").length || 0;
-
-        // Get support request stats
-        const { data: supportRequests, error: supportError } = await supabase
-          .from("support_requests")
-          .select("id, status", { count: "exact" });
-
-        if (supportError) throw supportError;
-
-        const newSupportRequests =
-          supportRequests?.filter((s) => s.status === "new").length || 0;
-
-        setSystemStats({
-          totalBrands: brands?.length || 0,
-          activeBrands,
-          totalProducts: products?.length || 0,
-          pendingProducts,
-          supportRequests: supportRequests?.length || 0,
-          newSupportRequests,
-        });
-      } catch (error) {
-        console.error("Error fetching system stats:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSystemStats();
-  }, []);
-
-  // Set up session management
-  useSessionManager({
-    warningThreshold: 5,
-    onSessionWarning: () => {
-      if (sessionExpiry) {
-        const timeLeft = sessionExpiry.getTime() - new Date().getTime();
-        setSessionTimeLeft(timeLeft);
-        setShowSessionWarning(true);
-      }
-    },
-    onSessionExpired: () => {
-      setShowSessionWarning(false);
-      signOut();
-    },
-    autoRefresh: false,
-  });
-
-  const handleExtendSession = async () => {
-    const success = await refreshSession();
-    if (success) {
-      setShowSessionWarning(false);
-    }
-  };
 
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
@@ -130,7 +36,7 @@ export default function AdminDashboard() {
   };
 
   // Loading state
-  if (loading && !stats) {
+  if (statsLoading && !stats) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -200,39 +106,77 @@ export default function AdminDashboard() {
     );
   }
 
+  // Calculate platform health based on real metrics
+  const calculatePlatformHealth = () => {
+    if (!stats) return { status: "Loading...", color: "blue" as const };
+
+    const totalIssues =
+      (stats.pendingProducts || 0) + (stats.activeThreads || 0);
+    const totalActivity = (stats.totalBrands || 0) + (stats.totalProducts || 0);
+
+    if (totalActivity === 0)
+      return { status: "No Data", color: "blue" as const };
+
+    const healthRatio = 1 - totalIssues / Math.max(totalActivity, 1);
+
+    if (healthRatio >= 0.9)
+      return { status: "Excellent", color: "green" as const };
+    if (healthRatio >= 0.7) return { status: "Good", color: "blue" as const };
+    if (healthRatio >= 0.5) return { status: "Fair", color: "amber" as const };
+    return { status: "Needs Attention", color: "red" as const };
+  };
+
+  const platformHealth = calculatePlatformHealth();
+
+  // Calculate real conversion rate as a percentage
+  const conversionRate =
+    stats && stats.totalBrands > 0 && stats.totalProducts > 0
+      ? Math.round((stats.totalProducts / stats.totalBrands) * 100) / 100
+      : 0;
+
   const kpiData = [
     {
       title: "Total Brands",
-      value: systemStats.totalBrands.toString(),
-      change: systemStats.totalBrands > 0 ? "+12%" : undefined,
+      value: stats?.totalBrands?.toString() || "0",
+      change:
+        stats && stats.totalBrands > 5
+          ? `${conversionRate}x avg products`
+          : undefined,
       icon: Users,
       color: "primary" as const,
     },
     {
-      title: "Support Requests",
-      value: systemStats.supportRequests.toString(),
+      title: "Active Support Requests",
+      value: stats?.activeThreads?.toString() || "0",
       change:
-        systemStats.newSupportRequests > 0
-          ? `${systemStats.newSupportRequests} new`
-          : undefined,
+        stats && stats.pendingProducts > 0
+          ? `${stats.pendingProducts} pending`
+          : "All resolved",
       icon: MessageSquare,
-      color: "blue" as const,
+      color:
+        stats && stats.activeThreads > 10
+          ? ("red" as const)
+          : ("blue" as const),
     },
     {
       title: "Total Products",
-      value: systemStats.totalProducts.toString(),
+      value: stats?.totalProducts?.toString() || "0",
       change:
-        systemStats.pendingProducts > 0
-          ? `${systemStats.pendingProducts} pending`
-          : undefined,
+        stats && stats.pendingProducts > 0
+          ? `${stats.pendingProducts} pending`
+          : "All active",
       icon: Package,
       color: "green" as const,
     },
     {
       title: "Platform Health",
-      value: "Excellent",
+      value: platformHealth.status,
+      change:
+        stats && stats.totalBrands > 0
+          ? `${stats.totalBrands} brands active`
+          : undefined,
       icon: CheckCircle,
-      color: "green" as const,
+      color: platformHealth.color,
     },
   ];
 
@@ -470,14 +414,6 @@ export default function AdminDashboard() {
           )}
         </div>
       </div>
-
-      {/* Session Warning Modal */}
-      <SessionWarningModal
-        isOpen={showSessionWarning}
-        onClose={() => setShowSessionWarning(false)}
-        onExtend={handleExtendSession}
-        timeLeft={sessionTimeLeft}
-      />
     </div>
   );
 }

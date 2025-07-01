@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Menu } from "lucide-react";
 import AdminSidebar from "./AdminSidebar";
-import AdminHeader from "./AdminHeader";
 
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -13,11 +13,13 @@ export default function AdminLayout() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <AdminHeader
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-        />
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="lg:hidden fixed top-4 left-4 z-20 p-2 bg-white rounded-lg shadow-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors"
+        >
+          <Menu className="h-6 w-6" />
+        </button>
 
         {/* Content */}
         <main className="flex-1 overflow-y-auto">
