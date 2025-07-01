@@ -306,6 +306,19 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
           };
         }
 
+        // Try to update user metadata to include admin role
+        try {
+          await supabase.auth.updateUser({
+            data: { 
+              role: 'admin',
+              updated_at: new Date().toISOString()
+            }
+          });
+        } catch (metadataError) {
+          console.warn('Could not update user metadata:', metadataError);
+          // Continue anyway as this is not critical for basic functionality
+        }
+
         saveSession(data.session, rememberMe);
         updateActivity();
       }

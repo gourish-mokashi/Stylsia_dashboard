@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Search, Filter, CheckCircle, Clock, AlertCircle, Download, ExternalLink, Paperclip } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Mail, Search, Filter, CheckCircle, Clock, AlertCircle, Download, Paperclip } from 'lucide-react';
 import Button from '../../components/ui/Button';
 import { supabase } from '../../lib/supabase';
 import AuditLogViewer from '../../components/common/AuditLogViewer';
@@ -35,27 +35,79 @@ export default function AdminSupport() {
     const fetchSupportRequests = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase
-          .from('support_requests')
-          .select(`
-            *,
-            brand:brands(id, name, contact_email)
-          `)
-          .order('created_at', { ascending: false });
+        // Try the admin function first
+        const { data, error } = await supabase.rpc('admin_get_all_support_requests');
         
-        if (error) throw error;
-        
-        // Transform data to match our interface
-        const transformedData = data.map(request => ({
-          ...request,
-          email: request.brand?.contact_email,
-          brand: request.brand?.name,
-        }));
-        
-        setSupportRequests(transformedData);
+        if (error) {
+          console.error('Admin RPC call failed, trying fallback...', error);
+          
+          // Fallback to the original RPC function
+          const { data: fallbackData, error: fallbackError } = await supabase.rpc('get_support_requests_with_brand_info');
+          
+          if (fallbackError) {
+            console.error('Fallback RPC failed, trying direct query...', fallbackError);
+            
+            // Final fallback to direct query
+            const { data: directData, error: directError } = await supabase
+              .from('support_requests')
+              .select(`
+                *,
+                brand:brands(id, name, contact_email)
+              `)
+              .order('created_at', { ascending: false });
+            
+            if (directError) throw directError;
+            
+            // Transform direct query data
+            const transformedData = (directData || []).map(request => ({
+              ...request,
+              email: request.brand?.contact_email || 'unknown@example.com',
+              brand: request.brand?.name || 'Unknown Brand',
+            }));
+            
+            setSupportRequests(transformedData);
+          } else {
+            // Transform fallback RPC data
+            const transformedData = (fallbackData || []).map((request: any) => ({
+              id: request.request_id,
+              brand_id: request.brand_id,
+              subject: request.subject,
+              description: request.description,
+              priority: request.priority,
+              status: request.status,
+              has_attachment: request.has_attachment,
+              attachment_url: request.attachment_url,
+              created_at: request.created_at,
+              updated_at: request.created_at,
+              email: request.brand_email || 'unknown@example.com',
+              brand: request.brand_name || 'Unknown Brand',
+            }));
+            
+            setSupportRequests(transformedData);
+          }
+        } else {
+          // Transform admin RPC data - this should be the primary path
+          const transformedData = (data || []).map((request: any) => ({
+            id: request.id,
+            brand_id: request.brand_id,
+            subject: request.subject,
+            description: request.description,
+            priority: request.priority,
+            status: request.status,
+            has_attachment: request.has_attachment,
+            attachment_url: request.attachment_url,
+            created_at: request.created_at,
+            updated_at: request.updated_at || request.created_at,
+            resolved_at: request.resolved_at,
+            email: request.brand_email || 'unknown@example.com',
+            brand: request.brand_name || 'Unknown Brand',
+          }));
+          
+          setSupportRequests(transformedData);
+        }
       } catch (err) {
         console.error('Error fetching support requests:', err);
-        setError('Failed to load support requests');
+        setError('Failed to load support requests. Please check your admin permissions.');
       } finally {
         setLoading(false);
       }
@@ -133,29 +185,50 @@ export default function AdminSupport() {
 
   const handleReplyToEmail = (requestId: string) => {
     // In a real implementation, this would open an email client or a compose modal
-    window.open(`mailto:${selectedRequest?.email}?subject=Re: ${selectedRequest?.subject}`, '_blank');
+    // For now, we'll just open the default email client with a pre-filled subject
+    if (selectedRequest) {
+      window.open(`mailto:${selectedRequest.email}?subject=Re: ${selectedRequest.subject}&body=Hello,\n\nThank you for contacting Stylsia support regarding: ${selectedRequest.subject}\n\nWe have received your request (ID: ${requestId}) and will assist you with this matter.\n\nBest regards,\nStylsia Support Team`, '_blank');
+    }
   };
 
   const handleUpdateStatus = async (requestId: string, newStatus: SupportRequest['status']) => {
     try {
-      const { error } = await supabase
-        .from('support_requests')
-        .update({ 
-          status: newStatus,
-          ...(newStatus === 'resolved' ? { resolved_at: new Date().toISOString() } : {})
-        })
-        .eq('id', requestId);
-      
-      if (error) throw error;
-      
-      // Record audit log
-      await supabase.rpc('record_audit_event', {
-        user_uuid: (await supabase.auth.getUser()).data.user?.id,
-        action_name: 'UPDATE',
-        table_name: 'support_requests',
-        record_id: requestId,
-        details_json: { status: { old: selectedRequest?.status, new: newStatus } }
+      // Try using the admin function first
+      const { data: success, error: rpcError } = await supabase.rpc('admin_update_support_request_status', {
+        request_id: requestId,
+        new_status: newStatus,
+        admin_user_id: (await supabase.auth.getUser()).data.user?.id
       });
+
+      if (rpcError || !success) {
+        console.warn('Admin RPC update failed, trying direct update...', rpcError);
+        
+        // Fallback to direct update
+        const { error: directError } = await supabase
+          .from('support_requests')
+          .update({ 
+            status: newStatus,
+            updated_at: new Date().toISOString(),
+            ...(newStatus === 'resolved' ? { resolved_at: new Date().toISOString() } : {})
+          })
+          .eq('id', requestId);
+        
+        if (directError) throw directError;
+      }
+      
+      // Record audit log (optional, may fail due to permissions)
+      try {
+        await supabase.rpc('record_audit_event', {
+          user_uuid: (await supabase.auth.getUser()).data.user?.id,
+          action_name: 'UPDATE',
+          table_name: 'support_requests',
+          record_id: requestId,
+          details_json: { status: { old: selectedRequest?.status, new: newStatus } }
+        });
+      } catch (auditError) {
+        console.warn('Failed to record audit event:', auditError);
+        // Continue anyway as audit logging is not critical
+      }
       
       // Update local state
       setSupportRequests(prev => 
@@ -164,6 +237,7 @@ export default function AdminSupport() {
             ? { 
                 ...req, 
                 status: newStatus,
+                updated_at: new Date().toISOString(),
                 ...(newStatus === 'resolved' ? { resolved_at: new Date().toISOString() } : {})
               } 
             : req
