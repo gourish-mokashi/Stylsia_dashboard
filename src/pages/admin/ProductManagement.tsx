@@ -4,7 +4,6 @@ import {
   Filter,
   CheckCircle,
   XCircle,
-  Clock,
   Eye,
   MoreVertical,
 } from "lucide-react";
@@ -23,8 +22,7 @@ export default function ProductManagement() {
     null
   );
 
-  const { products, loading, error, refreshData, updateProductStatus } =
-    useAdminProducts();
+  const { products, loading, error, refreshData } = useAdminProducts();
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
@@ -42,8 +40,6 @@ export default function ProductManagement() {
     switch (status) {
       case "active":
         return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case "pending":
-        return <Clock className="h-4 w-4 text-amber-500" />;
       case "inactive":
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
@@ -55,28 +51,10 @@ export default function ProductManagement() {
     switch (status) {
       case "active":
         return "bg-green-100 text-green-800";
-      case "pending":
-        return "bg-amber-100 text-amber-800";
       case "inactive":
         return "bg-red-100 text-red-800";
       default:
         return "bg-slate-100 text-slate-800";
-    }
-  };
-
-  const handleApprove = async (productId: string) => {
-    try {
-      await updateProductStatus(productId, "active");
-    } catch (error) {
-      console.error("Failed to approve product:", error);
-    }
-  };
-
-  const handleReject = async (productId: string) => {
-    try {
-      await updateProductStatus(productId, "inactive");
-    } catch (error) {
-      console.error("Failed to reject product:", error);
     }
   };
 
@@ -151,13 +129,13 @@ export default function ProductManagement() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-white rounded-lg border border-slate-200 p-4">
             <div className="flex items-center">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                <Clock className="h-5 w-5 text-amber-600" />
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Filter className="h-5 w-5 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm text-slate-600">Pending Review</p>
+                <p className="text-sm text-slate-600">Total Products</p>
                 <p className="text-2xl font-bold text-slate-900">
-                  {products.filter((p) => p.status === "pending").length}
+                  {products.length}
                 </p>
               </div>
             </div>
@@ -215,7 +193,6 @@ export default function ProductManagement() {
                 className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="all">All Status</option>
-                <option value="pending">Pending</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
@@ -294,37 +271,15 @@ export default function ProductManagement() {
                 </div>
 
                 {/* Action Buttons */}
-                {product.status === "pending" && (
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      onClick={() => handleApprove(product.id)}
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleReject(product.id)}
-                      className="flex-1 border-red-300 text-red-600 hover:bg-red-50"
-                    >
-                      Reject
-                    </Button>
-                  </div>
-                )}
-
-                {product.status !== "pending" && (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => setSelectedProduct(product)}
-                    icon={Eye}
-                    className="w-full"
-                  >
-                    View Details
-                  </Button>
-                )}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setSelectedProduct(product)}
+                  icon={Eye}
+                  className="w-full"
+                >
+                  View Details
+                </Button>
               </div>
             </div>
           ))}
@@ -343,8 +298,6 @@ export default function ProductManagement() {
           <ProductDetailModal
             product={selectedProduct}
             onClose={() => setSelectedProduct(null)}
-            onApprove={handleApprove}
-            onReject={handleReject}
             getStatusIcon={getStatusIcon}
             getStatusColor={getStatusColor}
           />
@@ -357,15 +310,11 @@ export default function ProductManagement() {
 function ProductDetailModal({
   product,
   onClose,
-  onApprove,
-  onReject,
   getStatusIcon,
   getStatusColor,
 }: {
   product: AdminProduct;
   onClose: () => void;
-  onApprove: (id: string) => void;
-  onReject: (id: string) => void;
   getStatusIcon: (status: string) => JSX.Element | null;
   getStatusColor: (status: string) => string;
 }) {
@@ -477,33 +426,10 @@ function ProductDetailModal({
           </div>
 
           <div className="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            {product.status === "pending" ? (
-              <>
-                <Button
-                  onClick={() => {
-                    onApprove(product.id);
-                    onClose();
-                  }}
-                  className="w-full sm:w-auto sm:ml-3 bg-green-600 hover:bg-green-700 text-white"
-                >
-                  Approve
-                </Button>
-                <Button
-                  onClick={() => {
-                    onReject(product.id);
-                    onClose();
-                  }}
-                  variant="outline"
-                  className="mt-3 w-full sm:mt-0 sm:w-auto sm:ml-3 border-red-300 text-red-600 hover:bg-red-50"
-                >
-                  Reject
-                </Button>
-              </>
-            ) : null}
             <Button
               onClick={onClose}
               variant="outline"
-              className="mt-3 w-full sm:mt-0 sm:w-auto"
+              className="w-full sm:w-auto"
             >
               Close
             </Button>

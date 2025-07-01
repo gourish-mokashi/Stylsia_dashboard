@@ -31,7 +31,6 @@ import ProductManagement from "./pages/admin/ProductManagement";
 import AdminSupport from "./pages/admin/AdminSupport";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminSettings from "./pages/admin/AdminSettings";
-import BrandOnboarding from "./pages/admin/BrandOnboarding";
 
 const AppContent: React.FC = () => {
   const { user, loading, connectionError } = useAuth();
@@ -96,7 +95,6 @@ const AppContent: React.FC = () => {
             <Route path="support" element={<AdminSupport />} />
             <Route path="analytics" element={<AdminAnalytics />} />
             <Route path="settings" element={<AdminSettings />} />
-            <Route path="onboarding" element={<BrandOnboarding />} />
           </Route>
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Routes>

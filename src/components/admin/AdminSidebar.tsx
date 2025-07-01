@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -7,14 +6,12 @@ import {
   Mail,
   BarChart3,
   Settings,
-  UserPlus,
   Shield,
   X,
 } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
-  { name: "Brand Onboarding", href: "/admin/onboarding", icon: UserPlus },
   { name: "Brand Management", href: "/admin/brands", icon: Users },
   { name: "Product Management", href: "/admin/products", icon: Package },
   { name: "Support Requests", href: "/admin/support", icon: Mail },

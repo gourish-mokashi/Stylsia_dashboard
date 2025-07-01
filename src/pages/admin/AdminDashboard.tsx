@@ -1,49 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Users, 
-  Package, 
-  MessageSquare, 
-  TrendingUp, 
-  AlertTriangle, 
-  CheckCircle, 
-  RefreshCw, 
-  Shield, 
-  UserPlus,
+import { useState, useEffect } from "react";
+import {
+  Users,
+  Package,
+  MessageSquare,
+  AlertTriangle,
+  CheckCircle,
+  RefreshCw,
+  Shield,
   FileText,
-  BarChart3,
-  Settings,
-  Search,
-  Filter
-} from 'lucide-react';
-import StatsCard from '../../components/ui/StatsCard';
-import Button from '../../components/ui/Button';
-import SessionWarningModal from '../../components/admin/SessionWarningModal';
-import { useAdminAuth } from '../../contexts/AdminAuthContext';
-import { useSessionManager } from '../../hooks/useSessionManager';
-import { useAdminData } from '../../hooks/useAdminData';
-import { supabase } from '../../lib/supabase';
-
-interface QuickAction {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ComponentType<{ className?: string }>;
-  action: () => void;
-  category: 'user' | 'content' | 'analytics' | 'system';
-  priority: 'high' | 'medium' | 'low';
-}
+} from "lucide-react";
+import StatsCard from "../../components/ui/StatsCard";
+import Button from "../../components/ui/Button";
+import SessionWarningModal from "../../components/admin/SessionWarningModal";
+import { useAdminAuth } from "../../contexts/AdminAuthContext";
+import { useSessionManager } from "../../hooks/useSessionManager";
+import { useAdminData } from "../../hooks/useAdminData";
+import { supabase } from "../../lib/supabase";
 
 export default function AdminDashboard() {
   const [showSessionWarning, setShowSessionWarning] = useState(false);
   const [sessionTimeLeft, setSessionTimeLeft] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loadingActions, setLoadingActions] = useState<Set<string>>(new Set());
-  const [notifications, setNotifications] = useState<{
-    type: 'success' | 'error' | 'info';
-    message: string;
-    id: string;
-  }[]>([]);
   const [systemStats, setSystemStats] = useState({
     totalBrands: 0,
     activeBrands: 0,
@@ -54,8 +30,15 @@ export default function AdminDashboard() {
   });
   const [loading, setLoading] = useState(true);
 
-  const { refreshSession, signOut, sessionExpiry, user } = useAdminAuth();
-  const { stats, loading: statsLoading, error, lastUpdated, refreshData } = useAdminData();
+  const { refreshSession, signOut, sessionExpiry } = useAdminAuth();
+  const {
+    stats,
+    recentActivity,
+    loading: statsLoading,
+    error,
+    lastUpdated,
+    refreshData,
+  } = useAdminData();
 
   // Fetch system stats
   useEffect(() => {
@@ -63,31 +46,34 @@ export default function AdminDashboard() {
       try {
         // Get brand stats
         const { data: brands, error: brandsError } = await supabase
-          .from('brands')
-          .select('id, status', { count: 'exact' });
-        
+          .from("brands")
+          .select("id, status", { count: "exact" });
+
         if (brandsError) throw brandsError;
-        
-        const activeBrands = brands?.filter(b => b.status === 'active').length || 0;
-        
+
+        const activeBrands =
+          brands?.filter((b) => b.status === "active").length || 0;
+
         // Get product stats
         const { data: products, error: productsError } = await supabase
-          .from('products')
-          .select('id, status', { count: 'exact' });
-        
+          .from("products")
+          .select("id, status", { count: "exact" });
+
         if (productsError) throw productsError;
-        
-        const pendingProducts = products?.filter(p => p.status === 'pending').length || 0;
-        
+
+        const pendingProducts =
+          products?.filter((p) => p.status === "pending").length || 0;
+
         // Get support request stats
         const { data: supportRequests, error: supportError } = await supabase
-          .from('support_requests')
-          .select('id, status', { count: 'exact' });
-        
+          .from("support_requests")
+          .select("id, status", { count: "exact" });
+
         if (supportError) throw supportError;
-        
-        const newSupportRequests = supportRequests?.filter(s => s.status === 'new').length || 0;
-        
+
+        const newSupportRequests =
+          supportRequests?.filter((s) => s.status === "new").length || 0;
+
         setSystemStats({
           totalBrands: brands?.length || 0,
           activeBrands,
@@ -97,12 +83,12 @@ export default function AdminDashboard() {
           newSupportRequests,
         });
       } catch (error) {
-        console.error('Error fetching system stats:', error);
+        console.error("Error fetching system stats:", error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchSystemStats();
   }, []);
 
@@ -120,122 +106,7 @@ export default function AdminDashboard() {
       setShowSessionWarning(false);
       signOut();
     },
-    autoRefresh: false
-  });
-
-  // Quick Actions Configuration
-  const quickActions: QuickAction[] = [
-    {
-      id: 'add-user',
-      title: 'Add New Brand',
-      description: 'Onboard a new brand partner to the platform',
-      icon: UserPlus,
-      category: 'user',
-      priority: 'high',
-      action: () => handleAction('add-user', () => {
-        window.location.href = '/admin/onboarding';
-      })
-    },
-    {
-      id: 'view-brands',
-      title: 'Manage Brands',
-      description: 'View and manage all registered brands',
-      icon: Users,
-      category: 'user',
-      priority: 'high',
-      action: () => handleAction('view-brands', () => {
-        window.location.href = '/admin/brands';
-      })
-    },
-    {
-      id: 'support-requests',
-      title: 'Support Requests',
-      description: 'View and respond to brand support tickets',
-      icon: MessageSquare,
-      category: 'content',
-      priority: 'high',
-      action: () => handleAction('support-requests', () => {
-        window.location.href = '/admin/support';
-      })
-    },
-    {
-      id: 'product-management',
-      title: 'Product Management',
-      description: 'Review and approve product submissions',
-      icon: Package,
-      category: 'content',
-      priority: 'high',
-      action: () => handleAction('product-management', () => {
-        window.location.href = '/admin/products';
-      })
-    },
-    {
-      id: 'view-analytics',
-      title: 'View Analytics',
-      description: 'Access detailed platform analytics and insights',
-      icon: TrendingUp,
-      category: 'analytics',
-      priority: 'medium',
-      action: () => handleAction('view-analytics', () => {
-        window.location.href = '/admin/analytics';
-      })
-    },
-    {
-      id: 'system-settings',
-      title: 'System Settings',
-      description: 'Configure platform settings and preferences',
-      icon: Settings,
-      category: 'system',
-      priority: 'medium',
-      action: () => handleAction('system-settings', () => {
-        window.location.href = '/admin/settings';
-      })
-    }
-  ];
-
-  const categories = [
-    { id: 'all', name: 'All Actions', icon: Filter },
-    { id: 'user', name: 'User Management', icon: Users },
-    { id: 'content', name: 'Content Management', icon: FileText },
-    { id: 'analytics', name: 'Analytics', icon: BarChart3 },
-    { id: 'system', name: 'System', icon: Settings }
-  ];
-
-  const handleAction = async (actionId: string, actionFn: () => void | Promise<void>) => {
-    await executeAction(actionId, actionFn);
-  };
-
-  const executeAction = async (actionId: string, actionFn: () => void | Promise<void>) => {
-    setLoadingActions(prev => new Set(prev).add(actionId));
-    
-    try {
-      await actionFn();
-    } catch (error) {
-      showNotification('error', 'Action failed. Please try again.');
-      console.error('Action failed:', error);
-    } finally {
-      setLoadingActions(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(actionId);
-        return newSet;
-      });
-    }
-  };
-
-  const showNotification = (type: 'success' | 'error' | 'info', message: string) => {
-    const id = Date.now().toString();
-    setNotifications(prev => [...prev, { type, message, id }]);
-    
-    setTimeout(() => {
-      setNotifications(prev => prev.filter(n => n.id !== id));
-    }, 5000);
-  };
-
-  const filteredActions = quickActions.filter(action => {
-    const matchesCategory = selectedCategory === 'all' || action.category === selectedCategory;
-    const matchesSearch = action.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         action.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+    autoRefresh: false,
   });
 
   const handleExtendSession = async () => {
@@ -245,17 +116,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSignOut = () => {
-    setShowSessionWarning(false);
-    signOut();
-  };
-
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    if (diffInMinutes < 1) return 'Just now';
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60)
+    );
+
+    if (diffInMinutes < 1) return "Just now";
     if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
     return `${Math.floor(diffInMinutes / 1440)}d ago`;
@@ -270,9 +138,7 @@ export default function AdminDashboard() {
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Admin Dashboard
             </h1>
-            <p className="text-slate-600 mt-1">
-              Loading dashboard data...
-            </p>
+            <p className="text-slate-600 mt-1">Loading dashboard data...</p>
           </div>
           <div className="flex items-center space-x-2 bg-red-50 px-3 py-2 rounded-lg">
             <Shield className="h-4 w-4 text-red-600" />
@@ -284,7 +150,10 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {[...Array(4)].map((_, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 animate-pulse">
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-sm border border-slate-200 p-6 animate-pulse"
+            >
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 bg-slate-200 rounded-lg"></div>
                 <div className="w-16 h-4 bg-slate-200 rounded"></div>
@@ -307,9 +176,7 @@ export default function AdminDashboard() {
             <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Admin Dashboard
             </h1>
-            <p className="text-slate-600 mt-1">
-              Error loading dashboard data
-            </p>
+            <p className="text-slate-600 mt-1">Error loading dashboard data</p>
           </div>
           <div className="flex items-center space-x-2 bg-red-50 px-3 py-2 rounded-lg">
             <Shield className="h-4 w-4 text-red-600" />
@@ -324,9 +191,7 @@ export default function AdminDashboard() {
           <h3 className="text-lg font-semibold text-red-900 mb-2">
             Failed to Load Dashboard Data
           </h3>
-          <p className="text-red-700 mb-4">
-            {error}
-          </p>
+          <p className="text-red-700 mb-4">{error}</p>
           <Button onClick={refreshData} icon={RefreshCw}>
             Try Again
           </Button>
@@ -337,58 +202,42 @@ export default function AdminDashboard() {
 
   const kpiData = [
     {
-      title: 'Total Brands',
+      title: "Total Brands",
       value: systemStats.totalBrands.toString(),
-      change: systemStats.totalBrands > 0 ? '+12%' : undefined,
+      change: systemStats.totalBrands > 0 ? "+12%" : undefined,
       icon: Users,
-      color: 'primary' as const,
+      color: "primary" as const,
     },
     {
-      title: 'Support Requests',
+      title: "Support Requests",
       value: systemStats.supportRequests.toString(),
-      change: systemStats.newSupportRequests > 0 ? `${systemStats.newSupportRequests} new` : undefined,
+      change:
+        systemStats.newSupportRequests > 0
+          ? `${systemStats.newSupportRequests} new`
+          : undefined,
       icon: MessageSquare,
-      color: 'blue' as const,
+      color: "blue" as const,
     },
     {
-      title: 'Total Products',
+      title: "Total Products",
       value: systemStats.totalProducts.toString(),
-      change: systemStats.pendingProducts > 0 ? `${systemStats.pendingProducts} pending` : undefined,
+      change:
+        systemStats.pendingProducts > 0
+          ? `${systemStats.pendingProducts} pending`
+          : undefined,
       icon: Package,
-      color: 'green' as const,
+      color: "green" as const,
     },
     {
-      title: 'Platform Health',
-      value: 'Excellent',
+      title: "Platform Health",
+      value: "Excellent",
       icon: CheckCircle,
-      color: 'green' as const,
+      color: "green" as const,
     },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Notifications */}
-      <div className="fixed top-4 right-4 z-50 space-y-2">
-        {notifications.map((notification) => (
-          <div
-            key={notification.id}
-            className={`px-4 py-3 rounded-lg shadow-lg border animate-slide-up ${
-              notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
-              notification.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
-              'bg-blue-50 border-blue-200 text-blue-800'
-            }`}
-            role="alert"
-            aria-live="polite"
-          >
-            <div className="flex items-center space-x-2">
-              {notification.type === 'success' && <CheckCircle className="h-4 w-4" />}
-              {notification.type === 'error' && <AlertTriangle className="h-4 w-4" />}
-              <span className="text-sm font-medium">{notification.message}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
       {/* Breadcrumb Navigation */}
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -398,7 +247,9 @@ export default function AdminDashboard() {
           <li>
             <div className="flex items-center">
               <span className="text-slate-400">/</span>
-              <span className="ml-1 text-sm font-medium text-slate-900 md:ml-2">Dashboard</span>
+              <span className="ml-1 text-sm font-medium text-slate-900 md:ml-2">
+                Dashboard
+              </span>
             </div>
           </li>
         </ol>
@@ -419,7 +270,7 @@ export default function AdminDashboard() {
             </p>
           )}
         </div>
-        
+
         <div className="flex items-center space-x-3">
           <Button
             variant="outline"
@@ -431,7 +282,7 @@ export default function AdminDashboard() {
           >
             Refresh
           </Button>
-          
+
           <div className="flex items-center space-x-2 bg-red-50 px-3 py-2 rounded-lg">
             <Shield className="h-4 w-4 text-red-600" />
             <span className="text-sm font-medium text-red-700">
@@ -443,7 +294,10 @@ export default function AdminDashboard() {
 
       {/* Error banner for refresh errors */}
       {error && stats && (
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4" role="alert">
+        <div
+          className="bg-amber-50 border border-amber-200 rounded-lg p-4"
+          role="alert"
+        >
           <div className="flex items-center space-x-2">
             <AlertTriangle className="h-5 w-5 text-amber-600" />
             <p className="text-amber-700 text-sm">
@@ -471,141 +325,147 @@ export default function AdminDashboard() {
         ))}
       </div>
 
-      {/* Enhanced Quick Actions Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-slate-200">
+      {/* Recent Activities Section */}
+      <div className="bg-white rounded-lg border border-slate-200">
         <div className="p-6 border-b border-slate-200">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-900">Quick Actions</h2>
+              <h2 className="text-lg font-semibold text-slate-900">
+                Recent Activities
+              </h2>
               <p className="text-sm text-slate-600 mt-1">
-                Frequently used administrative functions and tools
+                Latest platform activities and system events
               </p>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Search actions..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent w-full sm:w-64"
-                  aria-label="Search quick actions"
-                />
-              </div>
-              
-              {/* Category Filter */}
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                aria-label="Filter actions by category"
-              >
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Button
+              onClick={refreshData}
+              icon={RefreshCw}
+              variant="outline"
+              size="sm"
+              className="text-slate-600 hover:text-slate-900"
+            >
+              Refresh
+            </Button>
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <div className="px-6 py-3 border-b border-slate-200 bg-slate-50">
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              const isActive = selectedCategory === category.id;
-              
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-red-100 text-red-700 border border-red-200'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                  aria-pressed={isActive}
-                  aria-label={`Filter by ${category.name}`}
-                >
-                  <Icon className="h-4 w-4 mr-2" />
-                  {category.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Actions Grid */}
         <div className="p-6">
-          {filteredActions.length === 0 ? (
-            <div className="text-center py-8">
-              <Search className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                No actions found
-              </h3>
-              <p className="text-slate-600">
-                Try adjusting your search terms or category filter.
-              </p>
+          {statsLoading ? (
+            <div className="space-y-4">
+              {[...Array(5)].map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-slate-200 rounded-full"></div>
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+                      <div className="h-3 bg-slate-200 rounded w-1/2"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredActions.map((action) => {
-                const Icon = action.icon;
-                const isLoading = loadingActions.has(action.id);
-                
+          ) : recentActivity && recentActivity.length > 0 ? (
+            <div className="space-y-4">
+              {recentActivity.map((activity) => {
+                const getActivityIcon = () => {
+                  switch (activity.type) {
+                    case "brand_registered":
+                      return <Users className="h-5 w-5 text-green-600" />;
+                    case "product_submitted":
+                      return <Package className="h-5 w-5 text-blue-600" />;
+                    case "message_received":
+                      return (
+                        <MessageSquare className="h-5 w-5 text-amber-600" />
+                      );
+                    case "product_approved":
+                      return <CheckCircle className="h-5 w-5 text-green-600" />;
+                    case "product_rejected":
+                      return <AlertTriangle className="h-5 w-5 text-red-600" />;
+                    default:
+                      return <FileText className="h-5 w-5 text-slate-600" />;
+                  }
+                };
+
+                const getActivityColor = () => {
+                  switch (activity.type) {
+                    case "brand_registered":
+                    case "product_approved":
+                      return "bg-green-100";
+                    case "product_submitted":
+                      return "bg-blue-100";
+                    case "message_received":
+                      return "bg-amber-100";
+                    case "product_rejected":
+                      return "bg-red-100";
+                    default:
+                      return "bg-slate-100";
+                  }
+                };
+
+                const formatTimeAgo = (timestamp: string) => {
+                  const date = new Date(timestamp);
+                  const now = new Date();
+                  const diffInMinutes = Math.floor(
+                    (now.getTime() - date.getTime()) / (1000 * 60)
+                  );
+
+                  if (diffInMinutes < 1) return "Just now";
+                  if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+                  if (diffInMinutes < 1440)
+                    return `${Math.floor(diffInMinutes / 60)}h ago`;
+                  return `${Math.floor(diffInMinutes / 1440)}d ago`;
+                };
+
                 return (
                   <div
-                    key={action.id}
-                    className={`group relative p-6 border border-slate-200 rounded-lg hover:border-red-300 hover:shadow-md transition-all duration-200 ${
-                      action.priority === 'high' ? 'ring-1 ring-red-100' : ''
-                    }`}
+                    key={activity.id}
+                    className="flex items-start space-x-4 p-4 rounded-lg hover:bg-slate-50 transition-colors"
                   >
-                    {/* Priority Indicator */}
-                    {action.priority === 'high' && (
-                      <div className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full" 
-                           aria-label="High priority action" />
-                    )}
-                    
-                    <button
-                      onClick={action.action}
-                      disabled={isLoading}
-                      className="w-full text-left focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded-lg"
-                      aria-describedby={`${action.id}-description`}
-                    >
-                      <div className="flex items-start space-x-4">
-                        <div className={`p-3 rounded-lg transition-colors ${
-                          action.priority === 'high' ? 'bg-red-100 text-red-600' :
-                          action.priority === 'medium' ? 'bg-blue-100 text-blue-600' :
-                          'bg-slate-100 text-slate-600'
-                        } group-hover:scale-110 transition-transform`}>
-                          {isLoading ? (
-                            <RefreshCw className="h-6 w-6 animate-spin" />
-                          ) : (
-                            <Icon className="h-6 w-6" />
-                          )}
-                        </div>
-                        
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-slate-900 group-hover:text-red-700 transition-colors mb-2">
-                            {action.title}
-                          </h3>
-                          <p 
-                            id={`${action.id}-description`}
-                            className="text-sm text-slate-600 leading-relaxed"
+                    <div className={`p-2 rounded-full ${getActivityColor()}`}>
+                      {getActivityIcon()}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-slate-900 font-medium">
+                        {activity.message}
+                      </p>
+                      <div className="flex items-center space-x-3 mt-1">
+                        <span className="text-xs text-slate-500">
+                          {formatTimeAgo(activity.timestamp)}
+                        </span>
+                        {activity.user_email && (
+                          <span className="text-xs text-slate-500">
+                            • {activity.user_email}
+                          </span>
+                        )}
+                        {activity.metadata?.priority && (
+                          <span
+                            className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                              activity.metadata.priority === "high"
+                                ? "bg-red-100 text-red-700"
+                                : activity.metadata.priority === "medium"
+                                ? "bg-amber-100 text-amber-700"
+                                : "bg-green-100 text-green-700"
+                            }`}
                           >
-                            {action.description}
-                          </p>
-                        </div>
+                            {activity.metadata.priority} priority
+                          </span>
+                        )}
                       </div>
-                    </button>
+                    </div>
                   </div>
                 );
               })}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <MessageSquare className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                No recent activities
+              </h3>
+              <p className="text-slate-600">
+                Recent platform activities will appear here once there's some
+                activity.
+              </p>
             </div>
           )}
         </div>
@@ -616,7 +476,6 @@ export default function AdminDashboard() {
         isOpen={showSessionWarning}
         onClose={() => setShowSessionWarning(false)}
         onExtend={handleExtendSession}
-        onSignOut={handleSignOut}
         timeLeft={sessionTimeLeft}
       />
     </div>
