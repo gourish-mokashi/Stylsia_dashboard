@@ -14,6 +14,7 @@ import LoginForm from "./components/auth/LoginForm";
 import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminLoginForm from "./components/admin/AdminLoginForm";
+import HomePage from "./pages/index";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
@@ -59,6 +60,7 @@ const AppContent: React.FC = () => {
               </AdminAuthProvider>
             }
           />
+          <Route path="/" element={<HomePage />} />
           <Route path="*" element={<LoginForm />} />
         </Routes>
       </div>
@@ -105,9 +107,8 @@ const AppContent: React.FC = () => {
   console.log("Rendering partner interface (not admin)");
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/dashboard" element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
         <Route path="products" element={<Products />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="messages" element={<Messages />} />
@@ -115,7 +116,9 @@ const AppContent: React.FC = () => {
         <Route path="settings" element={<Settings />} />
         <Route path="notifications" element={<Notifications />} />
       </Route>
-      <Route path="/admin/*" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
     </Routes>
   );
 };

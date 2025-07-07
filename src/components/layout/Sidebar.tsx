@@ -13,12 +13,12 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'My Products', href: '/products', icon: Package },
-  { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-  { name: 'Brand Profile', href: '/profile', icon: User },
-  { name: 'Support', href: '/messages', icon: Mail },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'My Products', href: '/dashboard/products', icon: Package },
+  { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
+  { name: 'Brand Profile', href: '/dashboard/profile', icon: User },
+  { name: 'Support', href: '/dashboard/messages', icon: Mail },
+  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
 interface SidebarProps {
