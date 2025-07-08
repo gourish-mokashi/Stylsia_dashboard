@@ -64,14 +64,13 @@ const HomePage: React.FC = () => {
                   Discover the latest trends in fashion. From everyday basics to statement pieces.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <div className="rounded-md shadow-lg">
-                    <a
-                      href="#featured"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-primary-600 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10 shadow-lg"
-                    >
-                      Shop Now
-                    </a>
-                  </div>
+                  <a
+                    href="#featured"
+                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-primary-600 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10 shadow-lg"
+                    style={{ minWidth: '10rem', maxWidth: '100%' }}
+                  >
+                    Shop Now
+                  </a>
                   <div className="mt-3 sm:mt-0 sm:ml-3">
                     <a
                       href="#sale"
