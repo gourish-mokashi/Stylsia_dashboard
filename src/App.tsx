@@ -107,6 +107,15 @@ const AppContent: React.FC = () => {
   console.log("Rendering partner interface (not admin)");
   return (
     <Routes>
+      {/* Admin login should always be accessible */}
+      <Route
+        path="/admin/login"
+        element={
+          <AdminAuthProvider>
+            <AdminLoginForm />
+          </AdminAuthProvider>
+        }
+      />
       <Route path="/dashboard" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="products" element={<Products />} />
@@ -117,8 +126,9 @@ const AppContent: React.FC = () => {
         <Route path="notifications" element={<Notifications />} />
       </Route>
       <Route path="/" element={<HomePage />} />
+      <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+      <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
-      <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
     </Routes>
   );
 };

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   Users,
@@ -8,7 +8,9 @@ import {
   Settings,
   Shield,
   X,
+  LogOut,
 } from "lucide-react";
+import { useAdminAuth } from "../../contexts/AdminAuthContext";
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
@@ -67,6 +69,15 @@ export default function AdminSidebar({
 }
 
 function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
+  const { signOut } = useAdminAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate("/");
+    onItemClick();
+  };
+
   return (
     <div className="flex flex-col h-full">
       {/* Logo - Only show on desktop */}
@@ -103,6 +114,17 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
           </NavLink>
         ))}
       </nav>
+
+      {/* Logout Button */}
+      <div className="p-4 border-t border-slate-200">
+        <button
+          onClick={handleLogout}
+          className="flex items-center w-full px-3 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 rounded-lg transition-all duration-200"
+        >
+          <LogOut className="h-5 w-5 flex-shrink-0 mr-3" />
+          <span>Exit Admin</span>
+        </button>
+      </div>
     </div>
   );
 }
