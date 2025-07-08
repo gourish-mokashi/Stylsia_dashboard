@@ -277,11 +277,8 @@ const HomePage: React.FC = () => {
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition duration-300">
-                  <span className="sr-only">Instagram</span>
-                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path fillRule="evenodd" d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988s11.987-5.367 11.987-11.988C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.33-1.297C4.238 14.894 3.75 13.743 3.75 12.446s.489-2.448 1.37-3.329c.881-.881 2.032-1.37 3.329-1.37s2.448.489 3.329 1.37c.881.881 1.37 2.032 1.37 3.329s-.489 2.448-1.37 3.329c-.881.881-2.032 1.37-3.329 1.37z" clipRule="evenodd" />
-                  </svg>
+                <a href="https://www.instagram.com/stylsia/?hl=en" className="text-gray-400 hover:text-white transition duration-300" target="_blank" rel="noopener noreferrer">
+                  Instagram
                 </a>
               </div>
             </div>
