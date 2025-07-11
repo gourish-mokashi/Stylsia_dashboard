@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Package, Edit, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink } from 'lucide-react';
+import { Package, Edit, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink, Eye } from 'lucide-react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
