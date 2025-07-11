@@ -16,6 +16,7 @@ import AdminLayout from "./components/admin/AdminLayout";
 import AdminLoginForm from "./components/admin/AdminLoginForm";
 import HomePage from "./pages/index";
 import PublicProducts from "./pages/PublicProducts";
+import ProductDetail from "./pages/ProductDetail";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
@@ -63,7 +64,7 @@ const AppContent: React.FC = () => {
           />
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<PublicProducts />} />
-          <Route path="/product/:id" element={<div>Product Detail Page (Coming Soon)</div>} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/dashboard/*" element={<LoginForm />} />
           <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
@@ -125,7 +126,7 @@ const AppContent: React.FC = () => {
       {/* Public routes accessible to everyone */}
       <Route path="/" element={<HomePage />} />
       <Route path="/products" element={<PublicProducts />} />
-      <Route path="/product/:id" element={<div>Product Detail Page (Coming Soon)</div>} />
+      <Route path="/product/:id" element={<ProductDetail />} />
       
       {/* Partner dashboard routes (authenticated users only) */}
       <Route path="/dashboard" element={<Layout />}>
