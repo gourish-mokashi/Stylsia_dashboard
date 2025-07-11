@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Package, Edit, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink } from 'lucide-react';
-import { useSearchParams } from 'react-router-dom';
+import { Package, Edit, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink, Eye } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
-import { useProductData } from '../hooks/useProductData';
+import { usePublicProducts } from '../hooks/usePublicProducts';
 import type { ProductWithDetails } from '../types/database';
 
 export default function Products() {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  // Use the product data hook with initial filters
+  // Use the public product data hook for customer browsing
   const {
     products,
     pagination,
@@ -20,11 +21,12 @@ export default function Products() {
     filters,
     setFilters,
     refreshData,
-    recordProductView
-  } = useProductData({
+  } = usePublicProducts({
     search: searchParams.get('search') || undefined,
     status: searchParams.get('status') as any || undefined,
+    category: searchParams.get('category') || undefined,
   });
+  // recordProductView is not needed for public browsing
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
@@ -52,11 +54,7 @@ export default function Products() {
   };
 
   const handleViewProduct = (productId: string) => {
-    // Record the product view
-    recordProductView(productId);
-    
-    // In a real implementation, you would navigate to the product detail page
-    console.log('View product:', productId);
+    navigate(`/product/${productId}`);
   };
 
   const handleDeleteProduct = async (productId: string) => {
@@ -119,8 +117,8 @@ export default function Products() {
   return (
     <div className="container-responsive py-4 sm:py-6">
       <Header 
-        title="My Products" 
-        subtitle="Manage your product catalog and track approval status"
+        title="All Products" 
+        subtitle="Browse all products from Stylsia's brand partners. Use the filters to find your style!"
       />
       
       <div className="mt-6 space-y-6">
@@ -137,7 +135,7 @@ export default function Products() {
                 </div>
               </div>
               
-              {/* Search and filter */}
+              {/* Search, category, and filter */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="relative flex-1 sm:flex-none">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -149,6 +147,17 @@ export default function Products() {
                     className="w-full sm:w-64 pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                   />
                 </div>
+                <select
+                  value={filters.category || 'all'}
+                  onChange={(e) => handleFilterChange({ category: e.target.value === 'all' ? undefined : e.target.value })}
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                >
+                  <option value="all">All Categories</option>
+                  <option value="Women">Women</option>
+                  <option value="Men">Men</option>
+                  <option value="Kids">Kids</option>
+                  <option value="Sale">Sale</option>
+                </select>
                 <select
                   value={filters.status || 'all'}
                   onChange={(e) => handleFilterChange({ status: e.target.value === 'all' ? undefined : e.target.value as any })}

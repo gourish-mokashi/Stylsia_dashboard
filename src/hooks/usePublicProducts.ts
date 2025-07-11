@@ -1,0 +1,89 @@
+import { useState, useEffect, useCallback } from 'react';
+import { ProductRepository, DatabaseError } from '../lib/database';
+import type { ProductWithDetails, ProductFilters, PaginatedResponse } from '../types/database';
+
+interface UsePublicProductsReturn {
+  products: ProductWithDetails[];
+  pagination: {
+    total: number;
+    page: number;
+    limit: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+  };
+  loading: boolean;
+  error: string | null;
+  filters: ProductFilters;
+  setFilters: (filters: ProductFilters) => void;
+  refreshData: () => Promise<void>;
+}
+
+export function usePublicProducts(initialFilters: ProductFilters = {}): UsePublicProductsReturn {
+  const [products, setProducts] = useState<ProductWithDetails[]>([]);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    limit: 10,
+    hasNext: false,
+    hasPrev: false,
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [filters, setFilters] = useState<ProductFilters>({
+    limit: 10,
+    offset: 0,
+    ...initialFilters,
+  });
+
+  const fetchProducts = useCallback(async () => {
+    try {
+      setError(null);
+      setLoading(true);
+      // Fetch all products, not filtered by brand
+      const response = await ProductRepository.getAll(filters);
+      setProducts(response.data);
+      setPagination({
+        total: response.total,
+        page: response.page,
+        limit: response.limit,
+        hasNext: response.has_next,
+        hasPrev: response.has_prev,
+      });
+    } catch (err) {
+      console.error('Failed to fetch products:', err);
+      if (err instanceof DatabaseError) {
+        setError(err.message);
+      } else {
+        setError('Failed to load products. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [filters]);
+
+  const refreshData = useCallback(async () => {
+    await fetchProducts();
+  }, [fetchProducts]);
+
+  const updateFilters = useCallback((newFilters: ProductFilters) => {
+    setFilters(prev => ({
+      ...prev,
+      ...newFilters,
+      offset: newFilters.offset ?? 0,
+    }));
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  return {
+    products,
+    pagination,
+    loading,
+    error,
+    filters,
+    setFilters: updateFilters,
+    refreshData,
+  };
+}
