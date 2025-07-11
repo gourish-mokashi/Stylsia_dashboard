@@ -363,6 +363,74 @@ export class ProductRepository {
       console.warn('Failed to record product view:', error);
     }
   }
+
+  static async getAll(filters: ProductFilters = {}) {
+    // Similar to getByBrandId, but fetches all products (no brand filter)
+    const cacheKey = buildCacheKey('products:getAll', { ...filters });
+    const cached = cache.get(cacheKey);
+    if (cached) return cached;
+
+    try {
+      let query = supabase
+        .from('products')
+        .select(`
+          *,
+          brand:brands!inner(id, name, logo_url),
+          attributes:product_attributes(*),
+          images:product_images(*),
+          sizes:product_sizes(*)
+        `);
+
+      // Apply filters
+      if (filters.status) {
+        query = query.eq('status', filters.status);
+      }
+      if (filters.category) {
+        query = query.eq('category', filters.category);
+      }
+      if (filters.is_featured !== undefined) {
+        query = query.eq('is_featured', filters.is_featured);
+      }
+      if (filters.price_min !== undefined) {
+        query = query.gte('current_price', filters.price_min);
+      }
+      if (filters.price_max !== undefined) {
+        query = query.lte('current_price', filters.price_max);
+      }
+      if (filters.search) {
+        query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
+      }
+
+      // Pagination
+      const limit = filters.limit || 10;
+      const offset = filters.offset || 0;
+      query = query.order('created_at', { ascending: false }).range(offset, offset + limit - 1);
+
+      const { data, error, count } = await query;
+      if (error) handleDatabaseError(error);
+
+      // Get total count for pagination
+      const { count: totalCount, error: countError } = await supabase
+        .from('products')
+        .select('*', { count: 'exact', head: true });
+      if (countError) {
+        console.warn('Failed to get total count:', countError);
+      }
+
+      const result = {
+        data: data || [],
+        total: totalCount || 0,
+        page: Math.floor(offset / limit) + 1,
+        limit,
+        has_next: (offset + limit) < (totalCount || 0),
+        has_prev: offset > 0,
+      };
+      cache.set(cacheKey, result, CACHE_TTL.PRODUCTS);
+      return result;
+    } catch (error) {
+      handleDatabaseError(error);
+    }
+  }
 }
 
 // Analytics operations
