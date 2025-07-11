@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchCustomerProducts } from '../lib/fetchCustomerProducts';
 import { PreviewCard } from '../components/product/PreviewCard';
 import { SearchBar } from '../components/customer/SearchBar';
+import { usePublicProducts } from '../hooks/usePublicProducts';
 
 interface Product {
   id: string;
@@ -17,17 +17,14 @@ interface Product {
 }
 
 const HomePage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setLoading(true);
-    fetchCustomerProducts(search)
-      .then(setProducts)
-      .finally(() => setLoading(false));
-  }, [search]);
+  const {
+    products,
+    loading,
+    error,
+    setFilters,
+  } = usePublicProducts({ search });
 
   return (
 
@@ -42,10 +39,10 @@ const HomePage: React.FC = () => {
             <SearchBar onSearch={setSearch} />
           </div>
           <nav className="flex-1 flex justify-end space-x-4 mt-2 sm:mt-0">
-            <a href="#" className="text-gray-700 hover:text-primary-600 font-medium">Women</a>
-            <a href="#" className="text-gray-700 hover:text-primary-600 font-medium">Men</a>
-            <a href="#" className="text-gray-700 hover:text-primary-600 font-medium">Kids</a>
-            <a href="#" className="text-gray-700 hover:text-primary-600 font-medium">Sale</a>
+            <button onClick={() => navigate('/products?category=Women')} className="text-gray-700 hover:text-primary-600 font-medium">Women</button>
+            <button onClick={() => navigate('/products?category=Men')} className="text-gray-700 hover:text-primary-600 font-medium">Men</button>
+            <button onClick={() => navigate('/products?category=Kids')} className="text-gray-700 hover:text-primary-600 font-medium">Kids</button>
+            <button onClick={() => navigate('/products?category=Sale')} className="text-gray-700 hover:text-primary-600 font-medium">Sale</button>
           </nav>
         </div>
       </div>
@@ -64,20 +61,20 @@ const HomePage: React.FC = () => {
                   Discover the latest trends in fashion. From everyday basics to statement pieces.
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <a
-                    href="#featured"
+                  <button
+                    onClick={() => navigate('/products')}
                     className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-primary-600 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10 shadow-lg"
                     style={{ minWidth: '10rem', maxWidth: '100%' }}
                   >
                     Shop Now
-                  </a>
+                  </button>
                   <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <a
-                      href="#sale"
+                    <button
+                      onClick={() => navigate('/products?category=Sale')}
                       className="w-full flex items-center justify-center px-8 py-3 border border-primary-600 text-base font-semibold rounded-full text-primary-700 bg-primary-100 hover:bg-primary-200 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10"
                     >
                       View Sale
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -130,15 +127,19 @@ const HomePage: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center sm:text-3xl">Shop by Category</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { name: 'Tops', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', href: '#tops' },
-              { name: 'Dresses', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', href: '#dresses' },
-              { name: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', href: '#bottoms' },
-              { name: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', href: '#accessories' },
+              { name: 'Tops', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Tops' },
+              { name: 'Dresses', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Dresses' },
+              { name: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Bottoms' },
+              { name: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Accessories' },
             ].map((category) => (
-              <a
+              <div
                 key={category.name}
-                href={category.href}
-                className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white hover:bg-primary-50"
+                className="group relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white hover:bg-primary-50 cursor-pointer"
+                onClick={() => navigate(`/products?category=${encodeURIComponent(category.category)}`)}
+                tabIndex={0}
+                role="button"
+                aria-label={`View ${category.name}`}
+                onKeyDown={e => { if (e.key === 'Enter') navigate(`/products?category=${encodeURIComponent(category.category)}`); }}
               >
                 <div className="aspect-w-1 aspect-h-1">
                   <img
@@ -152,7 +153,7 @@ const HomePage: React.FC = () => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <h3 className="text-white text-lg font-semibold drop-shadow-lg">{category.name}</h3>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </div>
@@ -178,29 +179,31 @@ const HomePage: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {products.slice(0, 10).map(product => (
-                <div className="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-xl">
-                  <PreviewCard
-                    key={product.id}
-                    id={product.id}
-                    name={product.name}
-                    image={product.image}
-                    price={product.price}
-                    brand={product.brand}
-                    onClick={() => navigate(`/product/${product.id}`)}
-                  />
-                </div>
-              ))}
+              {products.slice(0, 10).map(product => {
+                const mainImage = product.images?.find(img => img.is_main) || product.images?.[0];
+                return (
+                  <div key={product.id} className="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-xl">
+                    <PreviewCard
+                      id={product.id}
+                      name={product.name}
+                      image={mainImage?.image_url || product.main_image_url || 'https://via.placeholder.com/150'}
+                      price={product.current_price}
+                      brand={product.brand?.name || ''}
+                      onClick={() => navigate(`/product/${product.id}`)}
+                    />
+                  </div>
+                );
+              })}
             </div>
           )}
           
           <div className="text-center mt-8">
-            <a
-              href="#all-products"
+            <button
+              onClick={() => navigate('/products')}
               className="inline-flex items-center px-6 py-3 border border-primary-600 text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 transition duration-300"
             >
               View All Products
-            </a>
+            </button>
           </div>
         </div>
       </section>
