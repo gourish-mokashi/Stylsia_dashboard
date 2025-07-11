@@ -15,6 +15,7 @@ import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminLoginForm from "./components/admin/AdminLoginForm";
 import HomePage from "./pages/index";
+import PublicProducts from "./pages/PublicProducts";
 
 // Pages
 import Dashboard from "./pages/Dashboard";
@@ -61,7 +62,12 @@ const AppContent: React.FC = () => {
             }
           />
           <Route path="/" element={<HomePage />} />
-          <Route path="*" element={<LoginForm />} />
+          <Route path="/products" element={<PublicProducts />} />
+          <Route path="/product/:id" element={<div>Product Detail Page (Coming Soon)</div>} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/dashboard/*" element={<LoginForm />} />
+          <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     );
@@ -116,6 +122,12 @@ const AppContent: React.FC = () => {
           </AdminAuthProvider>
         }
       />
+      {/* Public routes accessible to everyone */}
+      <Route path="/" element={<HomePage />} />
+      <Route path="/products" element={<PublicProducts />} />
+      <Route path="/product/:id" element={<div>Product Detail Page (Coming Soon)</div>} />
+      
+      {/* Partner dashboard routes (authenticated users only) */}
       <Route path="/dashboard" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="products" element={<Products />} />
@@ -125,10 +137,9 @@ const AppContent: React.FC = () => {
         <Route path="settings" element={<Settings />} />
         <Route path="notifications" element={<Notifications />} />
       </Route>
-      <Route path="/" element={<HomePage />} />
       <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
       <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };
