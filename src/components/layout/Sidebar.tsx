@@ -13,7 +13,7 @@ import {
 import { useAuth } from '../../contexts/AuthContext';
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, exact: true },
   { name: 'My Products', href: '/dashboard/products', icon: Package },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
   { name: 'Brand Profile', href: '/dashboard/profile', icon: User },
@@ -103,6 +103,7 @@ function SidebarContent({ handleSignOut, onItemClick }: SidebarContentProps) {
           <NavLink
             key={item.name}
             to={item.href}
+            end={item.exact || false}
             onClick={onItemClick}
             className={({ isActive }) =>
               `flex items-center justify-between px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 touch-target ${
