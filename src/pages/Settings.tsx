@@ -3,13 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import { Save, Shield } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
+import { useBrandData } from '../hooks/useBrandData';
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { brand } = useBrandData();
   const [accountData, setAccountData] = useState({
     email: 'demo@stylsia.com',
   });
   const [saving, setSaving] = useState(false);
+
+  // Update email when brand data loads
+  React.useEffect(() => {
+    if (brand?.contact_email) {
+      setAccountData(prev => ({
+        ...prev,
+        email: brand.contact_email || prev.email
+      }));
+    }
+  }, [brand]);
 
   const handleAccountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAccountData(prev => ({
@@ -31,14 +43,17 @@ export default function Settings() {
   };
 
   const handleContactSupport = () => {
-    const supportEmail = 'support@stylsia.com';
+    const brandEmail = brand?.contact_email || accountData.email;
+    const brandName = brand?.name || 'Brand Partner';
+    
     const subject = 'Password Change Request - Stylsia Partner Dashboard';
     const body = `Dear Stylsia Support Team,
 
 I would like to request a password change for my partner account.
 
 Account Details:
-- Email: ${accountData.email}
+- Brand: ${brandName}
+- Email: ${brandEmail}
 - Request Type: Password Change
 - Date: ${new Date().toLocaleDateString()}
 
@@ -47,11 +62,10 @@ Please assist me with changing my password. I understand that for security reaso
 Thank you for your assistance.
 
 Best regards,
-[Your Name]
-[Your Company/Brand Name]`;
+${brandName} Team`;
 
-    const mailtoUrl = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailtoUrl, '_blank');
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=support@stylsia.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(gmailUrl, '_blank');
   };
 
   return (

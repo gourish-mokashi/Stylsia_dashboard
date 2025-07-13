@@ -65,12 +65,31 @@ export default function MaintenanceMode({
           <p className="text-sm text-gray-600">
             Need immediate assistance?
           </p>
-          <a 
-            href="mailto:support@stylsia.com" 
+          <button 
+            onClick={() => {
+              const subject = 'Website Maintenance - Need Assistance';
+              const body = `Dear Stylsia Support Team,
+
+I am trying to access the Stylsia platform but it appears to be under maintenance.
+
+Request Details:
+- Date: ${new Date().toLocaleDateString()}
+- Time: ${new Date().toLocaleTimeString()}
+- Issue: Website under maintenance
+
+Could you please provide an update on when the platform will be available again?
+
+Thank you for your assistance.
+
+Best regards`;
+              
+              const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=support@stylsia.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+              window.open(gmailUrl, '_blank');
+            }}
             className="text-sm text-red-600 hover:text-red-700 font-medium underline"
           >
             Contact our support team
-          </a>
+          </button>
         </div>
       </div>
     </div>

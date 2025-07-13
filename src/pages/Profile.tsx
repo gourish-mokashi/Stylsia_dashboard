@@ -225,9 +225,12 @@ export default function Profile() {
                   name="brandName"
                   required
                   value={formData.brandName}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  disabled
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Brand name can only be changed by contacting support.
+                </p>
               </div>
 
               <div>
@@ -296,10 +299,13 @@ export default function Profile() {
                       name="contactEmail"
                       required
                       value={formData.contactEmail}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      disabled
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Contact email can only be changed by contacting support.
+                  </p>
                 </div>
 
                 <div>
@@ -347,11 +353,14 @@ export default function Profile() {
                       name="website"
                       required
                       value={formData.website}
-                      onChange={handleInputChange}
-                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      disabled
+                      className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-700 cursor-not-allowed"
                       placeholder="https://yourbrand.com"
                     />
                   </div>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Website URL can only be changed by contacting support.
+                  </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -120,10 +120,8 @@ export default function LogoUpload({
       // Call success callback with the URL
       onUploadSuccess(publicUrl);
       
-      // Clean up preview URL
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
+      // Reset the component state after successful upload
+      handleClear();
     } catch (error) {
       console.error('Error uploading logo:', error);
       setError(error instanceof Error ? error.message : 'Failed to upload logo');
