@@ -8,8 +8,10 @@ import {
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { AdminAuthProvider } from "./contexts/AdminAuthContext";
+import { MaintenanceProvider, useMaintenanceMode } from "./contexts/MaintenanceContext";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { ConnectionError } from "./components/common/ConnectionError";
+import MaintenanceMode from "./components/maintenance/MaintenanceMode";
 import LoginForm from "./components/auth/LoginForm";
 import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/admin/AdminLayout";
@@ -34,6 +36,30 @@ import ProductManagement from "./pages/admin/ProductManagement";
 import AdminSupport from "./pages/admin/AdminSupport";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminSettings from "./pages/admin/AdminSettings";
+
+// Maintenance wrapper component
+const MaintenanceWrapper: React.FC<{ children: React.ReactNode; isPublicPage?: boolean }> = ({ 
+  children, 
+  isPublicPage = false 
+}) => {
+  const { maintenanceMode, loading } = useMaintenanceMode();
+
+  // Show loading while checking maintenance status
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  // Only show maintenance mode for public customer-facing pages
+  if (maintenanceMode && isPublicPage) {
+    return <MaintenanceMode />;
+  }
+
+  return <>{children}</>;
+};
 
 const AppContent: React.FC = () => {
   const { user, loading, connectionError } = useAuth();
@@ -62,9 +88,21 @@ const AppContent: React.FC = () => {
               </AdminAuthProvider>
             }
           />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<PublicProducts />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/" element={
+            <MaintenanceWrapper isPublicPage={true}>
+              <HomePage />
+            </MaintenanceWrapper>
+          } />
+          <Route path="/products" element={
+            <MaintenanceWrapper isPublicPage={true}>
+              <PublicProducts />
+            </MaintenanceWrapper>
+          } />
+          <Route path="/product/:id" element={
+            <MaintenanceWrapper isPublicPage={true}>
+              <ProductDetail />
+            </MaintenanceWrapper>
+          } />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/dashboard/*" element={<LoginForm />} />
           <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
@@ -124,11 +162,23 @@ const AppContent: React.FC = () => {
         }
       />
       {/* Public routes accessible to everyone */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/products" element={<PublicProducts />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/" element={
+        <MaintenanceWrapper isPublicPage={true}>
+          <HomePage />
+        </MaintenanceWrapper>
+      } />
+      <Route path="/products" element={
+        <MaintenanceWrapper isPublicPage={true}>
+          <PublicProducts />
+        </MaintenanceWrapper>
+      } />
+      <Route path="/product/:id" element={
+        <MaintenanceWrapper isPublicPage={true}>
+          <ProductDetail />
+        </MaintenanceWrapper>
+      } />
       
-      {/* Partner dashboard routes (authenticated users only) */}
+      {/* Partner dashboard routes (authenticated users only) - NOT affected by maintenance mode */}
       <Route path="/dashboard" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="products" element={<Products />} />
@@ -151,7 +201,9 @@ function App() {
       <Router>
         <AuthProvider>
           <NotificationProvider>
-            <AppContent />
+            <MaintenanceProvider>
+              <AppContent />
+            </MaintenanceProvider>
           </NotificationProvider>
         </AuthProvider>
       </Router>
