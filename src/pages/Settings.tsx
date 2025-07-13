@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Save, Shield } from 'lucide-react';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
 
 export default function Settings() {
+  const navigate = useNavigate();
   const [accountData, setAccountData] = useState({
     email: 'demo@stylsia.com',
   });
@@ -122,7 +124,7 @@ Best regards,
             </p>
             
             <div className="flex flex-wrap gap-3">
-              <Button variant="outline" onClick={() => window.location.href = '/messages'}>Contact Support</Button>
+              <Button variant="outline" onClick={() => navigate('/dashboard/messages')}>Contact Support</Button>
               <Button variant="outline">View Documentation</Button>
               <Button variant="outline">Report a Bug</Button>
             </div>
