@@ -7,9 +7,10 @@ import {
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import AuditLogViewer from "../../components/common/AuditLogViewer";
-import { supabase } from "../../lib/supabase";
+import { useMaintenanceMode } from "../../contexts/MaintenanceContext";
 
 export default function AdminSettings() {
+  const { maintenanceMode, setMaintenanceMode, loading: maintenanceLoading } = useMaintenanceMode();
   const [activeTab, setActiveTab] = useState("global");
   const [globalSettings, setGlobalSettings] = useState({
     maintenanceMode: false,
@@ -26,22 +27,32 @@ export default function AdminSettings() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        // In a real implementation, this would fetch from a settings table
-        // For now, we'll use mock data
-        console.log("Fetching settings...");
+        // Update local state with maintenance context
+        setGlobalSettings(prev => ({
+          ...prev,
+          maintenanceMode: maintenanceMode
+        }));
+        console.log("Settings synced with maintenance context");
       } catch (error) {
         console.error("Error fetching settings:", error);
       }
     };
 
-    fetchSettings();
-  }, []);
+    if (!maintenanceLoading) {
+      fetchSettings();
+    }
+  }, [maintenanceMode, maintenanceLoading]);
 
   const handleGlobalSettingsChange = (key: string, value: any) => {
     setGlobalSettings((prev) => ({
       ...prev,
       [key]: value,
     }));
+
+    // If changing maintenance mode, update the context immediately
+    if (key === 'maintenanceMode') {
+      setMaintenanceMode(value);
+    }
 
     // Clear success message when user makes changes
     if (saveSuccess) {
@@ -53,17 +64,8 @@ export default function AdminSettings() {
     setSaving(true);
 
     try {
-      // In a real implementation, this would save to a settings table
+      // Simple frontend-only save simulation
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Record audit log
-      await supabase.rpc("record_audit_event", {
-        user_uuid: (await supabase.auth.getUser()).data.user?.id,
-        action_name: "UPDATE",
-        table_name: "settings",
-        record_id: "global",
-        details_json: globalSettings,
-      });
 
       setSaveSuccess(true);
 
