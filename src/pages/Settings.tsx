@@ -140,7 +140,7 @@ ${brandName} Team`;
             <div className="flex flex-wrap gap-3">
               <Button variant="outline" onClick={() => navigate('/dashboard/messages')}>Contact Support</Button>
               <Button variant="outline">View Documentation</Button>
-              <Button variant="outline">Report a Bug</Button>
+              {/* <Button variant="outline">Report a Bug</Button> */}
             </div>
           </div>
         </div>
