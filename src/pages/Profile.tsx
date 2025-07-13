@@ -337,7 +337,7 @@ export default function Profile() {
                     htmlFor="website"
                     className="block text-sm font-medium text-gray-700 mb-2"
                   >
-                    Website URL
+                    Website URL *
                   </label>
                   <div className="relative">
                     <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -345,6 +345,7 @@ export default function Profile() {
                       type="url"
                       id="website"
                       name="website"
+                      required
                       value={formData.website}
                       onChange={handleInputChange}
                       className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
