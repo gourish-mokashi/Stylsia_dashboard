@@ -63,7 +63,7 @@ export default function Dashboard() {
   const handleViewMyProducts = async () => {
     try {
       setLoadingStates(prev => ({ ...prev, viewProducts: true }));
-      navigate('/products');
+      navigate('/dashboard/products');
     } catch (error) {
       console.error('Error navigating to products:', error);
       alert('Unable to load products page. Please try again.');
@@ -75,7 +75,7 @@ export default function Dashboard() {
   const handleViewAnalytics = async () => {
     try {
       setLoadingStates(prev => ({ ...prev, viewAnalytics: true }));
-      navigate('/analytics');
+      navigate('/dashboard/analytics');
     } catch (error) {
       console.error('Error navigating to analytics:', error);
       alert('Unable to load analytics page. Please try again.');
