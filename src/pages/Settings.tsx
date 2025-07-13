@@ -6,9 +6,6 @@ import Button from '../components/ui/Button';
 export default function Settings() {
   const [accountData, setAccountData] = useState({
     email: 'demo@stylsia.com',
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
   });
   const [saving, setSaving] = useState(false);
 
@@ -24,18 +21,35 @@ export default function Settings() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      // Reset password fields
-      setAccountData(prev => ({
-        ...prev,
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: '',
-      }));
     } catch (error) {
       console.error('Failed to save account settings:', error);
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleContactSupport = () => {
+    const supportEmail = 'support@stylsia.com';
+    const subject = 'Password Change Request - Stylsia Partner Dashboard';
+    const body = `Dear Stylsia Support Team,
+
+I would like to request a password change for my partner account.
+
+Account Details:
+- Email: ${accountData.email}
+- Request Type: Password Change
+- Date: ${new Date().toLocaleDateString()}
+
+Please assist me with changing my password. I understand that for security reasons, password changes need to be handled by the support team.
+
+Thank you for your assistance.
+
+Best regards,
+[Your Name]
+[Your Company/Brand Name]`;
+
+    const mailtoUrl = `mailto:${supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoUrl, '_blank');
   };
 
   return (
@@ -69,54 +83,25 @@ export default function Settings() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               />
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Current Password
-                </label>
-                <input
-                  type="password"
-                  id="currentPassword"
-                  name="currentPassword"
-                  value={accountData.currentPassword}
-                  onChange={handleAccountChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  New Password
-                </label>
-                <input
-                  type="password"
-                  id="newPassword"
-                  name="newPassword"
-                  value={accountData.newPassword}
-                  onChange={handleAccountChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={accountData.confirmPassword}
-                  onChange={handleAccountChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-              </div>
+
+            {/* Password Change Section */}
+            <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+              <h4 className="text-sm font-medium text-gray-900 mb-2">Password Change</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                For security reasons, password changes must be handled by our support team.
+              </p>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleContactSupport}
+              >
+                Contact Support
+              </Button>
             </div>
             
             <div className="flex justify-end">
               <Button type="submit" icon={Save} loading={saving}>
-                Save Changes
+                Save Email Changes
               </Button>
             </div>
           </form>
