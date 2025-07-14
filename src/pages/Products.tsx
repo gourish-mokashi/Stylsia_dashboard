@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Package, Edit, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink, Eye } from 'lucide-react';
+import { useState } from 'react';
+import { Package, Trash2, MoreVertical, Search, Filter, AlertCircle, RefreshCw, ExternalLink, Eye } from 'lucide-react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
@@ -69,21 +69,6 @@ export default function Products() {
     } catch (error) {
       console.error('Failed to delete product:', error);
       alert('Failed to delete product. Please try again.');
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-800';
-      case 'pending':
-        return 'bg-amber-100 text-amber-800';
-      case 'inactive':
-        return 'bg-gray-100 text-gray-800';
-      case 'out_of_stock':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -201,8 +186,9 @@ export default function Products() {
             </div>
 
             {/* Desktop Table View - Show on tablet and up */}
-            <div className="hidden sm:block table-responsive">
-              <table className="min-w-full divide-y divide-gray-200">
+            <div className="hidden sm:block">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider lg:px-6">
@@ -234,6 +220,7 @@ export default function Products() {
                 </tbody>
               </table>
             </div>
+          </div>
             
             {/* Pagination - Responsive layout */}
             {pagination.total > 0 && (
@@ -375,15 +362,15 @@ function ProductCard({
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <h3 className="text-sm font-medium text-gray-900 truncate">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm font-medium text-gray-900 truncate max-w-32 sm:max-w-40">
                 {product.name}
               </h3>
               <p className="text-sm font-semibold text-gray-900 mt-1">
-                ${product.current_price.toFixed(2)}
+                ₹{product.current_price.toLocaleString('en-IN')}
                 {product.discount_percentage > 0 && (
                   <span className="ml-2 text-xs line-through text-gray-500">
-                    ${product.original_price.toFixed(2)}
+                    ₹{product.original_price.toLocaleString('en-IN')}
                   </span>
                 )}
               </p>
@@ -457,8 +444,8 @@ function ProductRow({
             src={mainImage?.image_url || 'https://via.placeholder.com/150'}
             alt={mainImage?.alt_text || product.name}
           />
-          <div className="ml-3 lg:ml-4">
-            <div className="text-sm font-medium text-gray-900">{product.name}</div>
+          <div className="ml-3 lg:ml-4 min-w-0 flex-1">
+            <div className="text-sm font-medium text-gray-900 truncate max-w-32 sm:max-w-40 lg:max-w-56">{product.name}</div>
             <div className="text-sm text-gray-500">{product.sku || '-'}</div>
           </div>
         </div>
@@ -468,11 +455,11 @@ function ProductRow({
         <div className="text-sm text-gray-500">{product.sub_category || '-'}</div>
       </td>
       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:px-6">
-        ${product.current_price.toFixed(2)}
+        ₹{product.current_price.toLocaleString('en-IN')}
         {product.discount_percentage > 0 && (
           <div className="flex items-center space-x-2">
             <span className="text-xs line-through text-gray-500">
-              ${product.original_price.toFixed(2)}
+              ₹{product.original_price.toLocaleString('en-IN')}
             </span>
             <span className="text-xs font-medium text-green-600">
               {product.discount_percentage}% off

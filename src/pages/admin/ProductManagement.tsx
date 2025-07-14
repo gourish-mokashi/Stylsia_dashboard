@@ -108,10 +108,10 @@ export default function ProductManagement() {
   }
 
   return (
-    <div className="bg-slate-50 min-h-screen p-6">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="bg-slate-50 min-h-screen p-4 sm:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h1 className="text-2xl font-bold text-slate-900">
               Product Management
@@ -204,85 +204,99 @@ export default function ProductManagement() {
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-lg border border-slate-200 overflow-hidden"
-            >
-              {/* Product Image */}
-              <div className="aspect-w-16 aspect-h-9">
-                <div className="w-full h-48 bg-slate-200 flex items-center justify-center">
-                  {product.main_image_url ? (
-                    <img
-                      src={product.main_image_url}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="text-slate-400 text-sm">No image</div>
-                  )}
-                </div>
-              </div>
-
-              {/* Product Info */}
-              <div className="p-4">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-medium text-slate-900 line-clamp-2">
-                    {product.name}
-                  </h3>
-                  <button
-                    onClick={() => setSelectedProduct(product)}
-                    className="p-1 text-slate-400 hover:text-slate-600"
-                  >
-                    <MoreVertical className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <p className="text-sm text-slate-600 mb-2">
-                  {product.brand &&
-                  typeof product.brand === "object" &&
-                  "name" in product.brand
-                    ? product.brand.name
-                    : "Unknown Brand"}
-                </p>
-                <p className="text-sm text-slate-600 mb-2">
-                  {product.category || "No category"}
-                </p>
-                <p className="font-semibold text-slate-900 mb-3">
-                  ${product.current_price.toFixed(2)}
-                </p>
-
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    {getStatusIcon(product.status)}
-                    <span
-                      className={`ml-2 px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
-                        product.status
-                      )}`}
-                    >
-                      {product.status}
-                    </span>
-                  </div>
-                  <span className="text-xs text-slate-500">
-                    {new Date(product.created_at).toLocaleDateString()}
-                  </span>
-                </div>
-
-                {/* Action Buttons */}
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setSelectedProduct(product)}
-                  icon={Eye}
-                  className="w-full"
-                >
-                  View Details
-                </Button>
-              </div>
-            </div>
-          ))}
+        {/* Products List */}
+        <div className="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Product
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Brand
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Category
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Price
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Status
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Date
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider lg:px-6">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-slate-200">
+                {filteredProducts.map((product) => (
+                  <tr key={product.id} className="hover:bg-slate-50 transition-colors duration-150">
+                    <td className="px-4 py-4 whitespace-nowrap lg:px-6">
+                      <div className="flex items-center">
+                        <img
+                          className="h-10 w-10 lg:h-12 lg:w-12 rounded-lg object-cover"
+                          src={product.main_image_url || 'https://via.placeholder.com/150'}
+                          alt={product.name}
+                        />
+                        <div className="ml-3 lg:ml-4 min-w-0 flex-1">
+                          <div className="text-sm font-medium text-slate-900 truncate max-w-32 sm:max-w-40 lg:max-w-56">{product.name}</div>
+                          <div className="text-sm text-slate-500">{product.sku || '-'}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 lg:px-6">
+                      <div className="text-sm text-slate-900">
+                        {product.brand &&
+                        typeof product.brand === "object" &&
+                        "name" in product.brand
+                          ? product.brand.name
+                          : "Unknown Brand"}
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 lg:px-6">
+                      <div className="text-sm text-slate-900">{product.category || 'Uncategorized'}</div>
+                      <div className="text-sm text-slate-500">{product.sub_category || '-'}</div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-slate-900 lg:px-6">
+                      ₹{product.current_price.toLocaleString('en-IN')}
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap lg:px-6">
+                      <div className="flex items-center">
+                        {getStatusIcon(product.status)}
+                        <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(product.status)}`}>
+                          {product.status.charAt(0).toUpperCase() + product.status.slice(1)}
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-slate-500 lg:px-6">
+                      {new Date(product.created_at).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium lg:px-6">
+                      <div className="flex items-center space-x-3">
+                        <button 
+                          className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
+                          onClick={() => setSelectedProduct(product)}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </button>
+                        <button 
+                          className="text-slate-400 hover:text-slate-600 transition-colors duration-200"
+                          onClick={() => setSelectedProduct(product)}
+                        >
+                          <MoreVertical className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         {filteredProducts.length === 0 && (
@@ -393,7 +407,7 @@ function ProductDetailModal({
                     Price
                   </label>
                   <p className="mt-1 text-sm text-slate-900">
-                    ${product.current_price.toFixed(2)}
+                    ₹{product.current_price.toLocaleString('en-IN')}
                   </p>
                 </div>
 

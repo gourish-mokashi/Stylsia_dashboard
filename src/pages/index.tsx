@@ -18,7 +18,6 @@ interface Product {
 }
 
 const HomePage: React.FC = () => {
-  const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
   
@@ -28,19 +27,26 @@ const HomePage: React.FC = () => {
     setFilters,
     refreshData,
   } = usePublicProducts({ 
-    search,
     is_featured: true,
-    limit: 10,
+    limit: 20,
   });
+
+  const handleSearch = (searchTerm: string) => {
+    // Redirect to products page with search query
+    if (searchTerm.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+    } else {
+      navigate('/products');
+    }
+  };
 
   const handleRefreshFeatured = async () => {
     setRefreshing(true);
     try {
       // Apply random sorting to randomize featured products
       setFilters({
-        search,
         is_featured: true,
-        limit: 10,
+        limit: 20,
         sort_by: 'random',
         offset: 0,
       });
@@ -60,7 +66,7 @@ const HomePage: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-900">Stylsia</h1>
           </div>
           <div className="w-full sm:w-1/2 max-w-2xl flex justify-center order-2 sm:order-none">
-            <SearchBar onSearch={setSearch} />
+            <SearchBar onSearch={handleSearch} />
           </div>
           <nav className="flex-1 flex justify-end space-x-4 mt-2 sm:mt-0">
             <button onClick={() => navigate('/products?category=Women')} className="text-gray-700 hover:text-primary-600 font-medium">Women</button>
@@ -208,7 +214,7 @@ const HomePage: React.FC = () => {
           
           <>
             <ProductGrid
-              products={products.slice(0, 10)}
+              products={products}
               loading={loading}
               onProductClick={(productId) => navigate(`/product/${productId}`)}
               loadingMessage="Loading featured products..."
