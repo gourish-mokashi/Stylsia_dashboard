@@ -401,10 +401,38 @@ export class ProductRepository {
         query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
       }
 
-      // Pagination
+      // Pagination and sorting
       const limit = filters.limit || 10;
       const offset = filters.offset || 0;
-      query = query.order('created_at', { ascending: false }).range(offset, offset + limit - 1);
+      
+      // Apply sorting
+      switch (filters.sort_by) {
+        case 'name_asc':
+          query = query.order('name', { ascending: true });
+          break;
+        case 'name_desc':
+          query = query.order('name', { ascending: false });
+          break;
+        case 'price_asc':
+          query = query.order('current_price', { ascending: true });
+          break;
+        case 'price_desc':
+          query = query.order('current_price', { ascending: false });
+          break;
+        case 'oldest':
+          query = query.order('created_at', { ascending: true });
+          break;
+        case 'random':
+          // Use PostgreSQL's random() function for randomization
+          query = query.order('random()');
+          break;
+        case 'newest':
+        default:
+          query = query.order('created_at', { ascending: false });
+          break;
+      }
+      
+      query = query.range(offset, offset + limit - 1);
 
       const { data, error, count } = await query;
       if (error) handleDatabaseError(error);

@@ -35,13 +35,20 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
     ...initialFilters,
   });
 
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (isLoadMore = false) => {
     try {
       setError(null);
       setLoading(true);
       // Fetch all products, not filtered by brand
       const response = await ProductRepository.getAll(filters);
-      setProducts(response.data);
+      
+      // For load more, append to existing products; otherwise replace
+      if (isLoadMore && filters.offset && filters.offset > 0) {
+        setProducts(prevProducts => [...prevProducts, ...response.data]);
+      } else {
+        setProducts(response.data);
+      }
+      
       setPagination({
         total: response.total,
         page: response.page,
@@ -62,19 +69,28 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
   }, [filters]);
 
   const refreshData = useCallback(async () => {
-    await fetchProducts();
+    await fetchProducts(false);
   }, [fetchProducts]);
 
   const updateFilters = useCallback((newFilters: ProductFilters) => {
+    const isLoadMore = newFilters.offset && newFilters.offset > 0 && 
+                      newFilters.offset > (filters.offset || 0);
+    
     setFilters(prev => ({
       ...prev,
       ...newFilters,
       offset: newFilters.offset ?? 0,
     }));
-  }, []);
+    
+    // Reset products if it's not a load more operation
+    if (!isLoadMore) {
+      setProducts([]);
+    }
+  }, [filters.offset]);
 
   useEffect(() => {
-    fetchProducts();
+    const isLoadMore = Boolean(filters.offset && filters.offset > 0);
+    fetchProducts(isLoadMore);
   }, [fetchProducts]);
 
   return {

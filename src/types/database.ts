@@ -170,6 +170,7 @@ export interface ProductFilters {
   search?: string;
   limit?: number;
   offset?: number;
+  sort_by?: 'name_asc' | 'name_desc' | 'price_asc' | 'price_desc' | 'newest' | 'oldest' | 'random';
 }
 
 export interface AnalyticsFilters {
