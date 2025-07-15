@@ -104,6 +104,11 @@ const AppContent: React.FC = () => {
               <ProductDetail />
             </MaintenanceWrapper>
           } />
+          <Route path="/documentation" element={
+            <MaintenanceWrapper isPublicPage={true}>
+              <Documentation />
+            </MaintenanceWrapper>
+          } />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/dashboard/*" element={<LoginForm />} />
           <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
