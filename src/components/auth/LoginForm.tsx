@@ -103,13 +103,7 @@ export default function LoginForm() {
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
 
-            {/* Demo credentials - Responsive text */}
-            <div className="text-center">
-              <p className="text-fluid-sm text-gray-600 bg-gray-50 rounded-lg p-3">
-                <span className="font-medium">Demo credentials:</span><br />
-                demo@stylsia.com / password
-              </p>
-            </div>
+
           </form>
         </div>
       </div>
