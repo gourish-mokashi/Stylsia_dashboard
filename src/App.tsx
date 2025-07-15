@@ -28,6 +28,7 @@ import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Notifications from "./pages/Notifications";
+import Documentation from "./pages/Documentation";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -186,6 +187,7 @@ const AppContent: React.FC = () => {
         <Route path="messages" element={<Messages />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="settings/documentation" element={<Documentation />} />
         <Route path="notifications" element={<Notifications />} />
       </Route>
       <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
