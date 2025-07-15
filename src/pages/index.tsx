@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
 import { SearchBar } from '../components/customer/SearchBar';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { RefreshCw } from 'lucide-react';
-
-interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  brand: string;
-  description: string;
-  specifications: string;
-  stock: number;
-  [key: string]: any;
-}
 
 const HomePage: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -161,7 +149,7 @@ const HomePage: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center sm:text-3xl">Shop by Category</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
-              { name: 'Tops', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Tops' },
+              { name: 'Tops', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Tops' },
               { name: 'Dresses', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Dresses' },
               { name: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Bottoms' },
               { name: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Accessories' },
