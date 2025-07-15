@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
-import { SearchBar } from '../components/customer/SearchBar';
+import PublicHeader from '../components/layout/PublicHeader';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { RefreshCw } from 'lucide-react';
 
@@ -47,27 +47,8 @@ const HomePage: React.FC = () => {
   return (
 
     <main className="min-h-screen bg-gray-50">
-      {/* Top Bar: Brand left, SearchBar center, Navigation right, sticky */}
-      <div className="sticky top-0 z-50 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 gap-3">
-          <div className="flex-1 flex items-center justify-start mb-2 sm:mb-0">
-            <img 
-              src="/img/stylsiaLOGO-04.png" 
-              alt="Stylsia" 
-              className="h-20 w-auto"
-            />
-          </div>
-          <div className="w-full sm:w-1/2 max-w-2xl flex justify-center order-2 sm:order-none">
-            <SearchBar onSearch={handleSearch} />
-          </div>
-          <nav className="flex-1 flex justify-end space-x-4 mt-2 sm:mt-0">
-            <button onClick={() => navigate('/products?category=Women')} className="text-gray-700 hover:text-primary-600 font-medium">Women</button>
-            <button onClick={() => navigate('/products?category=Men')} className="text-gray-700 hover:text-primary-600 font-medium">Men</button>
-            <button onClick={() => navigate('/products?category=Kids')} className="text-gray-700 hover:text-primary-600 font-medium">Kids</button>
-            <button onClick={() => navigate('/products?category=Sale')} className="text-gray-700 hover:text-primary-600 font-medium">Sale</button>
-          </nav>
-        </div>
-      </div>
+      {/* New Myntra-style Header */}
+      <PublicHeader onSearch={handleSearch} showSearchBar={true} />
 
       {/* Hero Banner Section */}
       <section className="relative bg-white overflow-hidden border-b border-gray-100 xl:py-20 py-12">

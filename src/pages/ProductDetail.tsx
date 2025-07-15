@@ -16,6 +16,7 @@ import {
   Zap
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import PublicHeader from '../components/layout/PublicHeader';
 import type { ProductWithDetails } from '../types/database';
 
 const ProductDetail: React.FC = () => {
@@ -157,45 +158,8 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => navigate(-1)}
-                className="p-2 hover:bg-gray-100 rounded-md"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </button>
-              <img 
-                src="/img/stylsiaLOGO-05.png" 
-                alt="Stylsia" 
-                className="h-8 w-auto cursor-pointer"
-                onClick={() => navigate('/')}
-              />
-            </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={handleShare}
-                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md"
-              >
-                <Share2 className="h-5 w-5" />
-              </button>
-              <button
-                onClick={toggleWishlist}
-                className={`p-2 rounded-md ${
-                  isWishlisted 
-                    ? 'text-red-500 bg-red-50' 
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
-              >
-                <Heart className={`h-5 w-5 ${isWishlisted ? 'fill-current' : ''}`} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* New Myntra-style Header */}
+      <PublicHeader showSearchBar={false} />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
