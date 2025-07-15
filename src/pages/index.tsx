@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
 import { SearchBar } from '../components/customer/SearchBar';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { RefreshCw } from 'lucide-react';
-
-interface Product {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  brand: string;
-  description: string;
-  specifications: string;
-  stock: number;
-  [key: string]: any;
-}
 
 const HomePage: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
