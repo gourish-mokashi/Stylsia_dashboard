@@ -63,7 +63,11 @@ const HomePage: React.FC = () => {
       <div className="sticky top-0 z-50 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 gap-3">
           <div className="flex-1 flex items-center justify-start mb-2 sm:mb-0">
-            <h1 className="text-2xl font-bold text-gray-900">Stylsia</h1>
+            <img 
+              src="/img/stylsiaLOGO-04.png" 
+              alt="Stylsia" 
+              className="h-20 w-auto"
+            />
           </div>
           <div className="w-full sm:w-1/2 max-w-2xl flex justify-center order-2 sm:order-none">
             <SearchBar onSearch={handleSearch} />
@@ -278,7 +282,11 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
-              <h3 className="text-lg font-semibold mb-4">Stylsia</h3>
+              <img 
+                src="/img/stylsiaLOGO-05.png" 
+                alt="Stylsia" 
+                className="h-8 w-auto mb-4"
+              />
               <p className="text-gray-400 text-sm">
                 Your destination for the latest fashion trends and timeless classics.
               </p>

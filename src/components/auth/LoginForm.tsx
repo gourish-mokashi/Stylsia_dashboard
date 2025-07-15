@@ -31,10 +31,14 @@ export default function LoginForm() {
         <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 animate-scale-in">
           {/* Header section - Responsive spacing */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto h-12 w-12 bg-primary-500 rounded-xl flex items-center justify-center mb-4">
-              <Mail className="h-6 w-6 text-white" />
+            <div className="mx-auto mb-4 flex justify-center">
+              <img 
+                src="/img/stylsiaLOGO-04.png" 
+                alt="Stylsia" 
+                className="h-12 w-auto"
+              />
             </div>
-            <h2 className="text-fluid-3xl font-bold text-gray-900">Welcome to Stylsia</h2>
+            <h2 className="text-fluid-3xl font-bold text-gray-900">Welcome to our Platform</h2>
             <p className="mt-2 text-fluid-base text-gray-600">Partner Dashboard Access</p>
           </div>
 

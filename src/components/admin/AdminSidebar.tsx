@@ -83,11 +83,12 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
       {/* Logo - Only show on desktop */}
       <div className="hidden lg:block p-6 border-b border-slate-200">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
-            <Shield className="h-5 w-5 text-white" />
-          </div>
+          <img 
+            src="/img/stylsiaLOGO-04.png" 
+            alt="Admin Portal" 
+            className="h-8 w-auto"
+          />
           <div>
-            <span className="text-xl font-bold text-slate-900">Stylsia</span>
             <p className="text-sm text-slate-500">Admin Portal</p>
           </div>
         </div>

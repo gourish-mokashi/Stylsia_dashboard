@@ -170,7 +170,7 @@ export default function Dashboard() {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 animate-slide-up">
             <div className="p-4 sm:p-6 text-center">
               <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-fluid-lg font-semibold text-gray-900 mb-2">Welcome to Stylsia Partner Dashboard</h2>
+              <h2 className="text-fluid-lg font-semibold text-gray-900 mb-2">Welcome to Partner Dashboard</h2>
               <p className="text-gray-600 mb-6 max-w-md mx-auto">
                 Your products will appear here once they are added to our platform. Contact our team to get started with product listings.
               </p>

@@ -168,12 +168,12 @@ const ProductDetail: React.FC = () => {
               >
                 <ArrowLeft className="h-5 w-5" />
               </button>
-              <h1 
-                className="text-2xl font-bold text-gray-900 cursor-pointer" 
+              <img 
+                src="/img/stylsiaLOGO-05.png" 
+                alt="Stylsia" 
+                className="h-8 w-auto cursor-pointer"
                 onClick={() => navigate('/')}
-              >
-                Stylsia
-              </h1>
+              />
             </div>
             <div className="flex items-center space-x-4">
               <button

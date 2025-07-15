@@ -47,13 +47,14 @@ export default function MaintenanceMode({
           <div className="w-3 h-3 bg-yellow-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
         </div>
 
-        {/* Stylsia Branding */}
+        {/* Brand Logo */}
         <div className="border-t border-gray-200 pt-6">
           <div className="flex items-center justify-center space-x-2 text-gray-500">
-            <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">S</span>
-            </div>
-            <span className="font-semibold text-gray-700">Stylsia</span>
+            <img 
+              src="/img/stylsiaLOGO-04.png" 
+              alt="Brand Logo" 
+              className="h-8 w-auto"
+            />
           </div>
           <p className="text-sm text-gray-500 mt-2">
             Fashion & Lifestyle Platform
