@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Heart, ShoppingCart, User, ChevronRight } from 'lucide-react';
+import { Menu, X, Search, User, ChevronRight } from 'lucide-react';
 
 interface PublicHeaderProps {
   onSearch?: (query: string) => void;
@@ -100,30 +100,10 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
 
             {/* Right: Action Icons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
-              {/* Search Icon - Mobile Only */}
-              {showSearchBar && (
-                <button 
-                  className="p-2 text-gray-600 hover:text-gray-900 md:hidden touch-target"
-                  aria-label="Search"
-                >
-                  <Search className="h-6 w-6" />
-                </button>
-              )}
-              
-              {/* Heart - Hidden on small mobile */}
-              <button className="hidden sm:block p-2 text-gray-600 hover:text-gray-900 touch-target">
-                <Heart className="h-6 w-6" />
-              </button>
-              
-              {/* Shopping Cart */}
-              <button className="p-2 text-gray-600 hover:text-gray-900 touch-target">
-                <ShoppingCart className="h-6 w-6" />
-              </button>
-              
-              {/* Profile - Hidden on small mobile */}
+              {/* Profile - Login button */}
               <button 
                 onClick={() => navigate('/login')}
-                className="hidden sm:block p-2 text-gray-600 hover:text-gray-900 touch-target"
+                className="p-2 text-gray-600 hover:text-gray-900 touch-target"
               >
                 <User className="h-6 w-6" />
               </button>
@@ -132,7 +112,7 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
         </div>
       </header>
 
-      {/* Mobile Search Bar - Below header on mobile when search is active */}
+      {/* Mobile Search Bar - Always visible on mobile when showSearchBar is true */}
       {showSearchBar && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3">
           <form onSubmit={handleSearch}>

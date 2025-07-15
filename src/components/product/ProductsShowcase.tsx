@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, 
   Search, 
-  Heart, 
-  ShoppingCart, 
   SlidersHorizontal,
   ArrowUpDown,
   X,
   Star
 } from 'lucide-react';
 import { usePublicProducts } from '../../hooks/usePublicProducts';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { ProductGrid } from './ProductGrid';
-import type { ProductWithDetails } from '../../types/database';
 
 interface SortOption {
   value: string;
@@ -53,11 +51,9 @@ const ProductsShowcase: React.FC = () => {
   const {
     products,
     loading,
-    error,
     pagination,
     filters,
     setFilters,
-    refreshData,
   } = usePublicProducts({
     search: searchParams.get('search') || undefined,
     category: searchParams.get('category') || undefined,
@@ -184,6 +180,26 @@ const ProductsShowcase: React.FC = () => {
     return Object.values(selectedFilters).reduce((count, filters) => count + filters.length, 0);
   };
 
+  // Infinite scroll functionality
+  const loadMore = useCallback(() => {
+    if (pagination?.hasNext && !loading) {
+      const currentOffset = filters.offset || 0;
+      const nextOffset = currentOffset + (filters.limit || 10);
+      
+      setFilters({
+        ...filters,
+        offset: nextOffset,
+      });
+    }
+  }, [pagination?.hasNext, loading, filters, setFilters]);
+
+  const { targetRef } = useInfiniteScroll({
+    hasNextPage: pagination?.hasNext || false,
+    loading: loading,
+    loadMore,
+    threshold: 200, // Load when 200px from bottom
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -229,12 +245,6 @@ const ProductsShowcase: React.FC = () => {
                 aria-label="Search"
               >
                 <Search className="h-6 w-6" />
-              </button>
-              <button className="p-2 text-gray-600 hover:text-gray-900 touch-target">
-                <Heart className="h-6 w-6" />
-              </button>
-              <button className="p-2 text-gray-600 hover:text-gray-900 touch-target">
-                <ShoppingCart className="h-6 w-6" />
               </button>
             </div>
           </div>
@@ -306,7 +316,7 @@ const ProductsShowcase: React.FC = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="p-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {products.length > 0 ? (
           <ProductGrid 
             products={products} 
@@ -321,6 +331,16 @@ const ProductsShowcase: React.FC = () => {
             <p className="text-gray-600">Try adjusting your search or filters</p>
           </div>
         )}
+
+        {/* Load More Spinner */}
+        {loading && (
+          <div className="flex justify-center py-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+          </div>
+        )}
+
+        {/* Sentinel div for infinite scroll */}
+        <div ref={targetRef} className="h-1"></div>
       </div>
 
       {/* Sort Modal */}
