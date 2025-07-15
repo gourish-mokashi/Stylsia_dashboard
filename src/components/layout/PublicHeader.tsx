@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, X, Search, User, ChevronRight } from 'lucide-react';
+import { Menu, X, Search, ChevronRight } from 'lucide-react';
 
 interface PublicHeaderProps {
   onSearch?: (query: string) => void;
@@ -50,13 +50,14 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
                 <Menu className="h-6 w-6" />
               </button>
 
-              {/* Logo */}
-              <img 
-                src="/img/stylsiaLOGO-05.png" 
-                alt="Stylsia" 
-                className="h-8 w-auto cursor-pointer"
-                onClick={() => navigate('/')}
-              />
+              {/* Logo - Clickable to go home */}
+              <button onClick={() => navigate('/')} className="focus:outline-none">
+                <img 
+                  src="/img/stylsiaLOGO-05.png" 
+                  alt="Stylsia" 
+                  className="h-8 w-auto hover:opacity-80 transition-opacity"
+                />
+              </button>
 
               {/* Desktop Navigation - Hidden on Mobile */}
               <nav className="hidden lg:flex items-center space-x-8 ml-8">
@@ -72,9 +73,9 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
               </nav>
             </div>
 
-            {/* Center: Search Bar (Desktop) */}
+            {/* Center: Search Bar */}
             {showSearchBar && (
-              <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+              <div className="flex-1 max-w-2xl mx-4 md:mx-8">
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -83,44 +84,18 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search for products, brands and more"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
                     />
                   </div>
                 </form>
               </div>
             )}
 
-            {/* Right: Action Icons */}
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              {/* Profile - Login button */}
-              <button 
-                onClick={() => navigate('/login')}
-                className="p-2 text-gray-600 hover:text-gray-900 touch-target"
-              >
-                <User className="h-6 w-6" />
-              </button>
-            </div>
+            {/* Right: Empty div to maintain layout balance */}
+            <div className="w-10"></div>
           </div>
         </div>
       </header>
-
-      {/* Mobile Search Bar - Always visible on mobile when showSearchBar is true */}
-      {showSearchBar && (
-        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3">
-          <form onSubmit={handleSearch}>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for products, brands and more"
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-base"
-              />
-            </div>
-          </form>
-        </div>
-      )}
 
       {/* Mobile Drawer Overlay */}
       {isDrawerOpen && (

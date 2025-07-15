@@ -168,9 +168,10 @@ export interface ProductFilters {
   price_min?: number;
   price_max?: number;
   search?: string;
+  has_discount?: boolean; // New filter for discount availability
   limit?: number;
   offset?: number;
-  sort_by?: 'name_asc' | 'name_desc' | 'price_asc' | 'price_desc' | 'newest' | 'oldest' | 'random';
+  sort_by?: 'name_asc' | 'name_desc' | 'price_asc' | 'price_desc' | 'newest' | 'oldest' | 'random' | 'discount_desc';
 }
 
 export interface AnalyticsFilters {
