@@ -424,7 +424,7 @@ export default function AdminDashboard() {
                 <div className="p-6 text-center">
                   <Shield className="h-12 w-12 text-blue-500 mx-auto mb-4" />
                   <h2 className="text-lg font-semibold text-slate-900 mb-2">
-                    Welcome to Stylsia Admin Dashboard
+                    Welcome to Admin Dashboard
                   </h2>
                   <p className="text-slate-600 mb-6 max-w-md mx-auto">
                     Your admin dashboard is ready. Start by managing brand

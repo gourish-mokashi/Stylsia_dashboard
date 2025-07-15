@@ -1,4 +1,3 @@
-import React from 'react';
 import { Menu } from 'lucide-react';
 
 interface MobileHeaderProps {
@@ -21,10 +20,11 @@ export default function MobileHeader({ sidebarOpen, setSidebarOpen }: MobileHead
           </button>
           
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">S</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">Stylsia</span>
+            <img 
+              src="/img/stylsiaLOGO-05.png" 
+              alt="Stylsia" 
+              className="h-8 w-auto"
+            />
           </div>
         </div>
       </div>

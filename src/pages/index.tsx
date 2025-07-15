@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PreviewCard } from '../components/product/PreviewCard';
+import { ProductGrid } from '../components/product/ProductGrid';
 import { SearchBar } from '../components/customer/SearchBar';
 import { usePublicProducts } from '../hooks/usePublicProducts';
+import { RefreshCw } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -17,14 +18,43 @@ interface Product {
 }
 
 const HomePage: React.FC = () => {
-  const [search, setSearch] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
+  
   const {
     products,
     loading,
-    error,
     setFilters,
-  } = usePublicProducts({ search });
+    refreshData,
+  } = usePublicProducts({ 
+    is_featured: true,
+    limit: 20,
+  });
+
+  const handleSearch = (searchTerm: string) => {
+    // Redirect to products page with search query
+    if (searchTerm.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+    } else {
+      navigate('/products');
+    }
+  };
+
+  const handleRefreshFeatured = async () => {
+    setRefreshing(true);
+    try {
+      // Apply random sorting to randomize featured products
+      setFilters({
+        is_featured: true,
+        limit: 20,
+        sort_by: 'random',
+        offset: 0,
+      });
+      await refreshData();
+    } finally {
+      setRefreshing(false);
+    }
+  };
 
   return (
 
@@ -33,10 +63,14 @@ const HomePage: React.FC = () => {
       <div className="sticky top-0 z-50 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 gap-3">
           <div className="flex-1 flex items-center justify-start mb-2 sm:mb-0">
-            <h1 className="text-2xl font-bold text-gray-900">Stylsia</h1>
+            <img 
+              src="/img/stylsiaLOGO-04.png" 
+              alt="Stylsia" 
+              className="h-20 w-auto"
+            />
           </div>
           <div className="w-full sm:w-1/2 max-w-2xl flex justify-center order-2 sm:order-none">
-            <SearchBar onSearch={setSearch} />
+            <SearchBar onSearch={handleSearch} />
           </div>
           <nav className="flex-1 flex justify-end space-x-4 mt-2 sm:mt-0">
             <button onClick={() => navigate('/products?category=Women')} className="text-gray-700 hover:text-primary-600 font-medium">Women</button>
@@ -160,51 +194,49 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Featured Products Section */}
-      {/* Using existing PreviewCard component with responsive grid */}
       <section id="featured" className="bg-gray-50 py-12 xl:py-20 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Featured Products</h2>
-            <p className="mt-2 text-gray-600">Discover our hand-picked selection of trending styles</p>
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-4 mb-3">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                Featured Products
+              </h2>
+              <button
+                onClick={handleRefreshFeatured}
+                disabled={refreshing}
+                className="flex items-center px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                title="Refresh featured products"
+              >
+                <RefreshCw className={`h-4 w-4 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
+                Refresh
+              </button>
+            </div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Discover our hand-picked selection of trending styles from top brands
+            </p>
           </div>
           
-          {loading ? (
-            <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-              <p className="mt-2 text-gray-500">Loading products...</p>
+          <>
+            <ProductGrid
+              products={products}
+              loading={loading}
+              onProductClick={(productId) => navigate(`/product/${productId}`)}
+              loadingMessage="Loading featured products..."
+              emptyMessage="No featured products available at the moment."
+            />
+            
+            <div className="text-center mt-12">
+              <button
+                onClick={() => navigate('/products')}
+                className="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              >
+                <span>View All Products</span>
+                <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
             </div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-500">No products found.</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {products.slice(0, 10).map(product => {
-                const mainImage = product.images?.find(img => img.is_main) || product.images?.[0];
-                return (
-                  <div key={product.id} className="transition-transform duration-200 hover:scale-105 hover:shadow-lg rounded-xl">
-                    <PreviewCard
-                      id={product.id}
-                      name={product.name}
-                      image={mainImage?.image_url || product.main_image_url || 'https://via.placeholder.com/150'}
-                      price={product.current_price}
-                      brand={product.brand?.name || ''}
-                      onClick={() => navigate(`/product/${product.id}`)}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-          
-          <div className="text-center mt-8">
-            <button
-              onClick={() => navigate('/products')}
-              className="inline-flex items-center px-6 py-3 border border-primary-600 text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50 transition duration-300"
-            >
-              View All Products
-            </button>
-          </div>
+          </>
         </div>
       </section>
 
@@ -250,7 +282,11 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
-              <h3 className="text-lg font-semibold mb-4">Stylsia</h3>
+              <img 
+                src="/img/stylsiaLOGO-05.png" 
+                alt="Stylsia" 
+                className="h-8 w-auto mb-4"
+              />
               <p className="text-gray-400 text-sm">
                 Your destination for the latest fashion trends and timeless classics.
               </p>

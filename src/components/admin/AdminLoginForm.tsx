@@ -51,10 +51,7 @@ export default function AdminLoginForm() {
     }
   };
 
-  const fillTestCredentials = () => {
-    setEmail('admin@stylsia.com');
-    setPassword('admin123');
-  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
@@ -62,11 +59,15 @@ export default function AdminLoginForm() {
         <div className="bg-white rounded-xl shadow-2xl p-6 sm:p-8 animate-scale-in">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto h-12 w-12 bg-red-600 rounded-xl flex items-center justify-center mb-4">
-              <Shield className="h-6 w-6 text-white" />
+            <div className="mx-auto mb-4 flex justify-center">
+              <img 
+                src="/img/stylsiaLOGO-04.png" 
+                alt="Stylsia Admin" 
+                className="h-12 w-auto"
+              />
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Admin Portal</h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600">Stylsia Administration Dashboard</p>
+            <p className="mt-2 text-sm sm:text-base text-slate-600">Administration Dashboard</p>
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -153,25 +154,7 @@ export default function AdminLoginForm() {
               {loading ? 'Signing In...' : 'Access Admin Dashboard'}
             </Button>
 
-            {/* Test credentials */}
-            <div className="text-center">
-              <div className="bg-slate-50 rounded-lg p-4 border border-slate-200">
-                <p className="text-sm text-slate-600 mb-2">
-                  <span className="font-medium">Test Admin Credentials:</span>
-                </p>
-                <div className="text-xs text-slate-500 space-y-1">
-                  <p>Email: admin@stylsia.com</p>
-                  <p>Password: admin123</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={fillTestCredentials}
-                  className="mt-2 text-xs text-red-600 hover:text-red-700 underline"
-                >
-                  Fill test credentials
-                </button>
-              </div>
-            </div>
+
 
             {/* Security Notice */}
             <div className="text-center">

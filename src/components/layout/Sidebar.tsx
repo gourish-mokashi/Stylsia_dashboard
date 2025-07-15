@@ -54,10 +54,11 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         {/* Mobile close button */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">S</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">Stylsia</span>
+            <img 
+              src="/img/stylsiaLOGO-05.png" 
+              alt="Stylsia" 
+              className="h-8 w-auto"
+            />
           </div>
           
           <button
@@ -89,10 +90,11 @@ function SidebarContent({ handleSignOut, onItemClick }: SidebarContentProps) {
       {/* Logo - Only show on desktop (mobile has it in header) */}
       <div className="hidden md:block p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">S</span>
-          </div>
-          <span className="text-xl font-bold text-gray-900">Stylsia</span>
+          <img 
+            src="/img/stylsiaLOGO-05.png" 
+            alt="Stylsia" 
+            className="h-8 w-auto"
+          />
         </div>
         <p className="text-sm text-gray-500 mt-1">Partner Dashboard</p>
       </div>

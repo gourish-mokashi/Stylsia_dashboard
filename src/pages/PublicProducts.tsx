@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Filter, Grid, List, ChevronDown, Star, Heart, ShoppingCart } from 'lucide-react';
+import { Filter, Grid, List, ChevronDown, Star, Heart, ShoppingCart, RefreshCw } from 'lucide-react';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { SearchBar } from '../components/customer/SearchBar';
 import type { ProductWithDetails } from '../types/database';
@@ -13,6 +13,7 @@ const PublicProducts: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 10000]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     products,
@@ -21,6 +22,7 @@ const PublicProducts: React.FC = () => {
     pagination,
     filters,
     setFilters,
+    refreshData,
   } = usePublicProducts({
     search: searchParams.get('search') || undefined,
     category: searchParams.get('category') || undefined,
@@ -62,7 +64,53 @@ const PublicProducts: React.FC = () => {
 
   const handleSort = (sortOption: string) => {
     setSortBy(sortOption);
-    // Implement sorting logic here
+    
+    // Map the UI sort values to database sort values
+    let dbSortBy: string;
+    switch (sortOption) {
+      case 'name-asc':
+        dbSortBy = 'name_asc';
+        break;
+      case 'name-desc':
+        dbSortBy = 'name_desc';
+        break;
+      case 'price-low':
+        dbSortBy = 'price_asc';
+        break;
+      case 'price-high':
+        dbSortBy = 'price_desc';
+        break;
+      case 'oldest':
+        dbSortBy = 'oldest';
+        break;
+      case 'newest':
+      default:
+        dbSortBy = 'newest';
+        break;
+    }
+    
+    // Reset pagination and apply new sorting
+    setFilters({
+      ...filters,
+      sort_by: dbSortBy as any,
+      offset: 0,
+    });
+  };
+
+  const handleRefreshProducts = async () => {
+    setRefreshing(true);
+    try {
+      // Randomize products by applying random sort and resetting pagination
+      setFilters({
+        ...filters,
+        sort_by: 'random',
+        offset: 0,
+      });
+      // Call the refresh function from the hook
+      await refreshData();
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   const handleProductClick = (productId: string) => {
@@ -72,10 +120,11 @@ const PublicProducts: React.FC = () => {
   const categories = ['All', 'Women', 'Men', 'Kids', 'Sale', 'Tops', 'Dresses', 'Bottoms', 'Accessories'];
   const sortOptions = [
     { value: 'newest', label: 'Newest First' },
+    { value: 'name-asc', label: 'Name: A to Z' },
+    { value: 'name-desc', label: 'Name: Z to A' },
     { value: 'price-low', label: 'Price: Low to High' },
     { value: 'price-high', label: 'Price: High to Low' },
-    { value: 'popular', label: 'Most Popular' },
-    { value: 'rating', label: 'Highest Rated' },
+    { value: 'oldest', label: 'Oldest First' },
   ];
 
   return (
@@ -85,12 +134,12 @@ const PublicProducts: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
-              <h1 
-                className="text-2xl font-bold text-gray-900 cursor-pointer" 
+              <img 
+                src="/img/stylsiaLOGO-05.png" 
+                alt="Stylsia" 
+                className="h-8 w-auto cursor-pointer"
                 onClick={() => navigate('/')}
-              >
-                Stylsia
-              </h1>
+              />
             </div>
             <div className="flex-1 max-w-2xl mx-8">
               <SearchBar onSearch={handleSearch} />
@@ -205,6 +254,17 @@ const PublicProducts: React.FC = () => {
               </div>
               
               <div className="flex items-center space-x-4">
+                {/* Refresh Button */}
+                <button
+                  onClick={handleRefreshProducts}
+                  disabled={refreshing}
+                  className="flex items-center px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  title="Refresh and randomize products"
+                >
+                  <RefreshCw className={`h-4 w-4 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
+                  Refresh
+                </button>
+                
                 {/* Sort Dropdown */}
                 <div className="relative">
                   <select
@@ -285,14 +345,16 @@ const PublicProducts: React.FC = () => {
               <div className="text-center mt-8">
                 <button
                   onClick={() => {
+                    const newOffset = (filters.offset || 0) + (filters.limit || 20);
                     setFilters({
                       ...filters,
-                      offset: (filters.offset || 0) + (filters.limit || 20),
+                      offset: newOffset,
                     });
                   }}
-                  className="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
+                  disabled={loading}
+                  className="px-6 py-3 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Load More Products
+                  {loading ? 'Loading...' : 'Load More Products'}
                 </button>
               </div>
             )}
@@ -310,7 +372,12 @@ const ProductCard: React.FC<{
   onClick: () => void;
 }> = ({ product, viewMode, onClick }) => {
   const mainImage = product.images?.find(img => img.is_main) || product.images?.[0];
-  const imageUrl = mainImage?.image_url || product.main_image_url || 'https://via.placeholder.com/300x400';
+  const imageUrl = mainImage?.image_url || product.main_image_url || 'https://via.placeholder.com/400x400/f3f4f6/9ca3af?text=No+Image';
+  
+  // Optimize image URL for performance
+  const optimizedImageUrl = imageUrl.includes('placeholder') 
+    ? imageUrl 
+    : `${imageUrl}${imageUrl.includes('?') ? '&' : '?'}w=400&h=400&fit=crop&q=80`;
 
   if (viewMode === 'list') {
     return (
@@ -319,10 +386,11 @@ const ProductCard: React.FC<{
         onClick={onClick}
       >
         <img
-          src={imageUrl}
+          src={optimizedImageUrl}
           alt={product.name}
           className="w-24 h-24 object-cover rounded-md flex-shrink-0"
           loading="lazy"
+          decoding="async"
         />
         <div className="flex-1">
           <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>
@@ -354,10 +422,11 @@ const ProductCard: React.FC<{
     >
       <div className="relative">
         <img
-          src={imageUrl}
+          src={optimizedImageUrl}
           alt={product.name}
           className="w-full h-48 md:h-64 object-cover"
           loading="lazy"
+          decoding="async"
         />
         <button className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-sm hover:shadow-md">
           <Heart className="h-4 w-4 text-gray-600" />
