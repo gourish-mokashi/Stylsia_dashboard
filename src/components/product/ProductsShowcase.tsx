@@ -5,12 +5,12 @@ import {
   Search, 
   SlidersHorizontal,
   ArrowUpDown,
-  X,
-  Star
+  X
 } from 'lucide-react';
 import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { ProductGrid } from './ProductGrid';
+import ProductSkeleton from './ProductSkeleton';
 
 interface SortOption {
   value: string;
@@ -51,6 +51,7 @@ const ProductsShowcase: React.FC = () => {
   const {
     products,
     loading,
+    loadingMore,
     pagination,
     filters,
     setFilters,
@@ -59,18 +60,16 @@ const ProductsShowcase: React.FC = () => {
     category: searchParams.get('category') || undefined,
   });
 
-  // Sort options matching Myntra
+  // Sort options - keeping only relevant ones
   const sortOptions: SortOption[] = [
-    { value: 'popularity', label: 'Popularity' },
-    { value: 'newest', label: 'Latest' },
     { value: 'discount', label: 'Discount' },
     { value: 'price-high', label: 'Price: High to Low' },
     { value: 'price-low', label: 'Price: Low to High' },
-    { value: 'rating', label: 'Customer Rating' },
   ];
 
   // Filter options based on backend data
   const filterOptions: FilterOption[] = [
+    { category: 'Offers', options: ['On Sale', 'Discount Available'] },
     { category: 'Category', options: ['Women', 'Men', 'Kids'] },
     { category: 'Fabric', options: ['Cotton', 'Polyester', 'Linen', 'Wool', 'Denim'] },
     { category: 'Fit', options: ['Regular', 'Slim', 'Oversize', 'Loose', 'Tight', 'Baggy'] },
@@ -182,22 +181,21 @@ const ProductsShowcase: React.FC = () => {
 
   // Infinite scroll functionality
   const loadMore = useCallback(() => {
-    if (pagination?.hasNext && !loading) {
-      const currentOffset = filters.offset || 0;
-      const nextOffset = currentOffset + (filters.limit || 10);
+    if (pagination?.hasNext && !loading && !loadingMore) {
+      const currentProducts = products.length;
       
       setFilters({
         ...filters,
-        offset: nextOffset,
+        offset: currentProducts, // Use actual product count for accurate offset
       });
     }
-  }, [pagination?.hasNext, loading, filters, setFilters]);
+  }, [pagination?.hasNext, loading, loadingMore, products.length, filters, setFilters]);
 
   const { targetRef } = useInfiniteScroll({
     hasNextPage: pagination?.hasNext || false,
-    loading: loading,
+    loading: loading || loadingMore, // Consider both loading states
     loadMore,
-    threshold: 200, // Load when 200px from bottom
+    rootMargin: '400px 0px', // Load when 400px before bottom
   });
 
   if (loading) {
@@ -317,11 +315,25 @@ const ProductsShowcase: React.FC = () => {
 
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        {products.length > 0 ? (
-          <ProductGrid 
-            products={products} 
-            onProductClick={(productId) => navigate(`/product/${productId}`)}
-          />
+        {loading && products.length === 0 ? (
+          // Show skeleton on initial load
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+            <ProductSkeleton count={10} />
+          </div>
+        ) : products.length > 0 ? (
+          <>
+            <ProductGrid 
+              products={products} 
+              onProductClick={(productId) => navigate(`/product/${productId}`)}
+            />
+            
+            {/* Infinite Scroll Loading - skeleton for seamless loading */}
+            {loadingMore && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 mt-6">
+                <ProductSkeleton count={4} />
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 mb-4">
@@ -332,15 +344,8 @@ const ProductsShowcase: React.FC = () => {
           </div>
         )}
 
-        {/* Load More Spinner */}
-        {loading && (
-          <div className="flex justify-center py-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-          </div>
-        )}
-
-        {/* Sentinel div for infinite scroll */}
-        <div ref={targetRef} className="h-1"></div>
+        {/* Sentinel div for infinite scroll - positioned strategically */}
+        <div ref={targetRef} className="h-px opacity-0 pointer-events-none"></div>
       </div>
 
       {/* Sort Modal */}
@@ -366,11 +371,8 @@ const ProductsShowcase: React.FC = () => {
                     className="w-full flex items-center p-4 text-left hover:bg-gray-50 rounded-lg transition-colors"
                   >
                     <div className="flex items-center space-x-3">
-                      {option.value === 'popularity' && <Star className="h-5 w-5 text-gray-400" />}
-                      {option.value === 'newest' && <span className="text-gray-400">⭐</span>}
                       {option.value === 'discount' && <span className="text-gray-400">%</span>}
                       {option.value.includes('price') && <span className="text-gray-400">₹</span>}
-                      {option.value === 'rating' && <Star className="h-5 w-5 text-gray-400" />}
                       <span className="font-medium text-gray-900">{option.label}</span>
                     </div>
                   </button>

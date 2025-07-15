@@ -31,14 +31,6 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
     { label: 'Men', category: 'Men', description: 'Shirts, T-Shirts, Jeans & More' },
     { label: 'Women', category: 'Women', description: 'Dresses, Tops, Sarees & More' },
     { label: 'Kids', category: 'Kids', description: 'Clothing, Footwear & Accessories' },
-    { label: 'Home & Living', category: 'Home', description: 'Bedsheets, Curtains & Decor' },
-    { label: 'Beauty', category: 'Beauty', description: 'Makeup, Skincare & Fragrance' },
-  ];
-
-  const specialItems = [
-    { label: 'Stylsia Studio', badge: 'NEW', category: 'Studio' },
-    { label: 'Stylsia Mall', badge: 'NEW', category: 'Mall' },
-    { label: 'Stylsia Insider', category: 'Insider' },
   ];
 
   return (
@@ -161,26 +153,6 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
               </button>
             </div>
 
-            {/* Promo Banner */}
-            <div className="bg-gradient-to-r from-pink-500 to-red-500 text-white p-4 mx-4 mt-4 rounded-lg">
-              <div className="flex items-center space-x-3">
-                <div className="bg-white text-pink-500 rounded-full p-2 font-bold text-lg">
-                  ₹300
-                </div>
-                <div>
-                  <div className="font-semibold">Flat ₹300 OFF +</div>
-                  <div className="text-sm">Free Shipping</div>
-                  <div className="text-xs mt-1">On First Order</div>
-                </div>
-              </div>
-              <button 
-                onClick={() => navigate('/login')}
-                className="mt-3 bg-white text-pink-500 px-4 py-2 rounded-md font-semibold text-sm"
-              >
-                SIGN UP, LOGIN
-              </button>
-            </div>
-
             {/* Menu Items */}
             <div className="p-4 space-y-1">
               {menuItems.map((item) => (
@@ -198,40 +170,8 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
               ))}
             </div>
 
-            {/* Special Items */}
-            <div className="border-t border-gray-200 p-4 space-y-1">
-              {specialItems.map((item) => (
-                <button
-                  key={item.category}
-                  onClick={() => navigateToCategory(item.category)}
-                  className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors touch-target"
-                >
-                  <div className="flex items-center space-x-3">
-                    <span className="font-medium text-gray-900">{item.label}</span>
-                    {item.badge && (
-                      <span className="bg-pink-500 text-white text-xs px-2 py-1 rounded">
-                        {item.badge}
-                      </span>
-                    )}
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-gray-400" />
-                </button>
-              ))}
-            </div>
-
             {/* Footer Items */}
             <div className="border-t border-gray-200 p-4 space-y-1">
-              <button
-                onClick={() => {
-                  navigate('/');
-                  setIsDrawerOpen(false);
-                }}
-                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors touch-target"
-              >
-                <span className="font-medium text-gray-900">Gift Cards</span>
-                <ChevronRight className="h-5 w-5 text-gray-400" />
-              </button>
-              
               <button
                 onClick={() => {
                   navigate('/');
@@ -245,23 +185,12 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
 
               <button
                 onClick={() => {
-                  navigate('/');
+                  window.open('/documentation', '_blank');
                   setIsDrawerOpen(false);
                 }}
                 className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors touch-target"
               >
-                <span className="font-medium text-gray-900">FAQs</span>
-                <ChevronRight className="h-5 w-5 text-gray-400" />
-              </button>
-
-              <button
-                onClick={() => {
-                  navigate('/');
-                  setIsDrawerOpen(false);
-                }}
-                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors touch-target"
-              >
-                <span className="font-medium text-gray-900">Legal</span>
+                <span className="font-medium text-gray-900">FAQ</span>
                 <ChevronRight className="h-5 w-5 text-gray-400" />
               </button>
             </div>

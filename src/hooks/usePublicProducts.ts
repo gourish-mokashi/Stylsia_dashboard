@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ProductRepository, DatabaseError } from '../lib/database';
-import type { ProductWithDetails, ProductFilters, PaginatedResponse } from '../types/database';
+import type { ProductWithDetails, ProductFilters } from '../types/database';
 
 interface UsePublicProductsReturn {
   products: ProductWithDetails[];
@@ -12,6 +12,7 @@ interface UsePublicProductsReturn {
     hasPrev: boolean;
   };
   loading: boolean;
+  loadingMore: boolean;
   error: string | null;
   filters: ProductFilters;
   setFilters: (filters: ProductFilters) => void;
@@ -28,6 +29,7 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
     hasPrev: false,
   });
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false); // Separate state for infinite scroll
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<ProductFilters>({
     limit: 10,
@@ -38,13 +40,27 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
   const fetchProducts = useCallback(async (isLoadMore = false) => {
     try {
       setError(null);
-      setLoading(true);
+      
+      // Set appropriate loading state
+      if (isLoadMore) {
+        setLoadingMore(true);
+      } else {
+        setLoading(true);
+      }
+      
       // Fetch all products, not filtered by brand
       const response = await ProductRepository.getAll(filters);
       
       // For load more, append to existing products; otherwise replace
       if (isLoadMore && filters.offset && filters.offset > 0) {
-        setProducts(prevProducts => [...prevProducts, ...response.data]);
+        setProducts(prevProducts => {
+          // Prevent duplicates by checking if last product from previous batch
+          // is same as first product from new batch
+          const newProducts = response.data.filter((newProduct: ProductWithDetails) => 
+            !prevProducts.some(prevProduct => prevProduct.id === newProduct.id)
+          );
+          return [...prevProducts, ...newProducts];
+        });
       } else {
         setProducts(response.data);
       }
@@ -64,7 +80,11 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
         setError('Failed to load products. Please try again.');
       }
     } finally {
-      setLoading(false);
+      if (isLoadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   }, [filters]);
 
@@ -97,6 +117,7 @@ export function usePublicProducts(initialFilters: ProductFilters = {}): UsePubli
     products,
     pagination,
     loading,
+    loadingMore,
     error,
     filters,
     setFilters: updateFilters,
