@@ -35,6 +35,7 @@ const ProductsShowcase: React.FC = () => {
   
   // Filter states
   const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({
+    offers: [],
     category: [],
     fabric: [],
     fit: [],
@@ -69,7 +70,7 @@ const ProductsShowcase: React.FC = () => {
 
   // Filter options based on backend data
   const filterOptions: FilterOption[] = [
-    { category: 'Offers', options: ['On Sale', 'Discount Available'] },
+    { category: 'Offers', options: ['Discount Available'] },
     { category: 'Category', options: ['Women', 'Men', 'Kids'] },
     { category: 'Fabric', options: ['Cotton', 'Polyester', 'Linen', 'Wool', 'Denim'] },
     { category: 'Fit', options: ['Regular', 'Slim', 'Oversize', 'Loose', 'Tight', 'Baggy'] },
@@ -116,7 +117,7 @@ const ProductsShowcase: React.FC = () => {
     const sortMapping: Record<string, string> = {
       'popularity': 'newest',
       'newest': 'newest',
-      'discount': 'price_desc',
+      'discount': 'discount_desc',
       'price-high': 'price_desc',
       'price-low': 'price_asc',
       'rating': 'newest'
@@ -146,21 +147,32 @@ const ProductsShowcase: React.FC = () => {
   };
 
   const applyFilters = () => {
-    // For now, we'll just apply category filter since the backend supports it
     const categoryFilters = selectedFilters.category;
+    const offersFilters = selectedFilters.offers || [];
     
+    let updatedFilters = { ...filters };
+    
+    // Apply category filter
     if (categoryFilters.length > 0) {
-      setFilters({
-        ...filters,
-        category: categoryFilters[0], // Take first category for now
-      });
+      updatedFilters.category = categoryFilters[0]; // Take first category for now
+    } else {
+      delete updatedFilters.category;
     }
     
+    // Apply discount filter
+    if (offersFilters.includes('Discount Available')) {
+      updatedFilters.has_discount = true;
+    } else {
+      delete updatedFilters.has_discount;
+    }
+    
+    setFilters(updatedFilters);
     setShowFilterModal(false);
   };
 
   const clearAllFilters = () => {
     setSelectedFilters({
+      offers: [],
       category: [],
       fabric: [],
       fit: [],

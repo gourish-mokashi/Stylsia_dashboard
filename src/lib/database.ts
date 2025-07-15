@@ -397,6 +397,9 @@ export class ProductRepository {
       if (filters.price_max !== undefined) {
         query = query.lte('current_price', filters.price_max);
       }
+      if (filters.has_discount) {
+        query = query.gt('discount_percentage', 0);
+      }
       if (filters.search) {
         query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
       }
@@ -418,6 +421,9 @@ export class ProductRepository {
           break;
         case 'price_desc':
           query = query.order('current_price', { ascending: false });
+          break;
+        case 'discount_desc':
+          query = query.order('discount_percentage', { ascending: false });
           break;
         case 'oldest':
           query = query.order('created_at', { ascending: true });
