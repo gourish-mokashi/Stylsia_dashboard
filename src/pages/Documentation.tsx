@@ -148,18 +148,14 @@ export default function Documentation() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-10 no-print">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center py-4 sm:py-0 sm:h-16">
+          <div className="flex items-center justify-between py-4 sm:py-0 sm:h-16">
             <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                icon={ArrowLeft}
-                onClick={() => navigate('/dashboard/settings')}
-                className="shrink-0"
-                size="sm"
-              >
-                <span className="hidden sm:inline">Back to Settings</span>
-                <span className="sm:hidden">Back</span>
-              </Button>
+              <img 
+                src="/img/stylsiaLOGO-05.png" 
+                alt="Stylsia" 
+                className="h-8 w-auto cursor-pointer"
+                onClick={() => navigate('/')}
+              />
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-primary-50 rounded-lg">
                   <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-primary-600" />
@@ -169,6 +165,18 @@ export default function Documentation() {
                   <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">Stylsia Backend: E-Commerce Data Integration</p>
                 </div>
               </div>
+            </div>
+            <div className="flex items-center">
+              <Button
+                variant="outline"
+                icon={ArrowLeft}
+                onClick={() => navigate('/')}
+                className="shrink-0"
+                size="sm"
+              >
+                <span className="hidden sm:inline">Back to Home</span>
+                <span className="sm:hidden">Back</span>
+              </Button>
             </div>
           </div>
         </div>

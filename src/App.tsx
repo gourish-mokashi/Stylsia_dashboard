@@ -178,6 +178,11 @@ const AppContent: React.FC = () => {
           <ProductDetail />
         </MaintenanceWrapper>
       } />
+      <Route path="/documentation" element={
+        <MaintenanceWrapper isPublicPage={true}>
+          <Documentation />
+        </MaintenanceWrapper>
+      } />
       
       {/* Partner dashboard routes (authenticated users only) - NOT affected by maintenance mode */}
       <Route path="/dashboard" element={<Layout />}>
@@ -187,7 +192,6 @@ const AppContent: React.FC = () => {
         <Route path="messages" element={<Messages />} />
         <Route path="profile" element={<Profile />} />
         <Route path="settings" element={<Settings />} />
-        <Route path="settings/documentation" element={<Documentation />} />
         <Route path="notifications" element={<Notifications />} />
       </Route>
       <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
