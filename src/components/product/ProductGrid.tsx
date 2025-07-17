@@ -53,6 +53,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             id={product.id}
             name={product.name}
             image={mainImage?.image_url || product.main_image_url || 'https://via.placeholder.com/400x400/f3f4f6/9ca3af?text=No+Image'}
+            images={product.images}
             price={product.current_price}
             originalPrice={product.original_price}
             brand={product.brand?.name || ''}

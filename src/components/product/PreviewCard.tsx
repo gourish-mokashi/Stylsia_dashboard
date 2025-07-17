@@ -1,19 +1,94 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
 
 interface PreviewCardProps {
   id: string;
   name: string;
   image: string;
+  images?: Array<{ image_url: string; is_main?: boolean }>;
   price: number;
   originalPrice?: number;
   brand: string;
   onClick: () => void;
 }
 
-export const PreviewCard: React.FC<PreviewCardProps> = ({ name, image, price, originalPrice, brand, onClick }) => {
+export const PreviewCard: React.FC<PreviewCardProps> = ({ 
+  name, 
+  image, 
+  images = [], 
+  price, 
+  originalPrice, 
+  brand, 
+  onClick 
+}) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Prepare image array - use images prop if available, otherwise fallback to main image
+  const imageArray = images.length > 0 
+    ? images.map(img => img.image_url)
+    : [image];
+  
+  const hasMultipleImages = imageArray.length > 1;
+  
+  // Create extended array for infinite scroll (add first image at the end)
+  const extendedImageArray = hasMultipleImages ? [...imageArray, imageArray[0]] : imageArray;
+
+  // Auto-scroll carousel on hover with infinite scroll
+  useEffect(() => {
+    if (isHovered && hasMultipleImages) {
+      intervalRef.current = setInterval(() => {
+        setCurrentImageIndex(prev => {
+          const nextIndex = prev + 1;
+          // If we reach the last image (which is duplicate of first), 
+          // we'll reset to 0 after the transition
+          if (nextIndex >= extendedImageArray.length) {
+            return 0;
+          }
+          return nextIndex;
+        });
+      }, 1500); // Change image every 1.5 seconds (slower)
+    } else {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      // Reset to first image when not hovering with a slight delay
+      if (!isHovered) {
+        setTimeout(() => {
+          setCurrentImageIndex(0);
+          setIsTransitioning(true);
+        }, 200);
+      }
+    }
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [isHovered, hasMultipleImages, extendedImageArray.length]);
+
+  // Handle infinite scroll reset
+  useEffect(() => {
+    if (currentImageIndex === imageArray.length && hasMultipleImages) {
+      // We're at the duplicate first image, reset to actual first image without animation
+      const timeout = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentImageIndex(0);
+        // Re-enable transition after DOM update
+        requestAnimationFrame(() => {
+          setIsTransitioning(true);
+        });
+      }, 700); // Wait for transition to complete (700ms)
+      
+      return () => clearTimeout(timeout);
+    }
+  }, [currentImageIndex, imageArray.length, hasMultipleImages]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -24,15 +99,12 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ name, image, price, or
     setImageLoaded(true);
   };
 
-  // Optimize image URL for performance - reduce quality for thumbnails
-  const optimizedImageUrl = image.includes('placeholder') 
-    ? image 
-    : `${image}${image.includes('?') ? '&' : '?'}w=400&h=400&fit=crop&q=80`;
-
   return (
     <div 
       className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-[1.02] cursor-pointer overflow-hidden border border-gray-100"
       onClick={onClick} 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       tabIndex={0} 
       role="button" 
       aria-label={`View details for ${name}`}
@@ -53,17 +125,50 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ name, image, price, or
             </svg>
           </div>
         ) : (
-          <img 
-            src={optimizedImageUrl} 
-            alt={name} 
-            loading="lazy"
-            decoding="async"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-            className={`w-full h-full object-cover transition-all duration-300 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
+          <div className="relative w-full h-full overflow-hidden">
+            <div 
+              className={`flex h-full ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
+              style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+            >
+              {extendedImageArray.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`${name} - ${index < imageArray.length ? index + 1 : 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  onLoad={index === 0 ? handleImageLoad : undefined}
+                  onError={index === 0 ? handleImageError : undefined}
+                  className={`w-full h-full object-cover flex-shrink-0 transition-opacity duration-300 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Multiple images indicator */}
+        {hasMultipleImages && !isHovered && (
+          <div className="absolute top-2 left-2 bg-black/20 text-white px-2 py-0.5 rounded-full text-xs font-medium backdrop-blur-sm">
+            +{imageArray.length - 1}
+          </div>
+        )}
+
+        {/* Image indicators for multiple images */}
+        {hasMultipleImages && (
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+            {imageArray.map((_, index) => (
+              <div
+                key={index}
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  index === (currentImageIndex % imageArray.length)
+                    ? 'bg-white shadow-sm' 
+                    : 'bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
         )}
         
         {/* Heart Button (Wishlist) */}
