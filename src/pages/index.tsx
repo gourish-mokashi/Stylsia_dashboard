@@ -146,11 +146,13 @@ const HomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
-              <img 
-                src="/img/logo.png" 
-                alt="Stylsia" 
-                className="h-10 w-10 rounded-full object-cover mb-4"
-              />
+              <button onClick={() => navigate('/')} className="focus:outline-none hover:opacity-80 transition-opacity">
+                <img 
+                  src="/img/logo.png" 
+                  alt="Stylsia" 
+                  className="h-10 w-10 rounded-full object-cover mb-4"
+                />
+              </button>
               <p className="text-gray-400 text-sm">
                 Your destination for the latest fashion trends and timeless classics.
               </p>

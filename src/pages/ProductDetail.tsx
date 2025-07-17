@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
-  ArrowLeft, 
-  Heart, 
   Share2, 
   ChevronLeft,
   ChevronRight,
@@ -127,8 +125,8 @@ const ProductDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* New Myntra-style Header */}
-      <PublicHeader showSearchBar={false} />
+      {/* Header with Back Button */}
+      <PublicHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

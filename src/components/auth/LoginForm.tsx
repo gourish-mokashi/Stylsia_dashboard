@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -31,13 +33,13 @@ export default function LoginForm() {
         <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 animate-scale-in">
           {/* Header section - Responsive spacing */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto mb-4 flex justify-center">
+            <button onClick={() => navigate('/')} className="mx-auto mb-4 flex justify-center focus:outline-none hover:opacity-80 transition-opacity">
               <img 
                 src="/img/logo.png" 
                 alt="Stylsia" 
                 className="h-12 w-auto"
               />
-            </div>
+            </button>
             <h2 className="text-fluid-3xl font-bold text-gray-900">Welcome to our Platform</h2>
             <p className="mt-2 text-fluid-base text-gray-600">Partner Dashboard Access</p>
           </div>

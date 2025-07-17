@@ -82,7 +82,7 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
     <div className="flex flex-col h-full">
       {/* Logo - Only show on desktop */}
       <div className="hidden lg:block p-6 border-b border-slate-200">
-        <div className="flex items-center space-x-3">
+        <button onClick={() => navigate('/')} className="flex items-center space-x-3 focus:outline-none hover:opacity-80 transition-opacity">
           <img 
             src="/img/logo.png" 
             alt="Admin Portal" 
@@ -91,7 +91,7 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
           <div>
             <p className="text-sm text-slate-500">Admin Portal</p>
           </div>
-        </div>
+        </button>
       </div>
 
       {/* Navigation */}

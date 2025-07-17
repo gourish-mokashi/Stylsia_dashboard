@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, X, Search, ChevronRight } from 'lucide-react';
+import { Menu, X, Search, ChevronRight, ArrowLeft } from 'lucide-react';
 
 interface PublicHeaderProps {
   onSearch?: (query: string) => void;
   showSearchBar?: boolean;
+  showBackButton?: boolean;
+  backButtonText?: string;
 }
 
-const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = true }) => {
+const PublicHeader: React.FC<PublicHeaderProps> = ({ 
+  onSearch, 
+  showSearchBar = true, 
+  showBackButton = false,
+  backButtonText = "Back"
+}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); // Go back to previous page
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,38 +50,64 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
       <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Left: Hamburger + Logo (Mobile) / Logo + Nav (Desktop) */}
+            {/* Left: Back Button OR (Hamburger + Logo (Mobile) / Logo + Nav (Desktop)) */}
             <div className="flex items-center space-x-4">
-              {/* Hamburger - Mobile Only */}
-              <button
-                onClick={() => setIsDrawerOpen(true)}
-                className="p-2 text-gray-600 hover:text-gray-900 lg:hidden touch-target"
-                aria-label="Open menu"
-              >
-                <Menu className="h-6 w-6" />
-              </button>
-
-              {/* Logo - Clickable to go home */}
-              <button onClick={() => navigate('/')} className="focus:outline-none">
-                <img
-                  src="/img/logo.png"
-                  alt="Stylsia"
-                  className="h-10 w-10 rounded-full object-cover"
-                />
-              </button>
-
-              {/* Desktop Navigation - Hidden on Mobile */}
-              <nav className="hidden lg:flex items-center space-x-8 ml-12">
-                {menuItems.slice(0, 3).map((item) => (
+              {showBackButton ? (
+                // Back Button Layout
+                <>
                   <button
-                    key={item.category}
-                    onClick={() => navigateToCategory(item.category)}
-                    className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                    onClick={handleBack}
+                    className="flex items-center space-x-2 p-2 text-gray-600 hover:text-gray-900 transition-colors focus:outline-none"
+                    aria-label="Go back"
                   >
-                    {item.label}
+                    <ArrowLeft className="h-5 w-5" />
+                    <span className="hidden sm:inline font-medium">{backButtonText}</span>
                   </button>
-                ))}
-              </nav>
+                  
+                  {/* Logo - Always visible when back button is shown */}
+                  <button onClick={() => navigate('/')} className="focus:outline-none">
+                    <img
+                      src="/img/logo.png"
+                      alt="Stylsia"
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  </button>
+                </>
+              ) : (
+                // Normal Layout (Hamburger + Logo + Nav)
+                <>
+                  {/* Hamburger - Mobile Only */}
+                  <button
+                    onClick={() => setIsDrawerOpen(true)}
+                    className="p-2 text-gray-600 hover:text-gray-900 lg:hidden touch-target"
+                    aria-label="Open menu"
+                  >
+                    <Menu className="h-6 w-6" />
+                  </button>
+
+                  {/* Logo - Clickable to go home */}
+                  <button onClick={() => navigate('/')} className="focus:outline-none">
+                    <img
+                      src="/img/logo.png"
+                      alt="Stylsia"
+                      className="h-10 w-10 rounded-full object-cover"
+                    />
+                  </button>
+
+                  {/* Desktop Navigation - Hidden on Mobile */}
+                  <nav className="hidden lg:flex items-center space-x-8 ml-12">
+                    {menuItems.slice(0, 3).map((item) => (
+                      <button
+                        key={item.category}
+                        onClick={() => navigateToCategory(item.category)}
+                        className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </nav>
+                </>
+              )}
             </div>
 
             {/* Center: Search Bar */}
@@ -97,8 +134,8 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
         </div>
       </header>
 
-      {/* Mobile Drawer Overlay */}
-      {isDrawerOpen && (
+      {/* Mobile Drawer Overlay - Only show when not in back button mode */}
+      {isDrawerOpen && !showBackButton && (
         <div 
           className="fixed inset-0 z-50 lg:hidden"
           onClick={() => setIsDrawerOpen(false)}

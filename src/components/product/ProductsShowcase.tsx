@@ -233,7 +233,7 @@ const ProductsShowcase: React.FC = () => {
               >
                 <ArrowLeft className="h-6 w-6" />
               </button>
-              <div className="flex items-center space-x-2">
+              <button onClick={() => navigate('/')} className="flex items-center space-x-2 focus:outline-none hover:opacity-80 transition-opacity">
                 <img 
                   src="/img/logo.png" 
                   alt="Stylsia" 
@@ -245,7 +245,7 @@ const ProductsShowcase: React.FC = () => {
                   </h1>
                   <p className="text-sm text-gray-600">{itemCount} Items</p>
                 </div>
-              </div>
+              </button>
             </div>
             
             <div className="flex items-center space-x-2">

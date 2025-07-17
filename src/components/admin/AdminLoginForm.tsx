@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAdminAuth } from '../../contexts/AdminAuthContext';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
 
 export default function AdminLoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -59,13 +61,13 @@ export default function AdminLoginForm() {
         <div className="bg-white rounded-xl shadow-2xl p-6 sm:p-8 animate-scale-in">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">
-            <div className="mx-auto mb-4 flex justify-center">
+            <button onClick={() => navigate('/')} className="mx-auto mb-4 flex justify-center focus:outline-none hover:opacity-80 transition-opacity">
               <img 
                 src="/img/logo.png" 
                 alt="Stylsia Admin" 
                 className="h-12 w-auto"
               />
-            </div>
+            </button>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Admin Portal</h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600">Administration Dashboard</p>
           </div>

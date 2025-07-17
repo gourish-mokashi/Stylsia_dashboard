@@ -42,6 +42,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         <SidebarContent
           handleSignOut={handleSignOut}
           onItemClick={() => {}} // No action needed on desktop
+          navigate={navigate}
         />
       </div>
 
@@ -55,9 +56,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
       >
         {/* Mobile close button */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <div className="flex items-center space-x-3">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-3 focus:outline-none hover:opacity-80 transition-opacity">
             <img src="/img/logo.png" alt="Stylsia" className="h-8 w-8 rounded-full object-cover" />
-          </div>
+          </button>
 
           <button
             onClick={() => setSidebarOpen(false)}
@@ -71,6 +72,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
         <SidebarContent
           handleSignOut={handleSignOut}
           onItemClick={() => setSidebarOpen(false)} // Close sidebar on mobile when item clicked
+          navigate={navigate}
         />
       </div>
     </>
@@ -80,16 +82,17 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 interface SidebarContentProps {
   handleSignOut: () => void;
   onItemClick: () => void;
+  navigate: (path: string) => void;
 }
 
-function SidebarContent({ handleSignOut, onItemClick }: SidebarContentProps) {
+function SidebarContent({ handleSignOut, onItemClick, navigate }: SidebarContentProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Logo - Only show on desktop (mobile has it in header) */}
       <div className="hidden md:block p-6 border-b border-gray-200">
-        <div className="flex items-center space-x-3">
+        <button onClick={() => navigate('/')} className="flex items-center space-x-3 focus:outline-none hover:opacity-80 transition-opacity">
           <img src="/img/logo.png" alt="Stylsia" className="h-8 w-8 rounded-full object-cover" />
-        </div>
+        </button>
         <p className="text-sm text-gray-500 mt-1">Partner Dashboard</p>
       </div>
 

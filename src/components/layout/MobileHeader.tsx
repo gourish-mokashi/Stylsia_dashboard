@@ -1,4 +1,5 @@
 import { Menu } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface MobileHeaderProps {
   sidebarOpen: boolean;
@@ -6,6 +7,8 @@ interface MobileHeaderProps {
 }
 
 export default function MobileHeader({ sidebarOpen, setSidebarOpen }: MobileHeaderProps) {
+  const navigate = useNavigate();
+  
   return (
     <div className="fixed top-0 left-0 right-0 z-30 bg-white border-b border-gray-200 md:hidden">
       <div className="flex items-center justify-between px-4 py-3">
@@ -19,13 +22,13 @@ export default function MobileHeader({ sidebarOpen, setSidebarOpen }: MobileHead
             <Menu className="h-6 w-6" />
           </button>
           
-          <div className="flex items-center space-x-2">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-2 focus:outline-none hover:opacity-80 transition-opacity">
             <img 
               src="/img/logo.png" 
               alt="Stylsia" 
               className="h-8 w-auto"
             />
-          </div>
+          </button>
         </div>
       </div>
     </div>

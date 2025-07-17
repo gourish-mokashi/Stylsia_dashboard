@@ -1,4 +1,5 @@
 import { AlertTriangle, Clock, Wrench } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface MaintenanceModeProps {
   message?: string;
@@ -9,6 +10,8 @@ export default function MaintenanceMode({
   message = "We're currently performing scheduled maintenance to improve your experience.",
   estimatedTime = "We'll be back online soon!"
 }: MaintenanceModeProps) {
+  const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8 text-center">
@@ -49,13 +52,13 @@ export default function MaintenanceMode({
 
         {/* Brand Logo */}
         <div className="border-t border-gray-200 pt-6">
-          <div className="flex items-center justify-center space-x-2 text-gray-500">
+          <button onClick={() => navigate('/')} className="flex items-center justify-center space-x-2 text-gray-500 focus:outline-none hover:opacity-80 transition-opacity mx-auto">
             <img 
               src="/img/logo.png" 
               alt="Brand Logo" 
               className="h-8 w-auto"
             />
-          </div>
+          </button>
           <p className="text-sm text-gray-500 mt-2">
             Fashion & Lifestyle Platform
           </p>
