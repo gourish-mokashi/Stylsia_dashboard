@@ -187,13 +187,6 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
           </div>
         )}
 
-        {/* Multiple images indicator */}
-        {hasMultipleImages && !isHovered && (
-          <div className="absolute top-2 left-2 bg-black/20 text-white px-2 py-0.5 rounded-full text-xs font-medium backdrop-blur-sm">
-            +{imageArray.length - 1}
-          </div>
-        )}
-
         {/* Image indicators for multiple images */}
         {hasMultipleImages && (
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
@@ -210,12 +203,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
           </div>
         )}
         
-        {/* Discount Badge */}
-        {originalPrice && originalPrice > price && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-medium">
-            {Math.round(((originalPrice - price) / originalPrice) * 100)}% OFF
-          </div>
-        )}
+
       </div>
 
       {/* Product Information - Made longer with better spacing */}

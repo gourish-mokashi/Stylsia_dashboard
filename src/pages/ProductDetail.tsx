@@ -119,9 +119,6 @@ const ProductDetail: React.FC = () => {
   const images = product.images || [];
   const mainImage = images[selectedImageIndex] || { image_url: product.main_image_url };
   const hasDiscount = product.original_price && product.original_price > product.current_price;
-  const discountPercentage = hasDiscount 
-    ? Math.round(((product.original_price - product.current_price) / product.original_price) * 100)
-    : 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -178,13 +175,6 @@ const ProductDetail: React.FC = () => {
                   </button>
                 </>
               )}
-
-              {/* Discount Badge */}
-              {hasDiscount && (
-                <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-md text-sm font-medium">
-                  {discountPercentage}% OFF
-                </div>
-              )}
             </div>
 
             {/* Thumbnail Images */}
@@ -226,7 +216,7 @@ const ProductDetail: React.FC = () => {
                   <>
                     <span className="text-xl text-gray-500 line-through">₹{product.original_price}</span>
                     <span className="text-lg text-green-600 font-medium">
-                      {discountPercentage}% off
+                      {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
                     </span>
                   </>
                 )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Filter, Grid, List, ChevronDown, Star, ShoppingCart, RefreshCw } from 'lucide-react';
+import { Filter, Grid, List, ChevronDown, Star, RefreshCw } from 'lucide-react';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import PublicHeader from '../components/layout/PublicHeader';
 import type { ProductWithDetails } from '../types/database';
@@ -404,11 +404,6 @@ const ProductCard: React.FC<{
           loading="lazy"
           decoding="async"
         />
-        {product.original_price && product.original_price > product.current_price && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-md text-xs font-medium">
-            {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% OFF
-          </div>
-        )}
       </div>
       <div className="p-4">
         <h3 className="font-medium text-gray-900 mb-1 truncate">{product.name}</h3>
