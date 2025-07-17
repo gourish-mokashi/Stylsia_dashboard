@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { Mail, AlertCircle, CheckCircle } from 'lucide-react';
-import Header from '../components/layout/Header';
-import Button from '../components/ui/Button';
-import SupportInfoCard from '../components/support/SupportInfoCard';
-import EmailSupportForm from '../components/support/EmailSupportForm';
-import SupportFAQ from '../components/support/SupportFAQ';
-import { useSupportRequests } from '../hooks/useSupportRequests';
-import { useBrandData } from '../hooks/useBrandData';
+import React, { useState } from "react";
+import { Mail, AlertCircle, CheckCircle } from "lucide-react";
+import Header from "../components/layout/Header";
+import Button from "../components/ui/Button";
+import SupportInfoCard from "../components/support/SupportInfoCard";
+import EmailSupportForm from "../components/support/EmailSupportForm";
+import SupportFAQ from "../components/support/SupportFAQ";
+import { useSupportRequests } from "../hooks/useSupportRequests";
+import { useBrandData } from "../hooks/useBrandData";
 
 export default function EmailSupport() {
   const { brand } = useBrandData();
@@ -18,59 +18,72 @@ export default function EmailSupport() {
     subject: string;
     description: string;
     priority: string;
-    attachment: File | null;
+    attachments: File[];
   }) => {
     if (!brand) {
-      setSubmissionError('Brand profile not found. Please complete your profile first.');
+      setSubmissionError(
+        "Brand profile not found. Please complete your profile first."
+      );
       return;
     }
 
     setSubmissionError(null);
-    
+
     try {
       // Prepare support request data
       const supportRequestData = {
         subject: formData.subject,
         description: formData.description,
-        priority: formData.priority as 'low' | 'medium' | 'high',
-        has_attachment: !!formData.attachment,
+        priority: formData.priority as "low" | "medium" | "high",
+        has_attachment: formData.attachments.length > 0,
         attachment_url: undefined as string | undefined,
+        attachment_urls: [] as string[],
       };
-      
-      // If there's an attachment, handle file upload
-      if (formData.attachment) {
-        // In a real implementation, you would upload the file to Supabase Storage
-        // and update the support_request record with the attachment_url
-        console.log('Would upload file:', formData.attachment.name);
-        
-        // For now, we'll just simulate the URL
-        supportRequestData.attachment_url = `https://storage.example.com/attachments/${formData.attachment.name}`;
+
+      // If there are attachments, handle file uploads
+      if (formData.attachments.length > 0) {
+        // In a real implementation, you would upload the files to Supabase Storage
+        // and update the support_request record with the attachment_urls
+        console.log(
+          "Would upload files:",
+          formData.attachments.map((f) => f.name)
+        );
+
+        // For now, we'll just simulate the URLs
+        supportRequestData.attachment_urls = formData.attachments.map(
+          (file) => `https://storage.example.com/attachments/${file.name}`
+        );
+
+        // Keep the single attachment_url for backward compatibility
+        supportRequestData.attachment_url =
+          supportRequestData.attachment_urls[0];
       }
-      
+
       // Create the support request
       await createSupportRequest(supportRequestData);
-      
+
       // Show success state
       setSubmitted(true);
     } catch (err) {
-      console.error('Error submitting support request:', err);
-      setSubmissionError(err instanceof Error ? err.message : 'Failed to submit support request. Please try again.');
+      console.error("Error submitting support request:", err);
+      setSubmissionError(
+        err instanceof Error
+          ? err.message
+          : "Failed to submit support request. Please try again."
+      );
     }
   };
 
   return (
     <div className="container-responsive py-4 sm:py-6">
-      <Header 
-        title="Contact Support" 
+      <Header
+        title="Contact Support"
         subtitle="Get help from the Stylsia support team"
       />
-      
+
       <div className="mt-6 space-y-6">
         {/* Support Info Card */}
-        <SupportInfoCard 
-          email="support@stylsia.com"
-          responseTime="24 hours"
-        />
+        <SupportInfoCard email="support@stylsia.com" responseTime="24 hours" />
 
         {/* Error message */}
         {(error || submissionError) && (
@@ -88,16 +101,23 @@ export default function EmailSupport() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="h-8 w-8 text-green-500" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Support Request Submitted</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              Support Request Submitted
+            </h2>
             <p className="text-gray-600 mb-6 max-w-md mx-auto">
-              Thank you for contacting us. We've received your request and will respond to you via email within 24 hours.
+              Thank you for contacting us. We've received your request and will
+              respond to you via email within 24 hours.
             </p>
             <div className="bg-gray-50 rounded-lg p-4 mb-6 max-w-md mx-auto">
               <p className="text-sm text-gray-700">
-                A confirmation email has been sent to {brand?.contact_email || 'your registered email address'}. Please check your inbox.
+                A confirmation email has been sent to{" "}
+                {brand?.contact_email || "your registered email address"}.
+                Please check your inbox.
               </p>
             </div>
-            <Button onClick={() => setSubmitted(false)}>Submit Another Request</Button>
+            <Button onClick={() => setSubmitted(false)}>
+              Submit Another Request
+            </Button>
           </div>
         )}
 

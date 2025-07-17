@@ -39,8 +39,6 @@ export default function Dashboard() {
     {
       title: "Total Products Listed",
       value: brandWithMetrics?.metrics?.total_products?.toString() || "0",
-      change:
-        brandWithMetrics?.metrics?.total_products > 0 ? "+12%" : undefined,
       icon: FileText,
       color: "primary" as const,
     },

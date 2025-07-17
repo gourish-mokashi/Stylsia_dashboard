@@ -515,14 +515,6 @@ export default function Profile() {
               that highlights what makes your brand unique and appealing to
               customers.
             </p>
-            <p>
-              • <strong>Accurate contact info:</strong> Ensure your contact
-              information is current so customers can reach you easily.
-            </p>
-            <p>
-              • <strong>Professional website:</strong> Link to your official
-              website to drive traffic and build credibility.
-            </p>
           </div>
         </div>
       </div>
