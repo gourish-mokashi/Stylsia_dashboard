@@ -163,7 +163,6 @@ const HomePage: React.FC = () => {
                 <li><a href="#" className="hover:text-white transition duration-300">Women</a></li>
                 <li><a href="#" className="hover:text-white transition duration-300">Men</a></li>
                 <li><a href="#" className="hover:text-white transition duration-300">Kids</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Sale</a></li>
               </ul>
             </div>
             <div>
