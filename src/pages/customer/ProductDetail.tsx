@@ -101,7 +101,7 @@ const ProductDetail: React.FC = () => {
           </div>
           
           {/* Action Buttons */}
-          <div className="border-t pt-6 space-y-3">
+          <div className="border-t pt-6">
             <button 
               className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
                 product.stock > 0 
@@ -111,9 +111,6 @@ const ProductDetail: React.FC = () => {
               disabled={product.stock === 0}
             >
               {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
-            </button>
-            <button className="w-full py-3 px-6 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-              Add to Wishlist
             </button>
           </div>
         </div>

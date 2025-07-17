@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Heart } from "lucide-react";
 import { 
   getOptimizedImageUrl, 
   generateSrcSet, 
   getImageSizes, 
   shouldLazyLoad,
-  getFetchPriority
+  getFetchPriority 
 } from '../../lib/imageOptimization';
 import { 
   getOptimalObjectFit,
@@ -210,17 +209,6 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
             ))}
           </div>
         )}
-        
-        {/* Heart Button (Wishlist) */}
-        <button 
-          className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-sm hover:shadow-md transition-shadow duration-200"
-          onClick={(e) => {
-            e.stopPropagation();
-            // Add wishlist functionality here
-          }}
-        >
-          <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors duration-200" />
-        </button>
         
         {/* Discount Badge */}
         {originalPrice && originalPrice > price && (

@@ -59,29 +59,32 @@ export class ImagePerformanceMonitor {
 
   private monitorImages() {
     // Monitor all image loads
-    const originalImage = window.Image;
     const self = this;
 
-    window.Image = function(...args) {
-      const img = new originalImage(...args);
-      const startTime = performance.now();
+    // Store the original constructor with proper typing
+    const ImageConstructor = window.Image;
+    
+    // Replace with a proxy that monitors image loads
+    (window as any).Image = class extends ImageConstructor {
+      constructor(width?: number, height?: number) {
+        super(width, height);
+        const startTime = performance.now();
 
-      img.addEventListener('load', function() {
-        const loadTime = performance.now() - startTime;
-        self.recordImageMetric({
-          url: this.src,
-          loadTime,
-          fileSize: 0, // Would need server support to get actual size
-          isLazyLoaded: this.loading === 'lazy',
-          format: self.getImageFormat(this.src),
-          dimensions: {
-            width: this.naturalWidth,
-            height: this.naturalHeight
-          }
+        this.addEventListener('load', function(this: HTMLImageElement) {
+          const loadTime = performance.now() - startTime;
+          self.recordImageMetric({
+            url: this.src,
+            loadTime,
+            fileSize: 0, // Would need server support to get actual size
+            isLazyLoaded: this.loading === 'lazy',
+            format: self.getImageFormat(this.src),
+            dimensions: {
+              width: this.naturalWidth,
+              height: this.naturalHeight
+            }
+          });
         });
-      });
-
-      return img;
+      }
     };
   }
 

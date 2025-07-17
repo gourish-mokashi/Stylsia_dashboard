@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   MousePointer,
   TrendingUp,
@@ -45,14 +45,14 @@ export default function Dashboard() {
     {
       title: "Clicks (last 7 days)",
       value: analytics?.overview?.total_clicks?.toString() || "0",
-      change: analytics?.overview?.total_clicks > 0 ? "+8%" : undefined,
+      change: (analytics?.overview?.total_clicks || 0) > 0 ? "+8%" : undefined,
       icon: MousePointer,
       color: "green" as const,
     },
     {
       title: "Views (last 7 days)",
       value: analytics?.overview?.total_views?.toString() || "0",
-      change: analytics?.overview?.total_views > 0 ? "+15%" : undefined,
+      change: (analytics?.overview?.total_views || 0) > 0 ? "+15%" : undefined,
       icon: TrendingUp,
       color: "blue" as const,
     },

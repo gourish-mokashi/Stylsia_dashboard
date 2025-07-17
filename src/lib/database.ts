@@ -8,13 +8,13 @@
 import { supabase } from './supabase';
 import type {
   DatabaseBrand,
-  DatabaseProduct,
-  DatabaseProductAttribute,
-  DatabaseProductImage,
-  DatabaseProductSize,
-  DatabaseProductView,
-  DatabaseProductMetricsDaily,
-  DatabaseBrandMetricsDaily,
+  // DatabaseProduct,
+  // DatabaseProductAttribute,
+  // DatabaseProductImage,
+  // DatabaseProductSize,
+  // DatabaseProductView,
+  // DatabaseProductMetricsDaily,
+  // DatabaseBrandMetricsDaily,
   DatabaseSupportRequest,
   ProductWithDetails,
   BrandWithMetrics,
@@ -278,7 +278,7 @@ export class ProductRepository {
         .order('created_at', { ascending: false })
         .range(offset, offset + limit - 1);
 
-      const { data, error, count } = await query;
+      const { data, error } = await query;
 
       if (error) handleDatabaseError(error);
 
@@ -440,7 +440,7 @@ export class ProductRepository {
       
       query = query.range(offset, offset + limit - 1);
 
-      const { data, error, count } = await query;
+      const { data, error } = await query;
       if (error) handleDatabaseError(error);
 
       // Get total count for pagination

@@ -73,7 +73,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
             </div>
             
             {/* Action Buttons */}
-            <div className="space-y-2 pt-4">
+            <div className="pt-4">
               <button 
                 className={`w-full py-2 px-4 rounded font-medium text-sm transition-colors ${
                   product.stock > 0 
@@ -83,9 +83,6 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                 disabled={product.stock === 0}
               >
                 {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
-              </button>
-              <button className="w-full py-2 px-4 border border-gray-300 rounded font-medium text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                Add to Wishlist
               </button>
             </div>
           </div>
