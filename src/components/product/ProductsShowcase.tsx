@@ -291,14 +291,6 @@ const ProductsShowcase: React.FC = () => {
         )}
       </header>
 
-      {/* Promo Banner */}
-      {(searchTerm || categoryTerm) && (
-        <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-center py-3">
-          <p className="text-sm font-medium">UPTO 300 OFF</p>
-          <p className="text-xs">STYLSIA300</p>
-        </div>
-      )}
-
       {/* Sort & Filter Bar */}
       <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
         <div className="flex items-center justify-center h-12">

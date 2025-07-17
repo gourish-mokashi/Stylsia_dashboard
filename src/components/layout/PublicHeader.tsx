@@ -50,7 +50,7 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({
       <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Left: Back Button OR (Hamburger + Logo (Mobile) / Logo + Nav (Desktop)) */}
+            {/* Left: Back Button OR (Hamburger + Logo (Mobile) / Logo (Desktop)) */}
             <div className="flex items-center space-x-4">
               {showBackButton ? (
                 // Back Button Layout
@@ -74,7 +74,7 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({
                   </button>
                 </>
               ) : (
-                // Normal Layout (Hamburger + Logo + Nav)
+                // Normal Layout (Hamburger + Logo)
                 <>
                   {/* Hamburger - Mobile Only */}
                   <button
@@ -93,26 +93,28 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({
                       className="h-10 w-10 rounded-full object-cover"
                     />
                   </button>
-
-                  {/* Desktop Navigation - Hidden on Mobile */}
-                  <nav className="hidden lg:flex items-center space-x-8 ml-12">
-                    {menuItems.slice(0, 3).map((item) => (
-                      <button
-                        key={item.category}
-                        onClick={() => navigateToCategory(item.category)}
-                        className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
-                      >
-                        {item.label}
-                      </button>
-                    ))}
-                  </nav>
                 </>
               )}
             </div>
 
-            {/* Center: Search Bar */}
+            {/* Center: Desktop Navigation - Between Logo and Search */}
+            {!showBackButton && (
+              <nav className="hidden lg:flex items-center space-x-8">
+                {menuItems.slice(0, 3).map((item) => (
+                  <button
+                    key={item.category}
+                    onClick={() => navigateToCategory(item.category)}
+                    className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+            )}
+
+            {/* Right: Search Bar */}
             {showSearchBar && (
-              <div className="flex-1 max-w-xl mx-8">
+              <div className="flex-1 max-w-xl ml-8">
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -128,8 +130,8 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({
               </div>
             )}
 
-            {/* Right: Empty div to maintain layout balance */}
-            <div className="w-10"></div>
+            {/* Right: Empty div to maintain layout balance when no search bar */}
+            {!showSearchBar && <div className="w-10"></div>}
           </div>
         </div>
       </header>
