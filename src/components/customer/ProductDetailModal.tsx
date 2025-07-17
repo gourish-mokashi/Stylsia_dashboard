@@ -1,10 +1,12 @@
 import React from "react";
 import { Modal } from "../ui/Modal";
+import { ProductImageGallery } from "../product/ProductImageGallery";
 
 interface Product {
   id: string;
   name: string;
   image: string;
+  images?: Array<{ image_url: string; is_main?: boolean }>;
   price: number;
   brand: string;
   description: string;
@@ -23,24 +25,70 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="p-6">
+      <div className="p-6 max-w-4xl mx-auto">
         <button
-          className="absolute top-2 right-2 text-gray-400 hover:text-black"
+          className="absolute top-2 right-2 text-gray-400 hover:text-black z-10"
           onClick={onClose}
           aria-label="Close"
         >
           ×
         </button>
-        <img src={product.image} alt={product.name} className="w-full h-48 object-cover rounded" />
-        <h2 className="mt-4 font-bold text-lg">{product.name}</h2>
-        <div className="text-primary font-bold text-xl mt-2">₹{product.price}</div>
-        <div className="text-xs text-gray-500 mb-2">{product.brand}</div>
-        <div className="text-sm mt-2">{product.description}</div>
-        <div className="text-xs text-gray-600 mt-2">{product.specifications}</div>
-        <div className="mt-2">
-          <span className={product.stock ? "text-green-600" : "text-red-600"}>
-            {product.stock ? "In Stock" : "Out of Stock"}
-          </span>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Enhanced Image Gallery */}
+          <div>
+            <ProductImageGallery
+              images={product.images || [{ image_url: product.image, is_main: true }]}
+              productName={product.name}
+              productBrand={product.brand}
+              className="w-full"
+            />
+          </div>
+          
+          {/* Product Details */}
+          <div className="space-y-4">
+            <div>
+              <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">{product.brand}</div>
+              <h2 className="font-bold text-xl mb-2">{product.name}</h2>
+              <div className="text-primary-600 font-bold text-2xl mb-3">₹{product.price.toLocaleString()}</div>
+              <div className="text-sm font-medium mb-4">
+                {product.stock > 0 ? (
+                  <span className="text-green-600 bg-green-100 px-2 py-1 rounded-full text-xs">In Stock</span>
+                ) : (
+                  <span className="text-red-500 bg-red-100 px-2 py-1 rounded-full text-xs">Out of Stock</span>
+                )}
+              </div>
+            </div>
+            
+            <div className="text-sm leading-relaxed text-gray-700">
+              <h3 className="font-semibold mb-2">Description</h3>
+              <p>{product.description}</p>
+            </div>
+            
+            <div className="border-t pt-4">
+              <h3 className="font-semibold mb-2">Specifications</h3>
+              <div className="bg-gray-50 rounded p-3">
+                <p className="text-xs text-gray-600 whitespace-pre-wrap">{product.specifications}</p>
+              </div>
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="space-y-2 pt-4">
+              <button 
+                className={`w-full py-2 px-4 rounded font-medium text-sm transition-colors ${
+                  product.stock > 0 
+                    ? 'bg-primary-600 hover:bg-primary-700 text-white' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+                disabled={product.stock === 0}
+              >
+                {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+              </button>
+              <button className="w-full py-2 px-4 border border-gray-300 rounded font-medium text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                Add to Wishlist
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </Modal>
