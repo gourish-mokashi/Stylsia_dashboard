@@ -126,11 +126,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSignOut = () => {
-    setShowSessionWarning(false);
-    signOut();
-  };
-
   const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -369,17 +364,9 @@ export default function AdminDashboard() {
               {recentActivity && recentActivity.length > 0 ? (
                 <div className="space-y-4">
                   {recentActivity.slice(0, 5).map(
-                    (
-                      activity: {
-                        action: string;
-                        table_name: string;
-                        created_at: string;
-                        details?: any;
-                      },
-                      index: number
-                    ) => (
+                    (activity, index) => (
                       <div
-                        key={index}
+                        key={activity.id}
                         className="flex items-center space-x-4 p-4 border border-slate-100 rounded-lg hover:bg-slate-50 transition-colors duration-200"
                         style={{ animationDelay: `${index * 0.1}s` }}
                       >
@@ -390,10 +377,10 @@ export default function AdminDashboard() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-slate-900">
-                            {activity.action} on {activity.table_name}
+                            {activity.message}
                           </p>
                           <p className="text-sm text-slate-500">
-                            {formatTimeAgo(activity.created_at)}
+                            {formatTimeAgo(activity.timestamp)}
                           </p>
                         </div>
                       </div>
@@ -450,7 +437,6 @@ export default function AdminDashboard() {
         isOpen={showSessionWarning}
         onClose={() => setShowSessionWarning(false)}
         onExtend={handleExtendSession}
-        onSignOut={handleSignOut}
         timeLeft={sessionTimeLeft}
       />
     </div>
