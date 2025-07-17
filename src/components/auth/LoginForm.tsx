@@ -33,7 +33,7 @@ export default function LoginForm() {
           <div className="text-center mb-6 sm:mb-8">
             <div className="mx-auto mb-4 flex justify-center">
               <img 
-                src="/img/stylsiaLOGO-04.png" 
+                src="/img/logo.png" 
                 alt="Stylsia" 
                 className="h-12 w-auto"
               />

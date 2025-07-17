@@ -210,7 +210,7 @@ export default function Documentation() {
           <div className="flex items-center justify-between py-4 sm:py-0 sm:h-16">
             <div className="flex items-center space-x-4">
               <img
-                src="/img/stylsiaLOGO-05.png"
+                src="/img/logo.png"
                 alt="Stylsia"
                 className="h-8 w-auto cursor-pointer"
                 onClick={() => navigate("/")}

@@ -84,7 +84,7 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
       <div className="hidden lg:block p-6 border-b border-slate-200">
         <div className="flex items-center space-x-3">
           <img 
-            src="/img/stylsiaLOGO-04.png" 
+            src="/img/logo.png" 
             alt="Admin Portal" 
             className="h-8 w-auto"
           />

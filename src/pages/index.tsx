@@ -147,7 +147,7 @@ const HomePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
               <img 
-                src="/img/stylsiaLOGO-05.png" 
+                src="/img/logo.png" 
                 alt="Stylsia" 
                 className="h-10 w-10 rounded-full object-cover mb-4"
               />

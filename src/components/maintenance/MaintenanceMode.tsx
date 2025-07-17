@@ -51,7 +51,7 @@ export default function MaintenanceMode({
         <div className="border-t border-gray-200 pt-6">
           <div className="flex items-center justify-center space-x-2 text-gray-500">
             <img 
-              src="/img/stylsiaLOGO-04.png" 
+              src="/img/logo.png" 
               alt="Brand Logo" 
               className="h-8 w-auto"
             />

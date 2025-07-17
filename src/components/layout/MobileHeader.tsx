@@ -21,7 +21,7 @@ export default function MobileHeader({ sidebarOpen, setSidebarOpen }: MobileHead
           
           <div className="flex items-center space-x-2">
             <img 
-              src="/img/stylsiaLOGO-05.png" 
+              src="/img/logo.png" 
               alt="Stylsia" 
               className="h-8 w-auto"
             />

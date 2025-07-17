@@ -52,10 +52,10 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
 
               {/* Logo - Clickable to go home */}
               <button onClick={() => navigate('/')} className="focus:outline-none">
-                <img 
-                  src="/img/stylsiaLOGO-05.png" 
-                  alt="Stylsia" 
-                  className="h-10 w-10 rounded-full object-cover hover:opacity-80 transition-opacity"
+                <img
+                  src="/img/logo.png"
+                  alt="Stylsia"
+                  className="h-10 w-10 rounded-full object-cover"
                 />
               </button>
 
@@ -114,9 +114,9 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <div className="flex items-center space-x-3">
                 <img 
-                  src="/img/stylsiaLOGO-05.png" 
+                  src="/img/logo.png" 
                   alt="Stylsia" 
-                  className="h-8 w-auto"
+                  className="h-8 w-8 rounded-full object-cover"
                 />
               </div>
               <button
@@ -176,9 +176,9 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
                 <div className="flex items-center space-x-3">
                   <div className="bg-primary-500 p-2 rounded-lg">
                     <img 
-                      src="/img/stylsiaLOGO-05.png" 
+                      src="/img/logo.png" 
                       alt="App" 
-                      className="h-6 w-6"
+                      className="h-6 w-6 rounded-full object-cover"
                     />
                   </div>
                   <div>
