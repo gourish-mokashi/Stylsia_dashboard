@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
 import PublicHeader from '../components/layout/PublicHeader';
 import { usePublicProducts } from '../hooks/usePublicProducts';
-import { RefreshCw } from 'lucide-react';
 
 const HomePage: React.FC = () => {
-  const [refreshing, setRefreshing] = useState(false);
   const navigate = useNavigate();
   
   const {
     products,
     loading,
-    setFilters,
-    refreshData,
   } = usePublicProducts({ 
     is_featured: true,
     limit: 20,
@@ -28,112 +24,22 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const handleRefreshFeatured = async () => {
-    setRefreshing(true);
-    try {
-      // Apply random sorting to randomize featured products
-      setFilters({
-        is_featured: true,
-        limit: 20,
-        sort_by: 'random',
-        offset: 0,
-      });
-      await refreshData();
-    } finally {
-      setRefreshing(false);
-    }
-  };
-
   return (
 
     <main className="min-h-screen bg-gray-50">
       {/* New Myntra-style Header */}
       <PublicHeader onSearch={handleSearch} showSearchBar={true} />
 
-      {/* Hero Banner Section */}
-      <section className="relative bg-white overflow-hidden border-b border-gray-100 xl:py-20 py-12">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
-          <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:w-1/2 lg:pb-28 xl:pb-32 flex flex-col justify-center">
-            <div className="px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 lg:pt-16">
-              <div className="sm:text-center lg:text-left animate-fade-in-up">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block">New Season</span>
-                  <span className="block text-primary-600">Essentials</span>
-                </h1>
-                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Discover the latest trends in fashion. From everyday basics to statement pieces.
-                </p>
-                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <button
-                    onClick={() => navigate('/products')}
-                    className="flex items-center justify-center px-8 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-primary-600 hover:bg-primary-700 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10 shadow-lg"
-                    style={{ minWidth: '10rem', maxWidth: '100%' }}
-                  >
-                    Shop Now
-                  </button>
-                  <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <button
-                      onClick={() => navigate('/products?category=Sale')}
-                      className="w-full flex items-center justify-center px-8 py-3 border border-primary-600 text-base font-semibold rounded-full text-primary-700 bg-primary-100 hover:bg-primary-200 focus-visible:ring-2 focus-visible:ring-primary-500 transition-all duration-200 md:py-4 md:text-lg md:px-10"
-                    >
-                      View Sale
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="lg:w-1/2 w-full relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-primary-600/30 to-transparent z-10 rounded-2xl pointer-events-none" />
-            <img
-              className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full rounded-2xl transition-transform duration-500 hover:scale-105"
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-              alt="Fashion collection"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-
-      {/* Featured Advertisement Section */}
-      {/* Inspired by H&M's promotional banners with strong CTAs */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-700 py-8 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
-              <span className="block">Summer Sale</span>
-              <span className="block text-primary-100">Up to 70% Off</span>
-            </h2>
-            <p className="mt-4 text-lg leading-6 text-primary-100">
-              Limited time offer on selected styles. Shop now and save big!
-            </p>
-            <div className="mt-8">
-              <a
-                href="#sale"
-                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-gray-50 transition duration-300"
-              >
-                Shop Sale Items
-                <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Category Navigation Section */}
       {/* Mobile-first grid layout inspired by ASOS category sections */}
       <section className="bg-white py-12 xl:py-20 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center sm:text-3xl">Shop by Category</h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {[
               { name: 'Tops', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Tops' },
               { name: 'Dresses', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Dresses' },
               { name: 'Bottoms', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Bottoms' },
-              { name: 'Accessories', image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80', category: 'Accessories' },
             ].map((category) => (
               <div
                 key={category.name}
@@ -166,20 +72,9 @@ const HomePage: React.FC = () => {
       <section id="featured" className="bg-gray-50 py-12 xl:py-20 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-4 mb-3">
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                Featured Products
-              </h2>
-              <button
-                onClick={handleRefreshFeatured}
-                disabled={refreshing}
-                className="flex items-center px-3 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                title="Refresh featured products"
-              >
-                <RefreshCw className={`h-4 w-4 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
-                Refresh
-              </button>
-            </div>
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-3">
+              Featured Products
+            </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Discover our hand-picked selection of trending styles from top brands
             </p>
@@ -254,7 +149,7 @@ const HomePage: React.FC = () => {
               <img 
                 src="/img/stylsiaLOGO-05.png" 
                 alt="Stylsia" 
-                className="h-8 w-auto mb-4"
+                className="h-10 w-10 rounded-full object-cover mb-4"
               />
               <p className="text-gray-400 text-sm">
                 Your destination for the latest fashion trends and timeless classics.
@@ -273,9 +168,8 @@ const HomePage: React.FC = () => {
               <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li><a href="#" className="hover:text-white transition duration-300">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Size Guide</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Returns</a></li>
                 <li><a href="#" className="hover:text-white transition duration-300">FAQ</a></li>
+                <li><button onClick={() => navigate('/documentation')} className="hover:text-white transition duration-300 text-left">Become a Partner</button></li>
               </ul>
             </div>
             <div>

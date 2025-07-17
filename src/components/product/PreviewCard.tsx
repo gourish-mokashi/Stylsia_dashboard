@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 
 interface PreviewCardProps {
   id: string;
@@ -107,12 +107,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({ name, image, price, or
         </div>
         
         {/* Rating and Additional Info */}
-        <div className="flex items-center justify-between pt-1">
-          <div className="flex items-center space-x-1">
-            <Star className="h-4 w-4 text-yellow-400 fill-current" />
-            <span className="text-sm text-gray-600">4.2</span>
-            <span className="text-xs text-gray-400">(127)</span>
-          </div>
+        <div className="flex items-center justify-end pt-1">
           <button 
             className="text-primary-600 hover:text-primary-700 text-xs font-medium transition-colors duration-200 px-2 py-1 rounded hover:bg-primary-50"
             onClick={(e) => {

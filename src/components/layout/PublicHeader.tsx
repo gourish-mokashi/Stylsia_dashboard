@@ -55,13 +55,13 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
                 <img 
                   src="/img/stylsiaLOGO-05.png" 
                   alt="Stylsia" 
-                  className="h-8 w-auto hover:opacity-80 transition-opacity"
+                  className="h-10 w-10 rounded-full object-cover hover:opacity-80 transition-opacity"
                 />
               </button>
 
               {/* Desktop Navigation - Hidden on Mobile */}
-              <nav className="hidden lg:flex items-center space-x-8 ml-8">
-                {menuItems.slice(0, 4).map((item) => (
+              <nav className="hidden lg:flex items-center space-x-8 ml-12">
+                {menuItems.slice(0, 3).map((item) => (
                   <button
                     key={item.category}
                     onClick={() => navigateToCategory(item.category)}
@@ -75,7 +75,7 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({ onSearch, showSearchBar = t
 
             {/* Center: Search Bar */}
             {showSearchBar && (
-              <div className="flex-1 max-w-2xl mx-4 md:mx-8">
+              <div className="flex-1 max-w-xl mx-8">
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />

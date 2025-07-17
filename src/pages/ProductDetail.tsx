@@ -4,13 +4,6 @@ import {
   ArrowLeft, 
   Heart, 
   Share2, 
-  Star, 
-  ShoppingCart, 
-  Plus, 
-  Minus, 
-  Truck,
-  Shield,
-  RotateCcw,
   ChevronLeft,
   ChevronRight,
   Zap
@@ -27,9 +20,7 @@ const ProductDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [quantity, setQuantity] = useState(1);
-  const [isWishlisted, setIsWishlisted] = useState(false);
-  const [activeTab, setActiveTab] = useState<'description' | 'specifications' | 'reviews'>('description');
+  const [activeTab, setActiveTab] = useState<'description' | 'specifications'>('description');
 
   useEffect(() => {
     if (id) {
@@ -80,35 +71,13 @@ const ProductDetail: React.FC = () => {
     }
   };
 
-  const handleQuantityChange = (change: number) => {
-    setQuantity(prev => Math.max(1, prev + change));
-  };
-
-  const handleAddToCart = () => {
-    // Implement add to cart logic
-    console.log('Adding to cart:', {
-      productId: id,
-      size: selectedSize,
-      color: product?.attributes?.color,
-      quantity
-    });
-    // Show success message or redirect to cart
-  };
-
   const handleBuyNow = () => {
-    // Implement buy now logic
-    console.log('Buy now:', {
-      productId: id,
-      size: selectedSize,
-      color: product?.attributes?.color,
-      quantity
-    });
-    // Redirect to checkout
-  };
-
-  const toggleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-    // Implement wishlist logic
+    // Implement buy now logic - could redirect to checkout or external store
+    console.log('Buy now clicked for:', product?.name);
+    // For now, open the source URL if available
+    if (product?.source_url) {
+      window.open(product.source_url, '_blank');
+    }
   };
 
   const handleShare = () => {
@@ -249,22 +218,6 @@ const ProductDetail: React.FC = () => {
             <div>
               <p className="text-lg text-primary-600 font-medium">{product.brand?.name}</p>
               <h1 className="text-3xl font-bold text-gray-900 mt-1">{product.name}</h1>
-              
-              {/* Rating */}
-              <div className="flex items-center space-x-2 mt-3">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${
-                        i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-sm text-gray-600">(4.2)</span>
-                <span className="text-sm text-gray-500">234 reviews</span>
-              </div>
             </div>
 
             {/* Price */}
@@ -305,41 +258,6 @@ const ProductDetail: React.FC = () => {
               </div>
             )}
 
-            {/* Colors */}
-            {product.attributes?.color && (
-              <div>
-                <h3 className="text-lg font-medium text-gray-900 mb-3">Color</h3>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    className="px-4 py-2 border border-primary-500 bg-primary-50 text-primary-700 rounded-md text-sm font-medium"
-                  >
-                    {product.attributes.color}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Quantity */}
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-3">Quantity</h3>
-              <div className="flex items-center space-x-3">
-                <button
-                  onClick={() => handleQuantityChange(-1)}
-                  className="p-2 border border-gray-300 rounded-md hover:bg-gray-50"
-                  disabled={quantity <= 1}
-                >
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="text-lg font-medium min-w-[3rem] text-center">{quantity}</span>
-                <button
-                  onClick={() => handleQuantityChange(1)}
-                  className="p-2 border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
             {/* Action Buttons */}
             <div className="space-y-3 pt-6">
               <button
@@ -350,39 +268,12 @@ const ProductDetail: React.FC = () => {
                 <span>Buy Now</span>
               </button>
               <button
-                onClick={handleAddToCart}
+                onClick={handleShare}
                 className="w-full bg-white text-primary-600 border border-primary-600 py-3 px-6 rounded-md font-medium hover:bg-primary-50 transition-colors flex items-center justify-center space-x-2"
               >
-                <ShoppingCart className="h-5 w-5" />
-                <span>Add to Cart</span>
+                <Share2 className="h-5 w-5" />
+                <span>Share Product</span>
               </button>
-            </div>
-
-            {/* Features */}
-            <div className="border-t border-gray-200 pt-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Truck className="h-5 w-5 text-green-600" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Free Delivery</p>
-                    <p className="text-xs text-gray-500">On orders above ₹499</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <RotateCcw className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Easy Returns</p>
-                    <p className="text-xs text-gray-500">30-day return policy</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Shield className="h-5 w-5 text-purple-600" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">Secure Payment</p>
-                    <p className="text-xs text-gray-500">100% secure transactions</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -394,7 +285,6 @@ const ProductDetail: React.FC = () => {
               {[
                 { id: 'description', label: 'Description' },
                 { id: 'specifications', label: 'Specifications' },
-                { id: 'reviews', label: 'Reviews' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -414,9 +304,9 @@ const ProductDetail: React.FC = () => {
           <div className="py-8">
             {activeTab === 'description' && (
               <div className="prose max-w-none">
-                <p className="text-gray-700 leading-relaxed">
+                <div className="text-gray-700 leading-relaxed whitespace-pre-line">
                   {product.description || 'No description available for this product.'}
-                </p>
+                </div>
               </div>
             )}
 
@@ -475,13 +365,6 @@ const ProductDetail: React.FC = () => {
                     <p className="text-gray-600">No specifications available for this product.</p>
                   )}
                 </div>
-              </div>
-            )}
-
-            {activeTab === 'reviews' && (
-              <div>
-                <p className="text-gray-600">Customer reviews will be displayed here.</p>
-                {/* Add reviews component here */}
               </div>
             )}
           </div>
