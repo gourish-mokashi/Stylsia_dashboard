@@ -17,7 +17,7 @@ export interface DatabaseBrand {
   business_address?: string;
   business_type?: string;
   founded_year?: number;
-  status: 'active' | 'inactive' | 'pending' | 'suspended';
+  status: "active" | "inactive" | "pending" | "suspended";
   created_at: string;
   updated_at: string;
 }
@@ -35,7 +35,7 @@ export interface DatabaseProduct {
   main_image_url?: string;
   description?: string;
   sku?: string;
-  status: 'active' | 'inactive' | 'pending' | 'out_of_stock';
+  status: "active" | "inactive" | "pending" | "out_of_stock";
   is_featured: boolean;
   created_at: string;
   updated_at: string;
@@ -71,7 +71,7 @@ export interface DatabaseProductImage {
 export interface DatabaseProductSize {
   id: string;
   product_id: string;
-  size: 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL' | '2XL' | '3XL' | 'Free Size';
+  size: "XS" | "S" | "M" | "L" | "XL" | "XXL" | "2XL" | "3XL" | "Free Size";
   is_available: boolean;
   stock_count: number;
   created_at: string;
@@ -123,10 +123,11 @@ export interface DatabaseSupportRequest {
   brand_id: string;
   subject: string;
   description: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'new' | 'in_progress' | 'resolved' | 'closed';
+  priority: "low" | "medium" | "high";
+  status: "new" | "in_progress" | "resolved" | "closed";
   has_attachment: boolean;
   attachment_url?: string;
+  attachment_urls?: string[];
   created_at: string;
   updated_at: string;
   resolved_at?: string;
@@ -134,7 +135,7 @@ export interface DatabaseSupportRequest {
 
 // Joined/computed interfaces for complex queries
 export interface ProductWithDetails extends DatabaseProduct {
-  brand: Pick<DatabaseBrand, 'id' | 'name' | 'logo_url'>;
+  brand: Pick<DatabaseBrand, "id" | "name" | "logo_url">;
   attributes?: DatabaseProductAttribute;
   images: DatabaseProductImage[];
   sizes: DatabaseProductSize[];
@@ -156,13 +157,13 @@ export interface BrandWithMetrics extends DatabaseBrand {
 }
 
 export interface SupportRequestWithBrand extends DatabaseSupportRequest {
-  brand: Pick<DatabaseBrand, 'id' | 'name' | 'contact_email'>;
+  brand: Pick<DatabaseBrand, "id" | "name" | "contact_email">;
 }
 
 // Query filter interfaces
 export interface ProductFilters {
   brand_id?: string;
-  status?: DatabaseProduct['status'];
+  status?: DatabaseProduct["status"];
   category?: string;
   is_featured?: boolean;
   price_min?: number;
@@ -171,7 +172,15 @@ export interface ProductFilters {
   has_discount?: boolean; // New filter for discount availability
   limit?: number;
   offset?: number;
-  sort_by?: 'name_asc' | 'name_desc' | 'price_asc' | 'price_desc' | 'newest' | 'oldest' | 'random' | 'discount_desc';
+  sort_by?:
+    | "name_asc"
+    | "name_desc"
+    | "price_asc"
+    | "price_desc"
+    | "newest"
+    | "oldest"
+    | "random"
+    | "discount_desc";
 }
 
 export interface AnalyticsFilters {
@@ -179,7 +188,7 @@ export interface AnalyticsFilters {
   product_id?: string;
   date_start?: string;
   date_end?: string;
-  period?: 'day' | 'week' | 'month' | 'year';
+  period?: "day" | "week" | "month" | "year";
 }
 
 // Response interfaces

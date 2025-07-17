@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, AlertCircle, CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle } from "lucide-react";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
 import SupportInfoCard from "../components/support/SupportInfoCard";
@@ -7,6 +7,7 @@ import EmailSupportForm from "../components/support/EmailSupportForm";
 import SupportFAQ from "../components/support/SupportFAQ";
 import { useSupportRequests } from "../hooks/useSupportRequests";
 import { useBrandData } from "../hooks/useBrandData";
+import { uploadMultipleFiles, STORAGE_BUCKETS } from "../lib/storage";
 
 export default function EmailSupport() {
   const { brand } = useBrandData();
@@ -37,26 +38,36 @@ export default function EmailSupport() {
         priority: formData.priority as "low" | "medium" | "high",
         has_attachment: formData.attachments.length > 0,
         attachment_url: undefined as string | undefined,
-        attachment_urls: [] as string[],
+        attachment_urls: undefined as string[] | undefined,
       };
 
-      // If there are attachments, handle file uploads
+      // If there are attachments, upload them to Supabase Storage
       if (formData.attachments.length > 0) {
-        // In a real implementation, you would upload the files to Supabase Storage
-        // and update the support_request record with the attachment_urls
-        console.log(
-          "Would upload files:",
-          formData.attachments.map((f) => f.name)
-        );
+        try {
+          // Upload all files to the support-attachments bucket
+          const uploadResults = await uploadMultipleFiles(
+            formData.attachments,
+            STORAGE_BUCKETS.SUPPORT_ATTACHMENTS,
+            `brand_${brand.id}`
+          );
 
-        // For now, we'll just simulate the URLs
-        supportRequestData.attachment_urls = formData.attachments.map(
-          (file) => `https://storage.example.com/attachments/${file.name}`
-        );
+          // Store all uploaded file URLs in attachment_urls array
+          supportRequestData.attachment_urls = uploadResults.map((r) => r.url);
 
-        // Keep the single attachment_url for backward compatibility
-        supportRequestData.attachment_url =
-          supportRequestData.attachment_urls[0];
+          // Use the first uploaded file's URL for attachment_url (backward compatibility)
+          supportRequestData.attachment_url = uploadResults[0].url;
+
+          console.log(
+            "Files uploaded successfully:",
+            uploadResults.map((r) => r.url)
+          );
+        } catch (uploadError) {
+          console.error("File upload failed:", uploadError);
+          setSubmissionError(
+            "Failed to upload attachment files. Please try again."
+          );
+          return;
+        }
       }
 
       // Create the support request

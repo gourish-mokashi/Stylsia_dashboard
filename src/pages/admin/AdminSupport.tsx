@@ -24,6 +24,7 @@ interface SupportRequest {
   status: "new" | "in_progress" | "resolved" | "closed";
   has_attachment: boolean;
   attachment_url?: string;
+  attachment_urls?: string[];
   created_at: string;
   updated_at: string;
   resolved_at?: string;
@@ -82,6 +83,13 @@ export default function AdminSupport() {
               ...request,
               email: request.brand?.contact_email || "unknown@example.com",
               brand: request.brand?.name || "Unknown Brand",
+              attachment_urls: request.attachment_urls
+                ? Array.isArray(request.attachment_urls)
+                  ? request.attachment_urls
+                  : []
+                : request.attachment_url
+                ? [request.attachment_url]
+                : [],
             }));
 
             setSupportRequests(transformedData);
@@ -97,6 +105,13 @@ export default function AdminSupport() {
                 status: request.status,
                 has_attachment: request.has_attachment,
                 attachment_url: request.attachment_url,
+                attachment_urls: request.attachment_urls
+                  ? Array.isArray(request.attachment_urls)
+                    ? request.attachment_urls
+                    : []
+                  : request.attachment_url
+                  ? [request.attachment_url]
+                  : [],
                 created_at: request.created_at,
                 updated_at: request.created_at,
                 email: request.brand_email || "unknown@example.com",
@@ -117,6 +132,13 @@ export default function AdminSupport() {
             status: request.status,
             has_attachment: request.has_attachment,
             attachment_url: request.attachment_url,
+            attachment_urls: request.attachment_urls
+              ? Array.isArray(request.attachment_urls)
+                ? request.attachment_urls
+                : []
+              : request.attachment_url
+              ? [request.attachment_url]
+              : [],
             created_at: request.created_at,
             updated_at: request.updated_at || request.created_at,
             resolved_at: request.resolved_at,
@@ -206,6 +228,22 @@ export default function AdminSupport() {
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  const getAttachmentCount = (request: SupportRequest) => {
+    if (!request.has_attachment) return 0;
+    if (request.attachment_urls && request.attachment_urls.length > 0) {
+      return request.attachment_urls.length;
+    }
+    if (request.attachment_url) return 1;
+    return 0;
+  };
+
+  const getAttachmentText = (request: SupportRequest) => {
+    const count = getAttachmentCount(request);
+    if (count === 0) return "";
+    if (count === 1) return "Attachment";
+    return `${count} Attachments`;
   };
 
   const handleReplyToEmail = (requestId: string) => {
@@ -575,7 +613,7 @@ export default function AdminSupport() {
                           {request.has_attachment && (
                             <div className="flex items-center text-xs text-slate-500">
                               <Paperclip className="h-3 w-3 mr-1" />
-                              <span>Attachment</span>
+                              <span>{getAttachmentText(request)}</span>
                             </div>
                           )}
                         </div>
@@ -695,36 +733,75 @@ export default function AdminSupport() {
                         </div>
                       </div>
 
-                      {selectedRequest.has_attachment && (
-                        <div className="mb-4">
-                          <p className="text-sm font-medium text-slate-500">
-                            Attachment
-                          </p>
-                          <div className="mt-1">
-                            <div className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg">
-                              <Paperclip className="h-4 w-4 text-slate-400" />
-                              <span className="text-sm text-slate-900">
-                                attachment.pdf
-                              </span>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                icon={Download}
-                                className="ml-auto"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  // In a real implementation, this would download the attachment
-                                  alert(
-                                    "Download functionality would be implemented here"
+                      {selectedRequest.has_attachment &&
+                        ((selectedRequest.attachment_urls &&
+                          selectedRequest.attachment_urls.length > 0) ||
+                          selectedRequest.attachment_url) && (
+                          <div className="mb-4">
+                            <p className="text-sm font-medium text-slate-500">
+                              {getAttachmentText(selectedRequest)}
+                            </p>
+                            <div className="mt-1 space-y-2">
+                              {selectedRequest.attachment_urls?.map(
+                                (url, index) => {
+                                  const fileName =
+                                    url.split("/").pop() ||
+                                    `attachment_${index + 1}`;
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg"
+                                    >
+                                      <Paperclip className="h-4 w-4 text-slate-400" />
+                                      <span className="text-sm text-slate-900 flex-1">
+                                        {fileName}
+                                      </span>
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        icon={Download}
+                                        className="ml-auto"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          // Open the file in a new tab
+                                          window.open(url, "_blank");
+                                        }}
+                                      >
+                                        Download
+                                      </Button>
+                                    </div>
                                   );
-                                }}
-                              >
-                                Download
-                              </Button>
+                                }
+                              ) ||
+                                // Fallback for single attachment_url
+                                (selectedRequest.attachment_url && (
+                                  <div className="flex items-center space-x-2 p-2 border border-slate-200 rounded-lg">
+                                    <Paperclip className="h-4 w-4 text-slate-400" />
+                                    <span className="text-sm text-slate-900">
+                                      {selectedRequest.attachment_url
+                                        .split("/")
+                                        .pop() || "attachment"}
+                                    </span>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      icon={Download}
+                                      className="ml-auto"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        window.open(
+                                          selectedRequest.attachment_url,
+                                          "_blank"
+                                        );
+                                      }}
+                                    >
+                                      Download
+                                    </Button>
+                                  </div>
+                                ))}
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
 
                       <div className="mb-4">
                         <p className="text-sm font-medium text-slate-500">
