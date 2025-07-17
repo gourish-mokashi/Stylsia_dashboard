@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Heart } from "lucide-react";
+import { 
+  getOptimizedImageUrl, 
+  generateSrcSet, 
+  getImageSizes, 
+  shouldLazyLoad,
+  getFetchPriority
+} from '../../lib/imageOptimization';
+import { 
+  getOptimalObjectFit,
+  getProductFocalPoint
+} from "../../lib/intelligentImageFitting";
 
 interface PreviewCardProps {
   id: string;
@@ -10,6 +21,8 @@ interface PreviewCardProps {
   originalPrice?: number;
   brand: string;
   onClick: () => void;
+  priority?: boolean; // For above-the-fold images
+  index?: number; // Card position for lazy loading decision
 }
 
 export const PreviewCard: React.FC<PreviewCardProps> = ({ 
@@ -19,7 +32,9 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   price, 
   originalPrice, 
   brand, 
-  onClick 
+  onClick,
+  priority = false,
+  index = 0
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -37,6 +52,18 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
   
   // Create extended array for infinite scroll (add first image at the end)
   const extendedImageArray = hasMultipleImages ? [...imageArray, imageArray[0]] : imageArray;
+
+  // Determine if this image should be lazy loaded
+  // Don't lazy load first 6-8 images (above the fold on most devices)
+  const shouldLazyLoadImage = shouldLazyLoad(index, priority);
+
+  // Get intelligent image fitting strategy
+  const focalPoint = getProductFocalPoint(name, brand);
+  const imageFitting = getOptimalObjectFit(imageArray[0] || image, {
+    imageType: 'product', // Default to product for e-commerce
+    focalPoint: focalPoint,
+    allowCropping: false // Prefer showing full product
+  });
 
   // Auto-scroll carousel on hover with infinite scroll
   useEffect(() => {
@@ -111,7 +138,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
       onKeyDown={e => { if (e.key === 'Enter') onClick(); }}
     >
       {/* Image Container with proper aspect ratio */}
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden bg-gray-50">
         {!imageLoaded && !imageError && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
             <div className="w-6 h-6 border-2 border-gray-300 border-t-primary-500 rounded-full animate-spin"></div>
@@ -130,19 +157,32 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
               className={`flex h-full ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
               style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
             >
-              {extendedImageArray.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`${name} - ${index < imageArray.length ? index + 1 : 1}`}
-                  loading="lazy"
-                  decoding="async"
-                  onLoad={index === 0 ? handleImageLoad : undefined}
-                  onError={index === 0 ? handleImageError : undefined}
-                  className={`w-full h-full object-cover flex-shrink-0 transition-opacity duration-300 ${
-                    imageLoaded ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
+              {extendedImageArray.map((imageUrl, imgIndex) => (
+                <div
+                  key={imgIndex}
+                  className={`w-full h-full flex-shrink-0 relative ${imageFitting.containerClass}`}
+                >
+                  <img
+                    src={getOptimizedImageUrl(imageUrl, { width: 400, quality: 80 })}
+                    srcSet={generateSrcSet(imageUrl, { quality: 80 })}
+                    sizes={getImageSizes('product-grid')}
+                    alt={`${name} - ${imgIndex < imageArray.length ? imgIndex + 1 : 1}`}
+                    loading={shouldLazyLoadImage ? "lazy" : "eager"}
+                    decoding="async"
+                    fetchPriority={getFetchPriority(imgIndex, priority)}
+                    onLoad={imgIndex === 0 ? handleImageLoad : undefined}
+                    onError={imgIndex === 0 ? handleImageError : undefined}
+                    className={`w-full h-full ${imageFitting.imageClass} transition-opacity duration-300 ${
+                      imageLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                      objectPosition: imageFitting.objectPosition || 'center center',
+                      ...imageFitting.style
+                    }}
+                    width="400"
+                    height="533"
+                  />
+                </div>
               ))}
             </div>
           </div>
