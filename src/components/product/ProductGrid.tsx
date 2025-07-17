@@ -45,7 +45,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
   return (
     <div className={className}>
-      {products.map(product => {
+      {products.map((product, index) => {
         const mainImage = product.images?.find(img => img.is_main) || product.images?.[0];
         return (
           <PreviewCard
@@ -58,6 +58,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             originalPrice={product.original_price}
             brand={product.brand?.name || ''}
             onClick={() => onProductClick(product.id)}
+            priority={index < 4} // First 4 products get high priority
+            index={index}
           />
         );
       })}

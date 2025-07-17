@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchProductById } from '../../lib/fetchCustomerProducts';
+import { ProductImageGallery } from '../../components/product/ProductImageGallery';
 
 // Define a type for the product to ensure type safety
 interface Product {
   id: string;
   name: string;
   image: string;
+  images?: Array<{ image_url: string; is_main?: boolean }>;
   price: number;
   brand: string;
   description: string;
@@ -58,27 +60,61 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <Link to="/" className="text-blue-600 hover:underline mb-4 inline-block">{'< Back to all products'}</Link>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <img src={product.image} alt={product.name} className="w-full h-auto object-cover rounded-lg shadow-md bg-gray-100" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Enhanced Image Gallery */}
+        <div className="lg:sticky lg:top-4">
+          <ProductImageGallery
+            images={product.images || [{ image_url: product.image, is_main: true }]}
+            productName={product.name}
+            productBrand={product.brand}
+            className="w-full"
+          />
         </div>
-        <div>
-          <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-1">{product.brand}</h2>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{product.name}</h1>
-          <p className="text-3xl font-light text-primary-600 mb-4">₹{product.price.toLocaleString()}</p>
-          <div className="text-sm font-medium mb-4">
-            {product.stock > 0 ? (
-              <span className="text-green-600 bg-green-100 px-3 py-1 rounded-full">In Stock</span>
-            ) : (
-              <span className="text-red-500 bg-red-100 px-3 py-1 rounded-full">Out of Stock</span>
-            )}
+        
+        {/* Product Details */}
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-sm text-gray-500 uppercase tracking-wider mb-1">{product.brand}</h2>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{product.name}</h1>
+            <p className="text-3xl font-light text-primary-600 mb-4">₹{product.price.toLocaleString()}</p>
+            <div className="text-sm font-medium mb-4">
+              {product.stock > 0 ? (
+                <span className="text-green-600 bg-green-100 px-3 py-1 rounded-full">In Stock</span>
+              ) : (
+                <span className="text-red-500 bg-red-100 px-3 py-1 rounded-full">Out of Stock</span>
+              )}
+            </div>
           </div>
-          <div className="prose max-w-none text-gray-700 mb-6">
-            <p>{product.description}</p>
+          
+          {/* Description */}
+          <div className="prose max-w-none text-gray-700">
+            <h3 className="text-lg font-semibold mb-2">Description</h3>
+            <p className="leading-relaxed">{product.description}</p>
           </div>
-          <div className="border-t pt-4">
-            <h3 className="font-semibold text-lg mb-2">Specifications</h3>
-            <p className="text-sm text-gray-600 whitespace-pre-wrap">{product.specifications}</p>
+          
+          {/* Specifications */}
+          <div className="border-t pt-6">
+            <h3 className="font-semibold text-lg mb-3">Specifications</h3>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <p className="text-sm text-gray-600 whitespace-pre-wrap leading-relaxed">{product.specifications}</p>
+            </div>
+          </div>
+          
+          {/* Action Buttons */}
+          <div className="border-t pt-6 space-y-3">
+            <button 
+              className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
+                product.stock > 0 
+                  ? 'bg-primary-600 hover:bg-primary-700 text-white' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={product.stock === 0}
+            >
+              {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+            </button>
+            <button className="w-full py-3 px-6 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+              Add to Wishlist
+            </button>
           </div>
         </div>
       </div>
