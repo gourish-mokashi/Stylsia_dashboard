@@ -1,0 +1,101 @@
+# Robots.txt for Stylsia Partner Dashboard
+# This file controls how search engines crawl and index the website
+
+# Allow all crawlers to access public content
+User-agent: *
+
+# Allow public pages that customers should find
+Allow: /
+Allow: /products
+Allow: /product/
+Allow: /documentation
+
+# Block all private/authenticated areas
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+
+# Block API endpoints and internal paths
+Disallow: /api/
+Disallow: /auth/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /src/
+
+# Block development and build files
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.git/
+Disallow: /.env
+Disallow: /.env.local
+Disallow: /package.json
+Disallow: /vite.config.ts
+Disallow: /tsconfig.json
+
+# Block sensitive configuration files
+Disallow: /supabase/
+Disallow: /migrations/
+Disallow: /*.sql
+Disallow: /*.config.js
+Disallow: /*.config.ts
+
+# Block search query parameters that might create duplicate content
+Disallow: /*?search=
+Disallow: /*?filter=
+Disallow: /*?sort=
+Disallow: /*&search=
+Disallow: /*&filter=
+Disallow: /*&sort=
+
+# Block maintenance and error pages
+Disallow: /maintenance
+Disallow: /error
+Disallow: /404
+Disallow: /500
+
+# Block common attack vectors
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-content/
+Disallow: /administrator/
+Disallow: /admin.php
+Disallow: /phpmyadmin/
+
+# Specific bot rules
+# Google
+User-agent: Googlebot
+Allow: /
+Allow: /products
+Allow: /product/
+Allow: /documentation
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /login
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Allow: /products
+Allow: /product/
+Allow: /documentation
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /login
+
+# Block aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Crawl delay for all bots (1 second)
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://stylsia.com/sitemap.xml
