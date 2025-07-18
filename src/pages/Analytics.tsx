@@ -1,25 +1,27 @@
 import { useState } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  LineChart,
-  Line,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  Download,
   TrendingUp,
+  BarChart3,
   AlertCircle,
   RefreshCw,
-  BarChart3,
+  Download,
 } from "lucide-react";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
 import { useAnalyticsData } from "../hooks/useAnalyticsData";
+import { PageMeta } from '../components/seo/PageMeta';
+import { analyticsMeta } from '../config/metaData';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
 
 export default function Analytics() {
   const [dateRange, setDateRange] = useState("7d");
@@ -128,7 +130,9 @@ export default function Analytics() {
   const topProducts = analytics?.top_products || [];
 
   return (
-    <div className="p-6">
+    <>
+      <PageMeta {...analyticsMeta} />
+      <div className="p-6">
       <Header
         title="Analytics"
         subtitle="Track your product performance and customer engagement"
@@ -334,5 +338,6 @@ export default function Analytics() {
         </div>
       </div>
     </div>
+    </>
   );
 }

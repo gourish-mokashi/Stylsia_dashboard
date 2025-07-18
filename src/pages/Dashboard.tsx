@@ -12,6 +12,8 @@ import StatsCard from "../components/ui/StatsCard";
 import Button from "../components/ui/Button";
 import { useBrandData } from "../hooks/useBrandData";
 import { useAnalyticsData } from "../hooks/useAnalyticsData";
+import { PageMeta } from '../components/seo/PageMeta';
+import { dashboardMeta } from '../config/metaData';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -101,7 +103,9 @@ export default function Dashboard() {
   const hasError = brandError || analyticsError;
 
   return (
-    <div className="container-responsive py-4 sm:py-6">
+    <>
+      <PageMeta {...dashboardMeta} />
+      <div className="container-responsive py-4 sm:py-6">
       <Header
         title={`Welcome${
           brandWithMetrics?.name ? `, ${brandWithMetrics.name}` : ""
@@ -247,5 +251,6 @@ export default function Dashboard() {
         )}
       </div>
     </div>
+    </>
   );
 }

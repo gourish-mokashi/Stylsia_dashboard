@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
+import { PageMeta } from '../components/seo/PageMeta';
+import { profileMeta } from '../config/metaData';
 import LogoUpload from "../components/profile/LogoUpload";
 import { useBrandData } from "../hooks/useBrandData";
 
@@ -163,7 +165,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="container-responsive py-4 sm:py-6">
+    <>
+      <PageMeta {...profileMeta} />
+      <div className="container-responsive py-4 sm:py-6">
       <Header
         title="Brand Profile"
         subtitle="Manage your essential brand information"
@@ -519,5 +523,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </>
   );
 }
