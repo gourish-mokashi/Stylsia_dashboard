@@ -13,6 +13,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
 import { usePublicProducts } from "../hooks/usePublicProducts";
+import { PageMeta } from '../components/seo/PageMeta';
+import { productsMeta } from '../config/metaData';
 import type { ProductWithDetails } from "../types/database";
 
 export default function Products() {
@@ -109,7 +111,9 @@ export default function Products() {
   }
 
   return (
-    <div className="container-responsive py-4 sm:py-6">
+    <>
+      <PageMeta {...productsMeta} />
+      <div className="container-responsive py-4 sm:py-6">
       <Header
         title="All Products"
         subtitle="Browse all products from Stylsia's brand partners. Use the filters to find your style!"
@@ -359,6 +363,7 @@ export default function Products() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

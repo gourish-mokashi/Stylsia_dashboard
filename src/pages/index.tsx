@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
 import PublicHeader from '../components/layout/PublicHeader';
 import { usePublicProducts } from '../hooks/usePublicProducts';
+import { PageMeta } from '../components/seo/PageMeta';
+import { homeMeta } from '../config/metaData';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -25,8 +27,9 @@ const HomePage: React.FC = () => {
   };
 
   return (
-
-    <main className="min-h-screen bg-gray-50">
+    <>
+      <PageMeta {...homeMeta} />
+      <main className="min-h-screen bg-gray-50">
       {/* New Myntra-style Header */}
       <PublicHeader onSearch={handleSearch} showSearchBar={true} />
 
@@ -191,6 +194,7 @@ const HomePage: React.FC = () => {
         </div>
       </footer>
     </main>
+    </>
   );
 };
 
