@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { AdminAuthProvider } from "./contexts/AdminAuthContext";
@@ -209,15 +210,17 @@ const AppContent: React.FC = () => {
 function App() {
   return (
     <ErrorBoundary>
-      <Router>
-        <AuthProvider>
-          <NotificationProvider>
-            <MaintenanceProvider>
-              <AppContent />
-            </MaintenanceProvider>
-          </NotificationProvider>
-        </AuthProvider>
-      </Router>
+      <HelmetProvider>
+        <Router>
+          <AuthProvider>
+            <NotificationProvider>
+              <MaintenanceProvider>
+                <AppContent />
+              </MaintenanceProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </Router>
+      </HelmetProvider>
     </ErrorBoundary>
   );
 }
