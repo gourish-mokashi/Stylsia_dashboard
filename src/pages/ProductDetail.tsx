@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import PublicHeader from '../components/layout/PublicHeader';
+import { PageMeta } from '../components/seo/PageMeta';
+import { generateProductMeta } from '../config/metaData';
 import type { ProductWithDetails } from '../types/database';
 
 const ProductDetail: React.FC = () => {
@@ -120,8 +122,13 @@ const ProductDetail: React.FC = () => {
   const mainImage = images[selectedImageIndex] || { image_url: product.main_image_url };
   const hasDiscount = product.original_price && product.original_price > product.current_price;
 
+  // Generate dynamic meta data for the product
+  const productMeta = generateProductMeta(product);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <PageMeta {...productMeta} />
+      <div className="min-h-screen bg-gray-50">
       {/* Header with Back Button */}
       <PublicHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
 
@@ -359,6 +366,7 @@ const ProductDetail: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
