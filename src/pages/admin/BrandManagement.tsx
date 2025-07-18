@@ -1,11 +1,9 @@
 import { useState } from "react";
 import {
   Search,
-  Filter,
   MoreVertical,
   Pause,
   Play,
-  Trash2,
   CheckCircle,
   XCircle,
   RefreshCw,
@@ -46,7 +44,7 @@ export default function BrandManagement() {
   );
   const [showConfirmDialog, setShowConfirmDialog] = useState<{
     show: boolean;
-    type: "pause" | "remove" | "activate";
+    type: "pause" | "activate";
     brand: BrandWithStats | null;
   }>({ show: false, type: "pause", brand: null });
 
@@ -104,28 +102,15 @@ export default function BrandManagement() {
     });
   };
 
-  const handleRemoveBrand = (brand: BrandWithStats) => {
-    setShowConfirmDialog({
-      show: true,
-      type: "remove",
-      brand,
-    });
-  };
-
   const confirmAction = async () => {
     if (!showConfirmDialog.brand) return;
 
     const { brand, type } = showConfirmDialog;
 
     try {
-      if (type === "remove") {
-        // For now, just set status to inactive instead of deleting
-        await updateBrandStatus(brand.id, "inactive");
-      } else {
-        // Toggle status
-        const newStatus = type === "activate" ? "active" : "suspended";
-        await updateBrandStatus(brand.id, newStatus);
-      }
+      // Toggle status
+      const newStatus = type === "activate" ? "active" : "suspended";
+      await updateBrandStatus(brand.id, newStatus);
     } catch (error) {
       console.error("Error performing action:", error);
     }
@@ -311,10 +296,6 @@ export default function BrandManagement() {
                 <option value="suspended">Suspended</option>
                 <option value="inactive">Inactive</option>
               </select>
-
-              <Button variant="outline" icon={Filter}>
-                More Filters
-              </Button>
             </div>
           </div>
         </div>
@@ -344,7 +325,6 @@ export default function BrandManagement() {
                       brand={brand}
                       onInfo={() => setSelectedBrand(brand)}
                       onToggleStatus={() => handleToggleStatus(brand)}
-                      onRemove={() => handleRemoveBrand(brand)}
                       getStatusColor={getStatusColor}
                     />
                   ))}
@@ -397,7 +377,6 @@ export default function BrandManagement() {
                         brand={brand}
                         onInfo={() => setSelectedBrand(brand)}
                         onToggleStatus={() => handleToggleStatus(brand)}
-                        onRemove={() => handleRemoveBrand(brand)}
                         getStatusIcon={getStatusIcon}
                         getStatusColor={getStatusColor}
                       />
@@ -488,13 +467,11 @@ function BrandMobileCard({
   brand,
   onInfo,
   onToggleStatus,
-  onRemove,
   getStatusColor,
 }: {
   brand: BrandWithStats;
   onInfo: () => void;
   onToggleStatus: () => void;
-  onRemove: () => void;
   getStatusColor: (status: string) => string;
 }) {
   const [showActions, setShowActions] = useState(false);
@@ -558,16 +535,6 @@ function BrandMobileCard({
                 )}
                 {brand.status === "active" ? "Pause" : "Activate"}
               </button>
-              <button
-                onClick={() => {
-                  onRemove();
-                  setShowActions(false);
-                }}
-                className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center text-red-600"
-              >
-                <Trash2 className="h-3 w-3 mr-2" />
-                Remove
-              </button>
             </div>
           )}
         </div>
@@ -581,14 +548,12 @@ function BrandTableRow({
   brand,
   onInfo,
   onToggleStatus,
-  onRemove,
   getStatusIcon,
   getStatusColor,
 }: {
   brand: BrandWithStats;
   onInfo: () => void;
   onToggleStatus: () => void;
-  onRemove: () => void;
   getStatusIcon: (status: string) => JSX.Element | null;
   getStatusColor: (status: string) => string;
 }) {
@@ -646,15 +611,6 @@ function BrandTableRow({
             }
           >
             {brand.status === "active" ? "Pause" : "Activate"}
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={onRemove}
-            icon={Trash2}
-            className="text-red-600 hover:text-red-700"
-          >
-            Remove
           </Button>
         </div>
       </td>
@@ -790,7 +746,7 @@ function ConfirmationDialog({
   onConfirm,
   onCancel,
 }: {
-  type: "pause" | "remove" | "activate";
+  type: "pause" | "activate";
   brand: BrandWithStats;
   onConfirm: () => void;
   onCancel: () => void;
@@ -810,13 +766,6 @@ function ConfirmationDialog({
           message: `Are you sure you want to activate ${brand.name}? This will allow them to add products again.`,
           confirmText: "Activate",
           confirmClass: "bg-green-600 hover:bg-green-700",
-        };
-      case "remove":
-        return {
-          title: "Remove Brand",
-          message: `Are you sure you want to remove ${brand.name}? This will set their status to inactive.`,
-          confirmText: "Remove",
-          confirmClass: "bg-red-600 hover:bg-red-700",
         };
       default:
         return {

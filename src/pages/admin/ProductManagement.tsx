@@ -6,6 +6,9 @@ import {
   XCircle,
   Eye,
   MoreVertical,
+  Pause,
+  Trash2,
+  AlertTriangle,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import { useAdminProducts } from "../../hooks/useAdminProducts";
@@ -21,8 +24,58 @@ export default function ProductManagement() {
   const [selectedProduct, setSelectedProduct] = useState<AdminProduct | null>(
     null
   );
+  const [showProductActions, setShowProductActions] = useState<string | null>(
+    null
+  );
+  const [showConfirmDialog, setShowConfirmDialog] = useState<{
+    show: boolean;
+    type: "pause" | "remove";
+    product: AdminProduct | null;
+  }>({ show: false, type: "pause", product: null });
 
   const { products, loading, error, refreshData } = useAdminProducts();
+
+  const handlePauseProduct = (product: AdminProduct) => {
+    setShowConfirmDialog({
+      show: true,
+      type: "pause",
+      product,
+    });
+  };
+
+  const handleRemoveProduct = (product: AdminProduct) => {
+    setShowConfirmDialog({
+      show: true,
+      type: "remove",
+      product,
+    });
+  };
+
+  const confirmAction = async () => {
+    if (!showConfirmDialog.product) return;
+
+    const { product, type } = showConfirmDialog;
+
+    try {
+      // Here you would implement the actual API calls
+      if (type === "pause") {
+        // Update product status to inactive
+        console.log("Pausing product:", product.id);
+        // await updateProductStatus(product.id, "inactive");
+      } else if (type === "remove") {
+        // Remove/delete product
+        console.log("Removing product:", product.id);
+        // await removeProduct(product.id);
+      }
+
+      // Refresh the data after action
+      await refreshData();
+    } catch (error) {
+      console.error("Error performing action:", error);
+    }
+
+    setShowConfirmDialog({ show: false, type: "pause", product: null });
+  };
 
   const filteredProducts = products.filter((product) => {
     const matchesSearch =
@@ -235,17 +288,24 @@ export default function ProductManagement() {
               </thead>
               <tbody className="bg-white divide-y divide-slate-200">
                 {filteredProducts.map((product) => (
-                  <tr key={product.id} className="hover:bg-slate-50 transition-colors duration-150">
+                  <tr
+                    key={product.id}
+                    className="hover:bg-slate-50 transition-colors duration-150"
+                  >
                     <td className="px-4 py-4 whitespace-nowrap lg:px-6">
                       <div className="flex items-center">
                         <img
                           className="h-10 w-10 lg:h-12 lg:w-12 rounded-lg object-cover"
-                          src={product.main_image_url || 'https://via.placeholder.com/150'}
+                          src={
+                            product.main_image_url ||
+                            "https://via.placeholder.com/150"
+                          }
                           alt={product.name}
                         />
                         <div className="ml-3 lg:ml-4 min-w-0 flex-1">
-                          <div className="text-sm font-medium text-slate-900 truncate max-w-32 sm:max-w-40 lg:max-w-56">{product.name}</div>
-                          <div className="text-sm text-slate-500">{product.sku || '-'}</div>
+                          <div className="text-sm font-medium text-slate-900 truncate max-w-32 sm:max-w-40 lg:max-w-56">
+                            {product.name}
+                          </div>
                         </div>
                       </div>
                     </td>
@@ -259,17 +319,26 @@ export default function ProductManagement() {
                       </div>
                     </td>
                     <td className="px-4 py-4 lg:px-6">
-                      <div className="text-sm text-slate-900">{product.category || 'Uncategorized'}</div>
-                      <div className="text-sm text-slate-500">{product.sub_category || '-'}</div>
+                      <div className="text-sm text-slate-900">
+                        {product.category || "Uncategorized"}
+                      </div>
+                      <div className="text-sm text-slate-500">
+                        {product.sub_category || "-"}
+                      </div>
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-slate-900 lg:px-6">
-                      ₹{product.current_price.toLocaleString('en-IN')}
+                      ₹{product.current_price.toLocaleString("en-IN")}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap lg:px-6">
                       <div className="flex items-center">
                         {getStatusIcon(product.status)}
-                        <span className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(product.status)}`}>
-                          {product.status.charAt(0).toUpperCase() + product.status.slice(1)}
+                        <span
+                          className={`ml-2 inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(
+                            product.status
+                          )}`}
+                        >
+                          {product.status.charAt(0).toUpperCase() +
+                            product.status.slice(1)}
                         </span>
                       </div>
                     </td>
@@ -278,18 +347,55 @@ export default function ProductManagement() {
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm font-medium lg:px-6">
                       <div className="flex items-center space-x-3">
-                        <button 
+                        <button
                           className="text-blue-600 hover:text-blue-700 transition-colors duration-200"
                           onClick={() => setSelectedProduct(product)}
+                          title="View product details"
                         >
                           <Eye className="h-4 w-4" />
                         </button>
-                        <button 
-                          className="text-slate-400 hover:text-slate-600 transition-colors duration-200"
-                          onClick={() => setSelectedProduct(product)}
-                        >
-                          <MoreVertical className="h-4 w-4" />
-                        </button>
+                        <div className="relative">
+                          <button
+                            className="text-slate-400 hover:text-slate-600 transition-colors duration-200"
+                            onClick={() =>
+                              setShowProductActions(
+                                showProductActions === product.id
+                                  ? null
+                                  : product.id
+                              )
+                            }
+                            title="Product actions"
+                          >
+                            <MoreVertical className="h-4 w-4" />
+                          </button>
+
+                          {showProductActions === product.id && (
+                            <div className="absolute right-0 top-8 bg-white border border-slate-200 rounded-lg shadow-lg z-10 min-w-32">
+                              <button
+                                onClick={() => {
+                                  handlePauseProduct(product);
+                                  setShowProductActions(null);
+                                }}
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center text-amber-600"
+                              >
+                                <Pause className="h-3 w-3 mr-2" />
+                                {product.status === "active"
+                                  ? "Pause"
+                                  : "Activate"}
+                              </button>
+                              <button
+                                onClick={() => {
+                                  handleRemoveProduct(product);
+                                  setShowProductActions(null);
+                                }}
+                                className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center text-red-600"
+                              >
+                                <Trash2 className="h-3 w-3 mr-2" />
+                                Remove
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -314,6 +420,22 @@ export default function ProductManagement() {
             onClose={() => setSelectedProduct(null)}
             getStatusIcon={getStatusIcon}
             getStatusColor={getStatusColor}
+          />
+        )}
+
+        {/* Confirmation Dialog */}
+        {showConfirmDialog.show && showConfirmDialog.product && (
+          <ConfirmationDialog
+            type={showConfirmDialog.type}
+            product={showConfirmDialog.product}
+            onConfirm={confirmAction}
+            onCancel={() =>
+              setShowConfirmDialog({
+                show: false,
+                type: "pause",
+                product: null,
+              })
+            }
           />
         )}
       </div>
@@ -353,7 +475,7 @@ function ProductDetailModal({
                   <img
                     src={product.main_image_url}
                     alt={product.name}
-                    className="w-full h-64 object-cover rounded-lg"
+                    className="w-full h-64 object-contain rounded-lg bg-slate-50"
                   />
                 ) : (
                   <div className="w-full h-64 bg-slate-200 rounded-lg flex items-center justify-center">
@@ -386,15 +508,6 @@ function ProductDetailModal({
 
                 <div>
                   <label className="block text-sm font-medium text-slate-700">
-                    SKU
-                  </label>
-                  <p className="mt-1 text-sm text-slate-900">
-                    {product.sku || "N/A"}
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700">
                     Category
                   </label>
                   <p className="mt-1 text-sm text-slate-900">
@@ -407,7 +520,7 @@ function ProductDetailModal({
                     Price
                   </label>
                   <p className="mt-1 text-sm text-slate-900">
-                    ₹{product.current_price.toLocaleString('en-IN')}
+                    ₹{product.current_price.toLocaleString("en-IN")}
                   </p>
                 </div>
 
@@ -430,12 +543,14 @@ function ProductDetailModal({
             </div>
 
             <div className="mt-6">
-              <label className="block text-sm font-medium text-slate-700">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Description
               </label>
-              <p className="mt-1 text-sm text-slate-900">
-                {product.description || "No description available"}
-              </p>
+              <div className="bg-slate-50 rounded-lg p-4 max-h-32 overflow-y-auto">
+                <p className="text-sm text-slate-900 whitespace-pre-wrap leading-relaxed">
+                  {product.description || "No description available"}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -447,6 +562,99 @@ function ProductDetailModal({
             >
               Close
             </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Confirmation Dialog Component
+function ConfirmationDialog({
+  type,
+  product,
+  onConfirm,
+  onCancel,
+}: {
+  type: "pause" | "remove";
+  product: AdminProduct;
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const getDialogContent = () => {
+    switch (type) {
+      case "pause":
+        return {
+          title:
+            product.status === "active" ? "Pause Product" : "Activate Product",
+          message:
+            product.status === "active"
+              ? `Are you sure you want to pause "${product.name}"? This will make it inactive and hidden from customers.`
+              : `Are you sure you want to activate "${product.name}"? This will make it visible to customers.`,
+          confirmText: product.status === "active" ? "Pause" : "Activate",
+          confirmClass:
+            product.status === "active"
+              ? "bg-amber-600 hover:bg-amber-700"
+              : "bg-green-600 hover:bg-green-700",
+        };
+      case "remove":
+        return {
+          title: "Remove Product",
+          message: `Are you sure you want to remove "${product.name}"? This action cannot be undone.`,
+          confirmText: "Remove",
+          confirmClass: "bg-red-600 hover:bg-red-700",
+        };
+      default:
+        return {
+          title: "Confirm Action",
+          message: "Are you sure you want to proceed?",
+          confirmText: "Confirm",
+          confirmClass: "bg-blue-600 hover:bg-blue-700",
+        };
+    }
+  };
+
+  const content = getDialogContent();
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto">
+      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div
+          className="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity"
+          onClick={onCancel}
+        ></div>
+
+        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="sm:flex sm:items-start">
+              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                <AlertTriangle className="h-6 w-6 text-red-600" />
+              </div>
+              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3 className="text-lg leading-6 font-medium text-slate-900">
+                  {content.title}
+                </h3>
+                <div className="mt-2">
+                  <p className="text-sm text-slate-500">{content.message}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              type="button"
+              className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm ${content.confirmClass}`}
+              onClick={onConfirm}
+            >
+              {content.confirmText}
+            </button>
+            <button
+              type="button"
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-slate-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              onClick={onCancel}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </div>

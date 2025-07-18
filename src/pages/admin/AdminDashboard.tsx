@@ -182,23 +182,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Breadcrumb Navigation */}
-      <nav className="flex" aria-label="Breadcrumb">
-        <ol className="inline-flex items-center space-x-1 md:space-x-3">
-          <li className="inline-flex items-center">
-            <span className="text-sm font-medium text-slate-500">Admin</span>
-          </li>
-          <li>
-            <div className="flex items-center">
-              <span className="text-slate-400">/</span>
-              <span className="ml-1 text-sm font-medium text-slate-900 md:ml-2">
-                Dashboard
-              </span>
-            </div>
-          </li>
-        </ol>
-      </nav>
-
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -227,12 +210,7 @@ export default function AdminDashboard() {
             Refresh
           </Button>
 
-          <div className="flex items-center space-x-2 bg-red-50 px-3 py-2 rounded-lg">
-            <Shield className="h-4 w-4 text-red-600" />
-            <span className="text-sm font-medium text-red-700">
-              Administrator
-            </span>
-          </div>
+          
         </div>
       </div>
 
@@ -281,15 +259,6 @@ export default function AdminDashboard() {
                 Latest platform activities and system events
               </p>
             </div>
-            <Button
-              onClick={refreshData}
-              icon={RefreshCw}
-              variant="outline"
-              size="sm"
-              className="text-slate-600 hover:text-slate-900"
-            >
-              Refresh
-            </Button>
           </div>
         </div>
 

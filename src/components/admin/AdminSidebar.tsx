@@ -82,15 +82,15 @@ function SidebarContent({ onItemClick }: { onItemClick: () => void }) {
     <div className="flex flex-col h-full">
       {/* Logo - Only show on desktop */}
       <div className="hidden lg:block p-6 border-b border-slate-200">
-        <button onClick={() => navigate('/')} className="flex items-center space-x-3 focus:outline-none hover:opacity-80 transition-opacity">
-          <img 
-            src="/img/logo.png" 
-            alt="Admin Portal" 
-            className="h-8 w-auto"
-          />
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center space-x-3 focus:outline-none hover:opacity-80 transition-opacity"
+        >
+          <img src="/img/logo.png" alt="Admin Portal" className="h-8 w-auto" />
           <div>
-            <p className="text-sm text-slate-500">Admin Portal</p>
+            <p className="text-xl font-bold text-black">Stylsia</p>
           </div>
+          
         </button>
       </div>
 
