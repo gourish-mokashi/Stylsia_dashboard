@@ -5,10 +5,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import { AdminAuthProvider } from "./contexts/AdminAuthContext";
-import { MaintenanceProvider, useMaintenanceMode } from "./contexts/MaintenanceContext";
+import {
+  MaintenanceProvider,
+  useMaintenanceMode,
+} from "./contexts/MaintenanceContext";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import { ConnectionError } from "./components/common/ConnectionError";
 import MaintenanceMode from "./components/maintenance/MaintenanceMode";
@@ -39,10 +43,10 @@ import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminSettings from "./pages/admin/AdminSettings";
 
 // Maintenance wrapper component
-const MaintenanceWrapper: React.FC<{ children: React.ReactNode; isPublicPage?: boolean }> = ({ 
-  children, 
-  isPublicPage = false 
-}) => {
+const MaintenanceWrapper: React.FC<{
+  children: React.ReactNode;
+  isPublicPage?: boolean;
+}> = ({ children, isPublicPage = false }) => {
   const { maintenanceMode, loading } = useMaintenanceMode();
 
   // Show loading while checking maintenance status
@@ -89,29 +93,44 @@ const AppContent: React.FC = () => {
               </AdminAuthProvider>
             }
           />
-          <Route path="/" element={
-            <MaintenanceWrapper isPublicPage={true}>
-              <HomePage />
-            </MaintenanceWrapper>
-          } />
-          <Route path="/products" element={
-            <MaintenanceWrapper isPublicPage={true}>
-              <PublicProducts />
-            </MaintenanceWrapper>
-          } />
-          <Route path="/product/:id" element={
-            <MaintenanceWrapper isPublicPage={true}>
-              <ProductDetail />
-            </MaintenanceWrapper>
-          } />
-          <Route path="/documentation" element={
-            <MaintenanceWrapper isPublicPage={true}>
-              <Documentation />
-            </MaintenanceWrapper>
-          } />
+          <Route
+            path="/"
+            element={
+              <MaintenanceWrapper isPublicPage={true}>
+                <HomePage />
+              </MaintenanceWrapper>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <MaintenanceWrapper isPublicPage={true}>
+                <PublicProducts />
+              </MaintenanceWrapper>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <MaintenanceWrapper isPublicPage={true}>
+                <ProductDetail />
+              </MaintenanceWrapper>
+            }
+          />
+          <Route
+            path="/documentation"
+            element={
+              <MaintenanceWrapper isPublicPage={true}>
+                <Documentation />
+              </MaintenanceWrapper>
+            }
+          />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/dashboard/*" element={<LoginForm />} />
-          <Route path="/admin/*" element={<Navigate to="/admin/login" replace />} />
+          <Route
+            path="/admin/*"
+            element={<Navigate to="/admin/login" replace />}
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
@@ -168,27 +187,39 @@ const AppContent: React.FC = () => {
         }
       />
       {/* Public routes accessible to everyone */}
-      <Route path="/" element={
-        <MaintenanceWrapper isPublicPage={true}>
-          <HomePage />
-        </MaintenanceWrapper>
-      } />
-      <Route path="/products" element={
-        <MaintenanceWrapper isPublicPage={true}>
-          <PublicProducts />
-        </MaintenanceWrapper>
-      } />
-      <Route path="/product/:id" element={
-        <MaintenanceWrapper isPublicPage={true}>
-          <ProductDetail />
-        </MaintenanceWrapper>
-      } />
-      <Route path="/documentation" element={
-        <MaintenanceWrapper isPublicPage={true}>
-          <Documentation />
-        </MaintenanceWrapper>
-      } />
-      
+      <Route
+        path="/"
+        element={
+          <MaintenanceWrapper isPublicPage={true}>
+            <HomePage />
+          </MaintenanceWrapper>
+        }
+      />
+      <Route
+        path="/products"
+        element={
+          <MaintenanceWrapper isPublicPage={true}>
+            <PublicProducts />
+          </MaintenanceWrapper>
+        }
+      />
+      <Route
+        path="/product/:id"
+        element={
+          <MaintenanceWrapper isPublicPage={true}>
+            <ProductDetail />
+          </MaintenanceWrapper>
+        }
+      />
+      <Route
+        path="/documentation"
+        element={
+          <MaintenanceWrapper isPublicPage={true}>
+            <Documentation />
+          </MaintenanceWrapper>
+        }
+      />
+
       {/* Partner dashboard routes (authenticated users only) - NOT affected by maintenance mode */}
       <Route path="/dashboard" element={<Layout />}>
         <Route index element={<Dashboard />} />
@@ -208,17 +239,19 @@ const AppContent: React.FC = () => {
 
 function App() {
   return (
-    <ErrorBoundary>
-      <Router>
-        <AuthProvider>
-          <NotificationProvider>
-            <MaintenanceProvider>
-              <AppContent />
-            </MaintenanceProvider>
-          </NotificationProvider>
-        </AuthProvider>
-      </Router>
-    </ErrorBoundary>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <Router>
+          <AuthProvider>
+            <NotificationProvider>
+              <MaintenanceProvider>
+                <AppContent />
+              </MaintenanceProvider>
+            </NotificationProvider>
+          </AuthProvider>
+        </Router>
+      </ErrorBoundary>
+    </HelmetProvider>
   );
 }
 
