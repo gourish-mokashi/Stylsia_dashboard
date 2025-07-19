@@ -331,7 +331,7 @@ const ProductDetail: React.FC = () => {
                 <div className="prose max-w-none">
                   <div
                     className="text-gray-700 leading-relaxed whitespace-pre-line"
-                    dangerouslySetInnerHTML={{ __html: product.description }}
+                    dangerouslySetInnerHTML={{ __html: product.description || '' }}
                   />
                   {/*{product.description || 'No description available for this product.'}*/}
                 </div>
