@@ -11,7 +11,7 @@ import {
 import { useSearchParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
-import { usePublicProducts } from "../hooks/usePublicProducts";
+import { useProductData } from "../hooks/useProductData";
 import { PageMeta } from "../components/seo/PageMeta";
 import { productsMeta } from "../config/metaData";
 import type { ProductWithDetails } from "../types/database";
@@ -21,7 +21,7 @@ export default function Products() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // Use the public product data hook for customer browsing
+  // Use the partner product data hook to show only products for this brand
   const {
     products,
     pagination,
@@ -30,12 +30,16 @@ export default function Products() {
     filters,
     setFilters,
     refreshData,
-  } = usePublicProducts({
+  } = useProductData({
     search: searchParams.get("search") || undefined,
-    status: (searchParams.get("status") as any) || undefined,
+    status:
+      (searchParams.get("status") as
+        | "active"
+        | "pending"
+        | "inactive"
+        | "out_of_stock") || undefined,
     category: searchParams.get("category") || undefined,
   });
-  // recordProductView is not needed for public browsing
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
@@ -96,8 +100,8 @@ export default function Products() {
       <PageMeta {...productsMeta} />
       <div className="container-responsive py-4 sm:py-6">
         <Header
-          title="All Products"
-          subtitle="Browse all products from Stylsia's brand partners. Use the filters to find your style!"
+          title="My Products"
+          subtitle="Manage your product catalog and track performance"
         />
 
         <div className="mt-6 space-y-6">
@@ -150,7 +154,11 @@ export default function Products() {
                       status:
                         e.target.value === "all"
                           ? undefined
-                          : (e.target.value as any),
+                          : (e.target.value as
+                              | "active"
+                              | "pending"
+                              | "inactive"
+                              | "out_of_stock"),
                     })
                   }
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -280,7 +288,7 @@ export default function Products() {
               <p className="text-gray-600 mb-4">
                 {searchTerm || filters.status
                   ? "Try adjusting your search terms or filters."
-                  : "Your products will appear here once they are added to our platform."}
+                  : "Your products will appear here once they are added to the platform."}
               </p>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-md mx-auto">
                 <p className="text-sm text-blue-800">
