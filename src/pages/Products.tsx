@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Package,
   MoreVertical,
@@ -14,12 +14,20 @@ import Button from "../components/ui/Button";
 import { useProductData } from "../hooks/useProductData";
 import { PageMeta } from "../components/seo/PageMeta";
 import { productsMeta } from "../config/metaData";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../contexts/AuthContext";
 import type { ProductWithDetails } from "../types/database";
 
 export default function Products() {
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
+  const [totalCounts, setTotalCounts] = useState({
+    active: 0,
+    inactive: 0,
+    loading: true,
+  });
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // Use the partner product data hook to show only products for this brand
   const {
@@ -32,14 +40,45 @@ export default function Products() {
     refreshData,
   } = useProductData({
     search: searchParams.get("search") || undefined,
-    status:
-      (searchParams.get("status") as
-        | "active"
-        | "pending"
-        | "inactive"
-        | "out_of_stock") || undefined,
+    status: (searchParams.get("status") as "active" | "inactive") || undefined,
     category: searchParams.get("category") || undefined,
   });
+
+  // Fetch total counts for active and inactive products
+  useEffect(() => {
+    const fetchTotalCounts = async () => {
+      if (!user?.id) return;
+
+      try {
+        setTotalCounts((prev) => ({ ...prev, loading: true }));
+
+        // Get active count
+        const { count: activeCount } = await supabase
+          .from("products")
+          .select("*", { count: "exact", head: true })
+          .eq("brand_id", user.id)
+          .eq("status", "active");
+
+        // Get inactive count
+        const { count: inactiveCount } = await supabase
+          .from("products")
+          .select("*", { count: "exact", head: true })
+          .eq("brand_id", user.id)
+          .eq("status", "inactive");
+
+        setTotalCounts({
+          active: activeCount || 0,
+          inactive: inactiveCount || 0,
+          loading: false,
+        });
+      } catch (error) {
+        console.error("Failed to fetch total counts:", error);
+        setTotalCounts((prev) => ({ ...prev, loading: false }));
+      }
+    };
+
+    fetchTotalCounts();
+  }, [user?.id]);
 
   const handleSearch = (searchTerm: string) => {
     setSearchTerm(searchTerm);
@@ -117,6 +156,91 @@ export default function Products() {
             </div>
           </div>
 
+          {/* Product Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Active Products Card */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-lg">
+                    <Package className="h-6 w-6 text-green-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">
+                      Active Products
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {totalCounts.loading ? (
+                        <span className="animate-pulse bg-gray-200 rounded h-8 w-12 inline-block"></span>
+                      ) : (
+                        totalCounts.active
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-green-600">
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2">
+                <p className="text-xs text-gray-500">
+                  Total active products for your brand.
+                </p>
+              </div>
+            </div>
+
+            {/* Inactive Products Card */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-red-100 rounded-lg">
+                    <Package className="h-6 w-6 text-red-600" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">
+                      Inactive Products
+                    </p>
+                    <p className="text-2xl font-bold text-gray-900">
+                      {totalCounts.loading ? (
+                        <span className="animate-pulse bg-gray-200 rounded h-8 w-12 inline-block"></span>
+                      ) : (
+                        totalCounts.inactive
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-red-600">
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="mt-2">
+                <p className="text-xs text-gray-500">
+                  Total inactive products for your brand.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Search and Filters Bar */}
           <div className="bg-white rounded-lg shadow-sm border border-gray-200">
             <div className="p-4 sm:p-6">
@@ -154,20 +278,14 @@ export default function Products() {
                       status:
                         e.target.value === "all"
                           ? undefined
-                          : (e.target.value as
-                              | "active"
-                              | "pending"
-                              | "inactive"
-                              | "out_of_stock"),
+                          : (e.target.value as "active" | "inactive"),
                     })
                   }
                   className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 >
                   <option value="all">All Status</option>
                   <option value="active">Active</option>
-                  <option value="pending">Pending</option>
                   <option value="inactive">Inactive</option>
-                  <option value="out_of_stock">Out of Stock</option>
                 </select>
               </div>
             </div>
