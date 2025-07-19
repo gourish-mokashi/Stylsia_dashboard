@@ -167,9 +167,8 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
                     />
                     <motion.button
                       type="submit"
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600 transition-colors"
+                      whileTap={{ scale: 0.95 }}
                     >
                       <Search className="h-6 w-6" />
                     </motion.button>
@@ -277,9 +276,8 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
                   />
                   <motion.button
                     type="submit"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600 transition-colors"
+                    whileTap={{ scale: 0.95 }}
                   >
                     <Search className="h-6 w-6" />
                   </motion.button>
