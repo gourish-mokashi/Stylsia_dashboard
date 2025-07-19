@@ -165,6 +165,7 @@ export interface ProductFilters {
   brand_id?: string;
   status?: DatabaseProduct["status"];
   category?: string;
+  subcategory?: string;
   is_featured?: boolean;
   price_min?: number;
   price_max?: number;

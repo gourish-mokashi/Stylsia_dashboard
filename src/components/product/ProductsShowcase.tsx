@@ -87,19 +87,56 @@ const ProductsShowcase: React.FC = () => {
   // Get search term and category for display
   const searchTerm = searchParams.get('search') || '';
   const categoryTerm = searchParams.get('category') || '';
-  const displayTitle = searchTerm ? `${searchTerm}` : categoryTerm || 'All Products';
+  const subcategoryTerm = searchParams.get('subcategory') || '';
+  
+  // Generate display title with sale-specific formatting
+  let displayTitle = '';
+  if (searchTerm) {
+    displayTitle = searchTerm;
+  } else if (categoryTerm === 'Sale') {
+    if (subcategoryTerm) {
+      displayTitle = subcategoryTerm;
+    } else {
+      displayTitle = 'Sale Items';
+    }
+  } else if (categoryTerm) {
+    displayTitle = categoryTerm;
+  } else {
+    displayTitle = 'All Products';
+  }
+  
   const itemCount = pagination?.total || 0;
 
   // Update filters when URL changes
   useEffect(() => {
     const searchFromUrl = searchParams.get('search') || '';
     const categoryFromUrl = searchParams.get('category') || '';
+    const subcategoryFromUrl = searchParams.get('subcategory') || '';
     
-    setFilters({
+    let newFilters = {
       ...filters,
       search: searchFromUrl || undefined,
       category: categoryFromUrl || undefined,
-    });
+      subcategory: subcategoryFromUrl || undefined,
+    };
+
+    // Handle Sale category - filter for discounted products
+    if (categoryFromUrl === 'Sale') {
+      newFilters.has_discount = true;
+      // If subcategory exists, also filter by it (e.g., "Women Sale" -> category: "Women")
+      if (subcategoryFromUrl && subcategoryFromUrl.includes('Sale')) {
+        const baseCategory = subcategoryFromUrl.replace(' Sale', '');
+        newFilters.category = baseCategory;
+        newFilters.subcategory = undefined; // Clear subcategory as we're using category
+      } else if (subcategoryFromUrl === 'Clearance') {
+        // For clearance, we can sort by highest discount
+        newFilters.sort_by = 'discount_desc' as any;
+        newFilters.category = undefined; // Show all categories for clearance
+        newFilters.subcategory = undefined;
+      }
+    }
+    
+    setFilters(newFilters);
   }, [searchParams]);
 
   const handleSearch = (e: React.FormEvent) => {

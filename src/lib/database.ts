@@ -254,6 +254,10 @@ export class ProductRepository {
         query = query.eq('category', filters.category);
       }
       
+      if (filters.subcategory) {
+        query = query.eq('sub_category', filters.subcategory);
+      }
+      
       if (filters.is_featured !== undefined) {
         query = query.eq('is_featured', filters.is_featured);
       }
@@ -387,6 +391,9 @@ export class ProductRepository {
       }
       if (filters.category) {
         query = query.eq('category', filters.category);
+      }
+      if (filters.subcategory) {
+        query = query.eq('sub_category', filters.subcategory);
       }
       if (filters.is_featured !== undefined) {
         query = query.eq('is_featured', filters.is_featured);

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search, User, Heart, ArrowLeft } from 'lucide-react';
 import SpringModal from '../ui/SpringModal';
+import { ShiftingDropDown } from '../ui/ShiftingDropDown';
 
 interface TargetStyleHeaderProps {
   onSearch?: (query: string) => void;
@@ -53,15 +54,16 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
     setSearchQuery('');
   };
 
-  const navigateToCategory = (category: string) => {
-    navigate(`/products?category=${category}`);
-    setIsDrawerOpen(false);
+  const handleCategoryNavigation = (category: string, subcategory?: string) => {
+    let url = `/products?category=${encodeURIComponent(category)}`;
+    if (subcategory) {
+      url += `&subcategory=${encodeURIComponent(subcategory)}`;
+    }
+    navigate(url);
   };
 
   const menuItems = [
-    { label: 'Men', category: 'Men' },
-    { label: 'Women', category: 'Women' },
-    { label: 'Kid', category: 'Kids' },
+    { label: 'Sale', category: 'Sale' },
     { label: 'All Products', category: '' },
   ];
 
@@ -125,27 +127,21 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
 
             {/* Navigation Menu - Only show when not in back button mode */}
             {!showBackButton && (
-              <nav className="flex items-center space-x-8 font-helvetica">
+              <div className="flex items-center space-x-2">
+                <ShiftingDropDown onCategorySelect={handleCategoryNavigation} />
                 {menuItems.map((item, index) => (
                   <motion.button
                     key={item.category}
-                    onClick={() => navigateToCategory(item.category)}
-                    className="text-gray-800 hover:text-red-600 font-medium text-base transition-colors duration-200 relative group"
-                    whileHover={{ y: -1 }}
+                    onClick={() => handleCategoryNavigation(item.category)}
+                    className="flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors text-gray-700 hover:text-gray-900 hover:bg-gray-100"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: (index + 2) * 0.1 }}
                   >
-                    {item.label}
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600 origin-left"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.2 }}
-                    />
+                    <span className="font-medium">{item.label}</span>
                   </motion.button>
                 ))}
-              </nav>
+              </div>
             )}
 
             {/* Search Bar */}
@@ -331,19 +327,55 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
 
               {/* Menu Items */}
               <div className="p-4 space-y-2">
-                {menuItems.map((item, index) => (
+                {/* Category sections for mobile */}
+                <div className="space-y-3">
+                  <h3 className="font-medium text-gray-900 px-4">Categories</h3>
+                  
                   <motion.button
-                    key={item.category}
-                    onClick={() => navigateToCategory(item.category)}
+                    onClick={() => {
+                      handleCategoryNavigation('Women');
+                      setIsDrawerOpen(false);
+                    }}
                     className="w-full flex items-center p-4 text-left hover:bg-gray-50 rounded-lg transition-colors font-helvetica"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: 0.1 }}
                     whileHover={{ x: 4 }}
                   >
-                    <span className="font-medium text-gray-900 text-lg">{item.label}</span>
+                    <span className="font-medium text-gray-900 text-lg">Women</span>
                   </motion.button>
-                ))}
+
+                  <motion.button
+                    onClick={() => {
+                      handleCategoryNavigation('Men');
+                      setIsDrawerOpen(false);
+                    }}
+                    className="w-full flex items-center p-4 text-left hover:bg-gray-50 rounded-lg transition-colors font-helvetica"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    whileHover={{ x: 4 }}
+                  >
+                    <span className="font-medium text-gray-900 text-lg">Men</span>
+                  </motion.button>
+
+                  {menuItems.map((item, index) => (
+                    <motion.button
+                      key={item.category}
+                      onClick={() => {
+                        handleCategoryNavigation(item.category);
+                        setIsDrawerOpen(false);
+                      }}
+                      className="w-full flex items-center p-4 text-left hover:bg-gray-50 rounded-lg transition-colors font-helvetica"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (index + 3) * 0.1 }}
+                      whileHover={{ x: 4 }}
+                    >
+                      <span className="font-medium text-gray-900 text-lg">{item.label}</span>
+                    </motion.button>
+                  ))}
+                </div>
               </div>
 
               {/* Footer Items */}
