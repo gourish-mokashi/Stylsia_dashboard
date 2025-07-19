@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import {
   Mail,
   Search,
-  Filter,
   CheckCircle,
   Clock,
   AlertCircle,
@@ -486,10 +485,6 @@ export default function AdminSupport() {
               <option value="medium">Medium</option>
               <option value="high">High</option>
             </select>
-
-            <Button variant="outline" icon={Filter}>
-              More Filters
-            </Button>
           </div>
         </div>
       </div>
