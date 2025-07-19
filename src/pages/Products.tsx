@@ -20,8 +20,11 @@ import type { ProductWithDetails } from "../types/database";
 
 export default function Products() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedProduct, setSelectedProduct] = useState<ProductWithDetails | null>(null);
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
+  const [selectedProduct, setSelectedProduct] =
+    useState<ProductWithDetails | null>(null);
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("search") || ""
+  );
   const [totalCounts, setTotalCounts] = useState({
     active: 0,
     inactive: 0,
@@ -505,7 +508,7 @@ function ProductCard({
             >
               <Eye className="h-4 w-4" />
             </button>
-            <button 
+            <button
               className="text-gray-400 hover:text-gray-600 touch-target"
               title="More options"
               aria-label="More options"
