@@ -66,7 +66,14 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
 
   // Auto-scroll carousel on hover with infinite scroll
   useEffect(() => {
-    if (isHovered && hasMultipleImages) {
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    // Only start auto-slide if explicitly hovered AND has multiple images
+    if (isHovered === true && hasMultipleImages) {
       intervalRef.current = setInterval(() => {
         setCurrentImageIndex(prev => {
           const nextIndex = prev + 1;
@@ -78,26 +85,31 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
           return nextIndex;
         });
       }, 1500); // Change image every 1.5 seconds (slower)
-    } else {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      // Reset to first image when not hovering with a slight delay
-      if (!isHovered) {
-        setTimeout(() => {
-          setCurrentImageIndex(0);
-          setIsTransitioning(true);
-        }, 200);
-      }
+    } else if (isHovered === false) {
+      // Reset to first image when explicitly not hovering
+      setTimeout(() => {
+        setCurrentImageIndex(0);
+        setIsTransitioning(true);
+      }, 200);
     }
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, [isHovered, hasMultipleImages, extendedImageArray.length]);
+
+  // Cleanup interval on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, []);
 
   // Handle infinite scroll reset
   useEffect(() => {
@@ -129,8 +141,16 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
     <div 
       className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-[1.02] cursor-pointer overflow-hidden border border-gray-100"
       onClick={onClick} 
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => {
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovered(false);
+      }}
+      onTouchStart={() => {
+        // Prevent auto-slide on mobile touch
+        setIsHovered(false);
+      }}
       tabIndex={0} 
       role="button" 
       aria-label={`View details for ${name}`}
