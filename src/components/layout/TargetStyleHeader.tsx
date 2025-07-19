@@ -183,15 +183,9 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
                 className="p-2 text-gray-600 hover:text-red-600 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                onClick={() => handleComingSoon('Profile')}
               >
                 <User className="h-6 w-6" />
-              </motion.button>
-              <motion.button
-                className="p-2 text-gray-600 hover:text-red-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Heart className="h-6 w-6" />
               </motion.button>
               <motion.button
                 className="p-2 text-gray-600 hover:text-red-600 transition-colors"
@@ -200,14 +194,6 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
                 onClick={() => handleComingSoon('Wishlist')}
               >
                 <Heart className="h-6 w-6" />
-              </motion.button>
-              <motion.button
-                className="p-2 text-gray-600 hover:text-red-600 transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => handleComingSoon('Profile')}
-              >
-                <User className="h-6 w-6" />
               </motion.button>
             </div>
           </div>
