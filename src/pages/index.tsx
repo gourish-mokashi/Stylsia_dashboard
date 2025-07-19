@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
-import PublicHeader from '../components/layout/PublicHeader';
+import TargetStyleHeader from '../components/layout/TargetStyleHeader';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { PageMeta } from '../components/seo/PageMeta';
 import { homeMeta } from '../config/metaData';
@@ -30,12 +30,12 @@ const HomePage: React.FC = () => {
     <>
       <PageMeta {...homeMeta} />
       <main className="min-h-screen bg-gray-50">
-      {/* New Myntra-style Header */}
-      <PublicHeader onSearch={handleSearch} showSearchBar={true} />
+      {/* New Target-style Header */}
+      <TargetStyleHeader onSearch={handleSearch} showSearchBar={true} />
 
       {/* Category Navigation Section */}
       {/* Mobile-first grid layout inspired by ASOS category sections */}
-      <section className="bg-white py-12 xl:py-20 border-t border-gray-100">
+      <section className="bg-white py-12 xl:py-20 border-t border-gray-100 mt-8 lg:mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center sm:text-3xl">Shop by Category</h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">

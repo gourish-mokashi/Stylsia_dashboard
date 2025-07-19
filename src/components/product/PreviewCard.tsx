@@ -215,29 +215,23 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
         <h3 className="font-medium text-gray-900 text-sm leading-tight line-clamp-2">{name}</h3>
         
         {/* Price Section */}
-        <div className="flex items-center space-x-2">
-          <span className="text-lg font-bold text-gray-900">₹{price.toLocaleString('en-IN')}</span>
-          {originalPrice && originalPrice > price && (
-            <>
-              <span className="text-sm text-gray-500 line-through">₹{originalPrice.toLocaleString('en-IN')}</span>
-              <span className="text-xs text-green-600 font-medium">
-                {Math.round(((originalPrice - price) / originalPrice) * 100)}% OFF
-              </span>
-            </>
-          )}
+        <div className="space-y-1">
+          <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1">
+            <span className="text-lg font-bold text-gray-900">₹{price.toLocaleString('en-IN')}</span>
+            {originalPrice && originalPrice > price && (
+              <>
+                <span className="text-sm text-gray-500 line-through">₹{originalPrice.toLocaleString('en-IN')}</span>
+                <span className="text-xs text-green-600 font-medium whitespace-nowrap">
+                  {Math.round(((originalPrice - price) / originalPrice) * 100)}% OFF
+                </span>
+              </>
+            )}
+          </div>
         </div>
         
         {/* Rating and Additional Info */}
         <div className="flex items-center justify-end pt-1">
-          <button 
-            className="text-primary-600 hover:text-primary-700 text-xs font-medium transition-colors duration-200 px-2 py-1 rounded hover:bg-primary-50"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-          >
-            View
-          </button>
+          {/* View button removed */}
         </div>
       </div>
     </div>

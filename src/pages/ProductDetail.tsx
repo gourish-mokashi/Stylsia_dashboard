@@ -7,7 +7,7 @@ import {
   Zap
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import PublicHeader from '../components/layout/PublicHeader';
+import TargetStyleHeader from '../components/layout/TargetStyleHeader';
 import { PageMeta } from '../components/seo/PageMeta';
 import { generateProductMeta } from '../config/metaData';
 import type { ProductWithDetails } from '../types/database';
@@ -130,7 +130,7 @@ const ProductDetail: React.FC = () => {
       <PageMeta {...productMeta} />
       <div className="min-h-screen bg-gray-50">
       {/* Header with Back Button */}
-      <PublicHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
+      <TargetStyleHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -217,12 +217,12 @@ const ProductDetail: React.FC = () => {
 
             {/* Price */}
             <div className="border-t border-gray-200 pt-6">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center flex-wrap gap-x-4 gap-y-2">
                 <span className="text-3xl font-bold text-gray-900">₹{product.current_price}</span>
                 {hasDiscount && (
                   <>
                     <span className="text-xl text-gray-500 line-through">₹{product.original_price}</span>
-                    <span className="text-lg text-green-600 font-medium">
+                    <span className="text-lg text-green-600 font-medium whitespace-nowrap">
                       {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
                     </span>
                   </>
