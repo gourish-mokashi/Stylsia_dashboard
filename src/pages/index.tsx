@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProductGrid } from '../components/product/ProductGrid';
 import TargetStyleHeader from '../components/layout/TargetStyleHeader';
+import Footer from '../components/layout/Footer';
 import { usePublicProducts } from '../hooks/usePublicProducts';
 import { PageMeta } from '../components/seo/PageMeta';
 import { homeMeta } from '../config/metaData';
@@ -107,92 +108,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Newsletter Signup Section */}
-      {/* Inspired by Uniqlo's clean subscription forms */}
-      <section className="bg-primary-50 py-16 xl:py-24 border-t border-gray-100">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 rounded-2xl bg-white/80 shadow-lg">
-          <div className="text-center py-8">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              Stay in the know
-            </h2>
-            <p className="mt-4 text-lg text-gray-600">
-              Get the latest fashion trends and exclusive offers delivered to your inbox.
-            </p>
-            <form className="mt-8 sm:flex sm:max-w-md sm:mx-auto">
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-full placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:max-w-xs"
-                placeholder="Enter your email"
-              />
-              <div className="mt-3 rounded-full shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                <button
-                  type="submit"
-                  className="w-full bg-primary-600 px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition duration-300 hover:scale-105"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
       {/* Footer Section */}
-      <footer className="bg-gray-900 text-white py-12 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-1">
-              <button onClick={() => navigate('/')} className="focus:outline-none hover:opacity-80 transition-opacity">
-                <img 
-                  src="/img/logo.png" 
-                  alt="Stylsia" 
-                  className="h-10 w-10 rounded-full object-cover mb-4"
-                />
-              </button>
-              <p className="text-gray-400 text-sm">
-                Your destination for the latest fashion trends and timeless classics.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Shop</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition duration-300">Women</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Men</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">Kids</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Support</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-white transition duration-300">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition duration-300">FAQ</a></li>
-                <li><button onClick={() => navigate('/documentation')} className="hover:text-white transition duration-300 text-left">Become a Partner</button></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Follow Us</h4>
-              <div className="flex space-x-4">
-                <a href="https://www.instagram.com/stylsia/?hl=en" className="font-semibold text-gray-400 hover:text-white transition duration-300 flex items-center space-x-1" target="_blank" rel="noopener noreferrer">
-                  <span>Instagram</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-            <p className="text-sm text-gray-400">
-              © 2025 Stylsia. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
     </>
   );
