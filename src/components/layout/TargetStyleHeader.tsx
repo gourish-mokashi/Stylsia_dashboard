@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Search, User, Heart, ArrowLeft } from 'lucide-react';
+import SpringModal from '../ui/SpringModal';
 
 interface TargetStyleHeaderProps {
   onSearch?: (query: string) => void;
@@ -385,41 +386,13 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
       {/* Spacer to prevent content from hiding behind fixed header */}
       <div className="h-16 lg:h-20"></div>
 
-      {/* Coming Soon Modal */}
-      <AnimatePresence>
-        {showComingSoonModal && (
-          <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowComingSoonModal(false)}
-          >
-            <motion.div
-              className="bg-white rounded-lg p-8 max-w-md mx-4 text-center"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2 className="text-6xl font-helvetica font-bold text-red-600 mb-4">
-                COMING SOON
-              </h2>
-              <p className="text-xl text-gray-700 mb-6">
-                {modalTitle} feature is currently under development
-              </p>
-              <motion.button
-                className="bg-red-600 text-white px-6 py-3 rounded-lg font-helvetica font-semibold hover:bg-red-700 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowComingSoonModal(false)}
-              >
-                Got it!
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Spring Modal */}
+      <SpringModal 
+        isOpen={showComingSoonModal}
+        setIsOpen={setShowComingSoonModal}
+        title="COMING SOON"
+        description={`${modalTitle} feature is currently under development`}
+      />
     </>
   );
 };
