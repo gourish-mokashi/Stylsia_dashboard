@@ -215,7 +215,7 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
             {/* Logo */}
             <motion.button 
               onClick={() => navigate('/')} 
-              className="focus:outline-none"
+              className="focus:outline-none ml-10"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
