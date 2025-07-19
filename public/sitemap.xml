@@ -25,18 +25,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/products?category=CPT</loc>
-    <lastmod>2025-07-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/products?category=OVERSIZE%20FULL%20SLEEVE</loc>
-    <lastmod>2025-07-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://stylsia.com/products?category=REGULAR%20POLOS</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>daily</changefreq>
@@ -49,13 +37,19 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://stylsia.com/products?category=CPT</loc>
+    <lastmod>2025-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://stylsia.com/products?category=WOMANS%20BABY%20TEES</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/products?category=Bottom</loc>
+    <loc>https://stylsia.com/products?category=OVERSIZE%20FULL%20SLEEVE</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
@@ -67,1641 +61,1179 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/81885acf-300e-4939-a397-da9ed07fe801</loc>
+    <loc>https://stylsia.com/products?category=Bottom</loc>
     <lastmod>2025-07-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stylsia.com/product/4be6ff2e-391f-4d1c-acb3-11a003247143</loc>
+    <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/dbc8f9ea-cca8-4a98-a1e0-26d74d76f62e</loc>
+    <loc>https://stylsia.com/product/acfb52c1-14bc-4e15-b2b1-29ebc1508abf</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/e4533d7e-a0b2-438d-8f99-54edc7c2ad7f</loc>
+    <loc>https://stylsia.com/product/79d68069-3d6f-45dc-8def-c70f8b65ce66</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/fb821239-9403-4d91-b7ea-d3b848d0abf6</loc>
+    <loc>https://stylsia.com/product/d3a60ee8-fbe8-47c0-9dbe-c87a6a93a570</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/71251fef-9885-405c-9119-a6163a873890</loc>
+    <loc>https://stylsia.com/product/3bd084a8-8d37-480c-a549-637f3c27e017</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f777f753-b08d-43da-9601-7659be2c5b1b</loc>
+    <loc>https://stylsia.com/product/e42ebab8-509f-43f2-ad07-4a3119160ffa</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ca6782f6-4ea7-4326-8ec3-6231bb2b5b39</loc>
+    <loc>https://stylsia.com/product/6efcf760-841f-4b1e-b624-5ef571946fc3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0c6a0f64-ee25-4696-a58e-fd3795f98df4</loc>
+    <loc>https://stylsia.com/product/2d334e1c-5b67-41ab-adb4-d8e21457381b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/1f9a6a9d-6af6-4dcc-93b2-9cb50315cb45</loc>
+    <loc>https://stylsia.com/product/f15377b6-26ec-4604-b3a6-eb31750f3164</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bd26b2b9-f5f2-448b-952c-993a52ae6ddb</loc>
+    <loc>https://stylsia.com/product/92aacbb8-70f0-490d-9bc9-7efa454b1e13</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f9b8120e-12b9-4707-aa72-2e4174d28bca</loc>
+    <loc>https://stylsia.com/product/71201802-e0a3-4134-b893-89160cf5f341</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/4ddadbd4-29c3-4ce3-bbd2-f6d3a2d304f3</loc>
+    <loc>https://stylsia.com/product/8e746cbc-833b-4193-8390-be424e722e74</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/d3262849-7e4b-4360-934b-466a026dc37a</loc>
+    <loc>https://stylsia.com/product/21e409f8-6769-4d73-9e1e-50de5ff2d970</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/543c3fdc-6b22-4027-9bf3-c190a61c050c</loc>
+    <loc>https://stylsia.com/product/34aa3dab-27d3-44e1-bd81-8bd545db559f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c50cf2ec-7c01-4fb3-a76c-577f4baae20b</loc>
+    <loc>https://stylsia.com/product/6d480692-00df-4de5-97e0-6f1ca7a5703e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/76cf8d08-53be-4fa3-ad00-0f1810ce5feb</loc>
+    <loc>https://stylsia.com/product/132534e4-803b-4a42-adc0-87bfa97fafcf</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/555fbad9-6cea-464b-bf3e-e9e16507f463</loc>
+    <loc>https://stylsia.com/product/a6bf1c2d-6604-4fbe-a6fd-66557da758fe</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8df0cea5-49bb-4c55-a2d2-7402733e6338</loc>
+    <loc>https://stylsia.com/product/b74142fe-1d34-48f7-9900-4c24b11fdf99</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2aeddf62-0009-43fa-bd4c-1d87a6b471a3</loc>
+    <loc>https://stylsia.com/product/fa4c6b68-cf06-4a0d-9360-6b7d1a146496</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/05339e34-8ac3-464f-881c-d81940af9a33</loc>
+    <loc>https://stylsia.com/product/e36dce6a-3df2-44bd-a0dd-e03db8ee5a28</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/50a69b50-3076-405f-8ad6-3475ed2e3b9e</loc>
+    <loc>https://stylsia.com/product/2990c603-4e05-4431-8a58-fb37cbc2a79d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ffea3a35-7b43-4abf-8f0c-32d577c7e9ae</loc>
+    <loc>https://stylsia.com/product/11ec211e-e268-4b82-b4fe-36a8ad83cf35</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c20740b0-fcb0-468a-872d-aac2556792a1</loc>
+    <loc>https://stylsia.com/product/b6bc1dd8-0cdd-47cd-be07-0bb7fb0d256b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/081e44c2-6a23-4c99-951f-b93bb607091d</loc>
+    <loc>https://stylsia.com/product/265569d2-8743-4658-ac1b-f0a35119ea06</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5e8959b4-37bc-4d2a-824e-5c916913722b</loc>
+    <loc>https://stylsia.com/product/6c745d60-612d-418f-ad68-da33d81c8135</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/18d058fe-89d9-48cf-b8cf-1aa060461640</loc>
+    <loc>https://stylsia.com/product/330d5817-d086-4d3d-bf72-c9245e11ccb2</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/792a5b4d-1b55-49d0-980a-b7ccddf292b1</loc>
+    <loc>https://stylsia.com/product/347a0d76-f916-4791-a54c-0665d5a5644f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/1604e1e6-ed6d-44be-9586-0a84394f7334</loc>
+    <loc>https://stylsia.com/product/2d1c8018-f7dd-4b83-a423-b341e7bc5537</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/aac43aa3-d9fb-4d44-bb98-118cd63ffe94</loc>
+    <loc>https://stylsia.com/product/8aeb5f25-ba92-43ef-8815-9d503a8410b3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/25f4e45e-b23d-4cd4-aea3-338cd580aa83</loc>
+    <loc>https://stylsia.com/product/1f12c442-fc89-4c07-88c8-7a972bf6ecb7</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/26ce5621-bf22-4f4c-812c-c21187b30787</loc>
+    <loc>https://stylsia.com/product/ff49ec41-d934-4aa3-a852-91c64b7bf182</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c7ff319d-1faa-4e79-9705-443b15fef49f</loc>
+    <loc>https://stylsia.com/product/dfb10f99-29c4-401c-b90f-2b4950d63ba1</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0bc5594d-a6dc-4170-bd65-de20352cfc86</loc>
+    <loc>https://stylsia.com/product/9c7c8499-7429-44ec-a131-8bc5b5b904fc</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/1655059f-3676-4b8c-a29b-a378fb5d87c8</loc>
+    <loc>https://stylsia.com/product/5ee38b36-f180-4ae2-ac57-8e92fc75fecc</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/6d9e47de-b29c-41b2-839a-c275ccd0f8e6</loc>
+    <loc>https://stylsia.com/product/5454f260-f839-4c58-a522-a8ad44341c89</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/886eb6fc-96dc-47cf-9246-0027e4c6219c</loc>
+    <loc>https://stylsia.com/product/fe143b97-c1ba-4ef6-95d4-b83a288c2023</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ed4979ab-05fa-4b5b-b718-f636c5476768</loc>
+    <loc>https://stylsia.com/product/a6832997-2575-44cb-a28c-1b4683061c1e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cb0cdbe9-edd5-4718-8961-3169016675c7</loc>
+    <loc>https://stylsia.com/product/ad79fa12-0524-4270-88a3-70bed8961807</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/e18c606a-6ea4-4c88-a1b6-b8c4d5d79d0d</loc>
+    <loc>https://stylsia.com/product/91260766-c30e-403b-bc69-6b3e207c5b12</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f6936c56-5628-4783-975a-8dfba8baa0f0</loc>
+    <loc>https://stylsia.com/product/476f4257-d946-4863-8c10-74b77aefab22</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b58fb6e0-f9b7-4d32-8d07-e10a9ac484e1</loc>
+    <loc>https://stylsia.com/product/c96c7dba-bf11-4da6-80cf-98f445b388ad</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b3c6bc65-3699-4447-bdba-4ddc4de9f044</loc>
+    <loc>https://stylsia.com/product/01749865-b55f-4557-ba86-7b13d799d2ac</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/18ff624f-51cf-419f-b036-c3bcf980b561</loc>
+    <loc>https://stylsia.com/product/4c2b3625-49d6-4dd3-ba5f-88d49be2328b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bab16e52-b822-4436-bba5-84b605a2bd9b</loc>
+    <loc>https://stylsia.com/product/78c4e79c-770e-49f5-937c-877b51c83b65</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cf313b10-6ae4-43f5-9509-74dfd27c7cd5</loc>
+    <loc>https://stylsia.com/product/94f4fa46-5d57-4ad4-a62d-322e4bb18080</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cdd25cf8-fb78-4972-9ce4-31a35fda716a</loc>
+    <loc>https://stylsia.com/product/7e23986f-850c-42a4-98ed-36d9f9a11c83</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/54cb680d-0912-443f-86a6-36554b93a0b3</loc>
+    <loc>https://stylsia.com/product/5916a280-d483-4ae4-82d4-75ca05d165c1</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8e453987-d42a-49d1-9f29-4b22f24cc420</loc>
+    <loc>https://stylsia.com/product/d6cf35ae-f99a-4802-81de-b677bca86676</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/230b15ce-c6d2-423e-9608-8ad4b5b673d0</loc>
+    <loc>https://stylsia.com/product/8df0bf20-7579-4115-8638-610cf563ec70</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ec755485-df63-4994-8b43-7ef8203b199e</loc>
+    <loc>https://stylsia.com/product/bace66b2-c22b-43bc-b376-45560f356b15</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/60aaf305-f3ac-491e-831a-1d6d8c9744fe</loc>
+    <loc>https://stylsia.com/product/9514bb47-3630-4558-bdbb-b1dbb53204b1</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b84e85ca-eaf3-40b7-b0ce-1e0581883720</loc>
+    <loc>https://stylsia.com/product/ec81ca07-496c-4208-93a9-13abfa286e07</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/95204684-35e9-4882-97cd-0d2f3074bd34</loc>
+    <loc>https://stylsia.com/product/1c2aba10-a673-4f03-9496-119c0b86664e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/73d28f91-1b73-4110-ac34-f15c49ef8829</loc>
+    <loc>https://stylsia.com/product/5aef0768-9f9b-42c6-ad10-348b51716ef5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/eb610284-971e-4a37-9d9e-a27f3982f1ee</loc>
+    <loc>https://stylsia.com/product/b1f187cf-bd3d-4243-a1ec-3c6ebbeb9b89</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/aa6440fa-322e-4d29-ad4a-9852ecbbc5a1</loc>
+    <loc>https://stylsia.com/product/542daecb-8b98-46b9-92ad-e804cfb75b5f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bb9cde3c-395d-49a9-8c29-be58e5dd7e18</loc>
+    <loc>https://stylsia.com/product/e1b3718e-74af-47ce-8d73-e0cad5a32f35</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/53682748-b7ca-4cef-b44e-34aed3fe17d9</loc>
+    <loc>https://stylsia.com/product/d61e07b6-228a-46fc-8237-13f3251de958</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/7c5627e6-fe5f-4d15-94d1-2c935f9c66b2</loc>
+    <loc>https://stylsia.com/product/f8218066-b609-49f2-9e25-9b959f8fd521</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/72add5bd-ceb6-4b31-8f36-a99fc5187a35</loc>
+    <loc>https://stylsia.com/product/7ef94465-db2e-4c49-a7d5-07708d217e94</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/30828c9f-b557-4f0a-8fb3-6410002debdb</loc>
+    <loc>https://stylsia.com/product/6fbae82c-7cdc-4e4e-b5c4-32d938e4443e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a47af9df-9d59-43aa-8293-fc99f9018e71</loc>
+    <loc>https://stylsia.com/product/d956c78d-4086-4790-967c-8881175e98eb</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/71488629-a6ac-4139-a50b-8eb7ad30098b</loc>
+    <loc>https://stylsia.com/product/66bd8123-bfe0-4538-836a-23f666e8946e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c45b29c4-4f97-4fd2-b979-d3921e061d02</loc>
+    <loc>https://stylsia.com/product/ca2f4754-b237-4e0b-b23b-0e9cf79ea40d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cdccb7ec-57e2-418d-9104-ea2978470bc0</loc>
+    <loc>https://stylsia.com/product/25916727-e9ca-4774-8565-ecb8edb74802</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3b85a1a5-80b1-40c2-909f-f3886a4bc606</loc>
+    <loc>https://stylsia.com/product/30646ef3-cdca-42a1-9925-6fb359132132</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8f6ba60b-e051-40a2-a916-755f018762fa</loc>
+    <loc>https://stylsia.com/product/04323894-0763-44e8-a4ea-7e286434a139</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0c086354-f11b-4fc2-8008-75dc9c803335</loc>
+    <loc>https://stylsia.com/product/f1897f10-52e2-409b-b59a-c9ae2e331b27</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5d4e0c26-28b3-46b2-b8a9-6948c4ffc83a</loc>
+    <loc>https://stylsia.com/product/7e59dbc8-449b-4973-ab7a-bcf8dead977c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2d5914cb-9d9e-41a0-8ca2-2fabfb89a979</loc>
+    <loc>https://stylsia.com/product/f7cbe848-d7b2-4702-977f-fb9db4ced6d4</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/67028a4f-f8ee-4704-8b0b-21f7381b3ce1</loc>
+    <loc>https://stylsia.com/product/fc0e62a1-01de-478c-9b2b-a1d6e68c969c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/88927edb-16d2-4f8c-b0d0-46b9c4778d4e</loc>
+    <loc>https://stylsia.com/product/7df54f3a-fcdf-43b4-92c2-1dcb8ec6a49d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/468db3d4-f99f-4c9e-afe5-512455082edb</loc>
+    <loc>https://stylsia.com/product/25748f55-27fb-4535-aaee-8486eba6fa9a</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5b865d6b-6232-40ab-8413-afff12eb325e</loc>
+    <loc>https://stylsia.com/product/3b79711b-5b80-43ee-ba16-95d1330f4443</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0cfc6745-6c5e-4c62-b77b-8038e2ff64db</loc>
+    <loc>https://stylsia.com/product/f45373ec-ac23-4974-acb6-5210c959ee65</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ea8e16fc-62b7-4cd1-a160-392fc0ddfc93</loc>
+    <loc>https://stylsia.com/product/00c2665d-5b4c-44ec-830f-a4115b1655f5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/50f91ca8-cb87-4b3c-a100-c42ea0628f99</loc>
+    <loc>https://stylsia.com/product/3cf588e6-2983-4fde-8d93-b9b320102f3b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c610dea1-ef4c-4d5d-a192-9e0725e97c41</loc>
+    <loc>https://stylsia.com/product/eabf9494-5c26-462f-91c7-9e7e5055ddb8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/e70b8c8d-766a-4b48-817e-c6c5a335f502</loc>
+    <loc>https://stylsia.com/product/01c5aa05-3ed4-41b8-b52f-80337b74a498</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/316670fc-fd59-4653-ab08-277d2169020d</loc>
+    <loc>https://stylsia.com/product/4a295937-e21d-464e-b11f-5a4d6daca102</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3698f43b-f193-4987-aed5-04a580a9a978</loc>
+    <loc>https://stylsia.com/product/1746ba5e-cbb5-4489-9452-1f167b2d5cf7</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a9777ff1-325c-46e1-a456-3d704318a06d</loc>
+    <loc>https://stylsia.com/product/1753a304-6cc9-4a8f-9a23-941f0e656775</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/31d41caf-896d-4663-ae9d-c3333b3fff2f</loc>
+    <loc>https://stylsia.com/product/69604916-e1ba-444a-94fe-673cb643f28c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/998620e5-a3d8-4fd6-81cd-7127d8561f32</loc>
+    <loc>https://stylsia.com/product/211e309f-fa27-43a1-9b40-3ec08125c859</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b8494941-1bc0-43a4-aaba-9a171db3dd74</loc>
+    <loc>https://stylsia.com/product/9ab8080f-29c9-4bfb-803c-3581d0ec5647</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f7ffb14b-1469-41ac-a0a3-931f60a40f82</loc>
+    <loc>https://stylsia.com/product/b91136e2-47d4-485e-a013-9c8ea0828be2</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3c8eb6d6-79b0-4cd1-8239-ccb5305641a8</loc>
+    <loc>https://stylsia.com/product/715917c6-3183-49b7-91e9-281d82039cb7</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8ad9c1e6-14a3-49fb-8f16-14710e16a37d</loc>
+    <loc>https://stylsia.com/product/922f1345-0c27-4db2-aab3-4ac553c9d288</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/afc7b3fa-4588-4aae-99b4-0022443ddc48</loc>
+    <loc>https://stylsia.com/product/aa672830-a352-426d-b98e-cc2729f8e1a3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2dd71339-b135-4595-ad66-a63847fdb7ae</loc>
+    <loc>https://stylsia.com/product/3878c277-7465-4cc2-8ab0-8170547d4546</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5ecdcc52-557b-4c3b-ab06-0bea93e29a2b</loc>
+    <loc>https://stylsia.com/product/2f786223-e138-40ed-9bce-cfe404493e7b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/6f0c731f-b0d9-474b-ab5b-5995d0e76d69</loc>
+    <loc>https://stylsia.com/product/ea73be98-057a-4f12-aa67-7ebe13b0da62</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/128f7672-38d7-44db-a27f-1d33161b182b</loc>
+    <loc>https://stylsia.com/product/911aa907-3dae-4479-bf47-bfed81438412</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f8b8e3bf-907d-495a-85c4-b796fa5a7930</loc>
+    <loc>https://stylsia.com/product/2a469d9f-42b6-46a6-8087-387647a995e5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/1cc55ccf-b5fa-4fc5-a2d6-20ebb25e52d6</loc>
+    <loc>https://stylsia.com/product/b7d3d189-4d2b-4010-a511-276aceaf2cd9</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3b1dbe78-6885-4fcc-b9d0-d6ab7ff6d63b</loc>
+    <loc>https://stylsia.com/product/8ed7c24e-c598-4e5b-81d9-847246a63313</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/4a583d3e-6fff-4894-a1bc-c6544d948b81</loc>
+    <loc>https://stylsia.com/product/dc0d3975-2622-4f86-8ed9-1f60c78e12c9</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/080216e3-ee58-419c-862b-a081e5e78b67</loc>
+    <loc>https://stylsia.com/product/4fcfd9d7-7294-4fb9-981f-84b810917035</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bfe11522-a340-4f58-aa6b-82c7f9659cd4</loc>
+    <loc>https://stylsia.com/product/6380d085-6d84-49a9-95db-b11b989d9715</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/372f65d3-f96e-4d91-bd01-a68ea2af6c74</loc>
+    <loc>https://stylsia.com/product/b7ba637a-efff-437b-883d-a1a537d66e75</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cf182941-60ec-4eb5-b676-6550412e4267</loc>
+    <loc>https://stylsia.com/product/62e46925-cad6-4eb1-a46e-06aa915ce076</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/9d62e5aa-65fc-4581-8f03-4d8b108d98fa</loc>
+    <loc>https://stylsia.com/product/231797fb-0943-40bb-a7a0-88c3520cccc8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/9e39c1b1-ed16-435b-8239-e963a9b6135f</loc>
+    <loc>https://stylsia.com/product/ca05c384-054b-4ac4-aa2f-1c71d9aadb97</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/cd36d92c-83df-410d-988e-3970325e9384</loc>
+    <loc>https://stylsia.com/product/759a9a03-680b-43fd-92ce-3e2201429f64</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a71e5e55-c5cc-4d9e-9814-9b4b17cb95d5</loc>
+    <loc>https://stylsia.com/product/9b6ec4b5-3da3-4ec6-8773-452d03687cbd</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8b925238-106b-477e-97d3-8c9da7268501</loc>
+    <loc>https://stylsia.com/product/e848e5a5-ac23-4545-b7a9-57e74fee93c5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f00ce55c-b680-447f-a038-f1dd52558859</loc>
+    <loc>https://stylsia.com/product/4f822b12-541b-46cb-a21c-7c2bb9020fdb</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/59a7ce37-7f6e-400f-9411-d83bf2c32a37</loc>
+    <loc>https://stylsia.com/product/4d6738d2-355e-4223-8b1b-13687cf580a8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/15a1830d-da23-4c17-9ff6-e150f6d6ed85</loc>
+    <loc>https://stylsia.com/product/2cf110e3-418e-479f-a1ab-cafe06ff1646</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/54faf50f-0cb1-4266-83d4-93e46059c3e4</loc>
+    <loc>https://stylsia.com/product/f6fa5fe9-5e88-42eb-9fe5-c2b8a2ff849e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ee8d3236-c7e1-43fb-8329-3193d7e07543</loc>
+    <loc>https://stylsia.com/product/863c40b3-9436-4798-b167-513e997b4858</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/45c216c1-faf8-4194-8b9a-42a6b4cb48df</loc>
+    <loc>https://stylsia.com/product/abff9d6a-dbea-465b-9340-b3907bc69966</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/61206db5-1cae-4013-bfcd-d9aa86c54d7d</loc>
+    <loc>https://stylsia.com/product/cf21af7a-0bdf-45a4-aaf3-84b9c73fe4de</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2a0e3583-db8c-4bfb-8987-683243525dce</loc>
+    <loc>https://stylsia.com/product/28445f40-f669-4f8d-b67e-de6b759b84c6</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a016da46-3bf9-4526-9b01-b32eef9aae1c</loc>
+    <loc>https://stylsia.com/product/bf1f72fc-182b-40d2-b65c-01141d3599a4</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0acc9bd1-f880-47aa-a1d8-d98fedba4e34</loc>
+    <loc>https://stylsia.com/product/2ba3c10b-e6d1-4b88-b6e8-fb7733cbdbe5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a299c646-b8df-4c06-9017-070b99656e2a</loc>
+    <loc>https://stylsia.com/product/99bc00b1-0673-452f-b394-4e9a6b9b31ee</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c287e3e7-5162-4707-93cd-1edc1e32e821</loc>
+    <loc>https://stylsia.com/product/6eec358e-b1a4-47e5-8aef-aac7c30a5b55</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/47c4494a-bfd4-4996-84b0-4ceac4eea013</loc>
+    <loc>https://stylsia.com/product/6216f729-a8eb-4439-ac38-3e4de191036c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/d9576596-624e-4196-9bf5-bb09dfc44712</loc>
+    <loc>https://stylsia.com/product/ff985399-fbc1-4baa-b43e-7859ad588f36</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/eb897dbe-44d8-4604-af9b-568c570db013</loc>
+    <loc>https://stylsia.com/product/9a9478c4-30dc-4adf-855d-008b8847274a</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3c6ac637-ef23-4a12-a3de-b99ed96ec5ac</loc>
+    <loc>https://stylsia.com/product/10cc43a5-6a5a-4821-8a5d-a6ad434df817</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/95360c50-6b8a-4e87-ab37-b890e17810dd</loc>
+    <loc>https://stylsia.com/product/47e450b7-df96-4dca-8140-e179a43195e8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/02923701-e959-42c2-841e-42eeb48481dd</loc>
+    <loc>https://stylsia.com/product/cc6ecac8-8f0c-40ca-b2ac-3c30338e9573</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/e96ed6b0-8757-42e3-a38d-b01b1dd9c642</loc>
+    <loc>https://stylsia.com/product/7ef528a5-2645-41ac-98c6-5de0a82ff519</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/4079b51d-e612-4914-bee9-562a93673fc5</loc>
+    <loc>https://stylsia.com/product/a883f2b5-2a4a-4476-a97c-d99cccd2db78</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/fe9d6784-b2b2-4cc7-aa2e-b57b25d4c6f3</loc>
+    <loc>https://stylsia.com/product/b1a23264-de3f-499e-a2a2-6f4f954abe45</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f793e4e5-ecf1-456a-b11d-0d40c8f6a58f</loc>
+    <loc>https://stylsia.com/product/5fef7961-122b-4866-b93e-12fbc876ed78</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/98ee3f56-630e-4c07-a349-e748c8dd4fb8</loc>
+    <loc>https://stylsia.com/product/6f7aca6d-a053-4087-b03d-fe24fcb3804f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/10c3744c-fcda-48be-90ed-57a5f035ceba</loc>
+    <loc>https://stylsia.com/product/55798c11-486f-470a-81ec-486b31d45f0f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/f6305590-b8a9-4224-8776-178db9ba7e71</loc>
+    <loc>https://stylsia.com/product/54930588-7631-47f1-aa37-942b7529f09f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a6be14b5-b03d-4db2-8dfe-d127cc7f13ac</loc>
+    <loc>https://stylsia.com/product/c8673598-2771-4f61-84dd-3a86a48b8953</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ac0e8783-b84e-4fea-a651-4f9a07614afb</loc>
+    <loc>https://stylsia.com/product/d3fcfb3e-9859-4fd2-8f7d-0ca23b3458b3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/afdd54c8-ff57-48fd-a04d-d801c92dd431</loc>
+    <loc>https://stylsia.com/product/754dafa9-8587-4351-962d-6e74b9d71a27</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/82cd2b47-3527-473f-ac9b-fba8b9b86716</loc>
+    <loc>https://stylsia.com/product/1b9aea15-0672-4c59-9004-aed46bdfe563</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/1c8c7e82-5028-49f8-a7e0-ecfc06566afd</loc>
+    <loc>https://stylsia.com/product/36bd712e-9604-4612-a3c5-8b90d29f7dd8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/21a1197b-cbbc-4f93-950a-72fef10f489b</loc>
+    <loc>https://stylsia.com/product/040aa923-1ca7-4ccf-92ec-4b67a9209727</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8db8827b-a4f1-4982-a18c-e0a46140468f</loc>
+    <loc>https://stylsia.com/product/729ab470-857a-434d-bb40-7401b0f8111d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/6bb76050-f57d-4294-ad1d-16d3b29eab5d</loc>
+    <loc>https://stylsia.com/product/61234ac5-984e-44a5-bb59-51a38701afd9</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/425e49be-3d58-4000-ad52-ee0c7f547bf9</loc>
+    <loc>https://stylsia.com/product/5a394041-2b24-44d2-8a02-d93def2a8a9c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5184be00-1f87-40be-852b-1617c5368d1a</loc>
+    <loc>https://stylsia.com/product/065917b4-9190-49a4-ab20-1c51d5bbf261</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/208b4d04-aa22-479f-a695-05a7e2d9ecd7</loc>
+    <loc>https://stylsia.com/product/53a93cbc-91e9-40c5-8f4a-ac550609a0d8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bb8d13a3-18d5-4569-9306-c934a8ae5e1a</loc>
+    <loc>https://stylsia.com/product/90513186-0e91-4f40-ba8c-764285e9d10c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/0aebfb60-0a59-43ae-b9b9-e234c511a8df</loc>
+    <loc>https://stylsia.com/product/4142f3dd-20da-4ac9-a5eb-c3b7d0f56fb8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ffaac6e8-813a-4011-aeba-a7c5a149771d</loc>
+    <loc>https://stylsia.com/product/3a10eb17-1693-431c-8841-f63ed9d20d39</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/fe3ab4dd-b06a-455b-acdf-2bf107a60ccf</loc>
+    <loc>https://stylsia.com/product/49c8e521-211a-4d55-8cf3-786b5cc61816</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bedb184f-19a9-4ac4-b789-d76a270be497</loc>
+    <loc>https://stylsia.com/product/8f7fb4da-03ef-465b-b9b9-5cf2755d208c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/bb2fdf96-b82c-4c80-b9a5-1338e14f871a</loc>
+    <loc>https://stylsia.com/product/70382c46-0c30-47e2-a0a0-7b75850eec34</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/fd0ff7c0-ee47-4c5e-9b22-62eedccd9cae</loc>
+    <loc>https://stylsia.com/product/7355d324-6884-45e8-ac08-f0a6d470135b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/9642f71f-bba4-4056-a828-d304f8645a6d</loc>
+    <loc>https://stylsia.com/product/d16936e3-4b99-412c-a1aa-ceb1bcfc9fd7</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b5d39ac0-e5fa-4fe7-9a3c-5c199d0d0249</loc>
+    <loc>https://stylsia.com/product/bed83c21-b5c5-47a0-8b3e-ee7da47ac35f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/329bab4b-0a44-4bc4-86db-ba22007e9d0d</loc>
+    <loc>https://stylsia.com/product/1e8c3cc6-8c45-4506-9940-1f72a89ee61e</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/4279c815-28ff-4cbc-8049-223666537bf5</loc>
+    <loc>https://stylsia.com/product/ed091b6b-c68c-4926-8364-6c569e3bde0b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/d1ef7b02-d180-4b99-a8b3-7d833f688180</loc>
+    <loc>https://stylsia.com/product/f8845b6a-c37b-4933-94e5-5354e68ba319</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/083a4399-4bee-4e6a-b07f-d715265e4031</loc>
+    <loc>https://stylsia.com/product/2009b0c2-4f9b-4d58-b437-b8265dcbec73</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/643ac0f3-d387-497c-82b1-855a890ac789</loc>
+    <loc>https://stylsia.com/product/e08dd82b-b435-4eed-9970-ef4c976151a6</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b362f314-52c6-468f-a314-34de1bdb335b</loc>
+    <loc>https://stylsia.com/product/7922736d-8ba7-42f2-a6db-2052d807999d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/069b4338-99f2-4dfd-b534-77e0b8a68aac</loc>
+    <loc>https://stylsia.com/product/64a29376-4b96-4c33-a9fd-4aa9a1c62b83</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2b339871-4674-4dd3-80ab-d0e1a687a6b3</loc>
+    <loc>https://stylsia.com/product/64ce50dd-beba-4511-9d58-0fd6c33e981d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/7dcd1c4e-5502-46e3-b68a-7efe2e888189</loc>
+    <loc>https://stylsia.com/product/9aee5d52-2b87-45ca-adc3-ffa3e0741ad5</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/7c835c90-9cce-4d3d-a39c-018d710b3d80</loc>
+    <loc>https://stylsia.com/product/0eec2414-c82d-4961-bf46-209947d9659d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/87b38355-7be9-40c5-857e-5d525d4d308c</loc>
+    <loc>https://stylsia.com/product/3dcaa160-6654-4f70-a365-6a442ef23858</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a339bbdb-68f3-4b13-b74c-3e8c53154f18</loc>
+    <loc>https://stylsia.com/product/5b4f16d7-3ec6-4f2a-b56b-d263d84a9d07</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5e040228-0d7b-421f-bd26-8c2869ea1a47</loc>
+    <loc>https://stylsia.com/product/eb18d699-0d96-438b-8157-66317a9a1e74</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/381dab81-26df-4278-b3d1-3a045c760bfd</loc>
+    <loc>https://stylsia.com/product/a38ae75e-17eb-43cc-b098-8a10da06f5b1</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c0cf05ea-16ee-4c93-bcb1-0ba18ab2fc50</loc>
+    <loc>https://stylsia.com/product/6222cf2d-9686-4e7d-a503-b492b0cdb125</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/64ffdb76-8505-41d4-8905-8849062832bf</loc>
+    <loc>https://stylsia.com/product/aeabbbbe-bb1d-4a2c-a025-e70113d344fe</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/512b6cc8-9ebb-479a-8b14-8acc2cf6d99e</loc>
+    <loc>https://stylsia.com/product/f4b310e0-29fc-49a4-9575-991bc8ca751c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/2d5ce1cf-75a1-4ea6-86de-102a32b973d1</loc>
+    <loc>https://stylsia.com/product/561e613a-5901-4636-85d5-db30c31b279c</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/29146f1e-912d-4738-ba41-efd1fa70a409</loc>
+    <loc>https://stylsia.com/product/bed37255-089e-4387-a49a-60475de11cdc</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/31313683-eaeb-45e6-9611-d410634a6b10</loc>
+    <loc>https://stylsia.com/product/843ad21d-1968-47e8-b9fb-ad8821186069</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/fe7233bc-3f2d-4dd7-aecc-308ea23c838b</loc>
+    <loc>https://stylsia.com/product/2ca3445d-1054-438d-bffd-7d47b657c2e6</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/e0dbdf07-b454-416a-a5ab-a92e4b3edeeb</loc>
+    <loc>https://stylsia.com/product/9c2d40a7-9075-4f1c-bbe3-eff7bfbdfc14</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5bf50dcd-cbb4-4013-acf2-30de99249a19</loc>
+    <loc>https://stylsia.com/product/506bd2ae-8338-403e-b783-e300f2a94cd3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/d5ff03e5-f34a-4546-8ba0-4357f44efabc</loc>
+    <loc>https://stylsia.com/product/419d195e-d845-4800-874e-f9147a35cdc6</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ea433d17-9003-4883-a9cd-48c4b2141516</loc>
+    <loc>https://stylsia.com/product/e3249381-fb13-40ff-b4d4-26871611c939</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/5734dd06-fce9-42d6-ae89-90e67ad132ab</loc>
+    <loc>https://stylsia.com/product/007c2554-9fa7-42bd-8791-e1e1d6b92a72</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/b007b042-697c-44b9-96e7-7d38d3271c63</loc>
+    <loc>https://stylsia.com/product/11c62de4-96bd-41cb-abdf-b205c49ef363</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ae510ad8-d6c3-4571-bca3-5f6bdec50fd5</loc>
+    <loc>https://stylsia.com/product/28d201b0-218e-4db2-9689-0fac9532d748</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/ef13d943-a59e-4f18-bb62-a1b82fe3a15b</loc>
+    <loc>https://stylsia.com/product/a408f2e1-0e27-4351-90a7-ecbaef7c835d</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c66a6aff-2b42-4812-bb61-f48e8085f03e</loc>
+    <loc>https://stylsia.com/product/69a98b9e-2047-45ae-8885-e12705acc2c3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/3d977d8c-4a1e-4aa6-b983-602e1f77dbc9</loc>
+    <loc>https://stylsia.com/product/4730fbdd-d01e-488c-b413-8c2044509ee8</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/27265ebe-b9df-4a32-8286-0b162ee0433b</loc>
+    <loc>https://stylsia.com/product/0046083d-43fd-4b64-8883-c1b00637aecf</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/9c78af85-4fd1-4181-8155-cae8ded2c0fb</loc>
+    <loc>https://stylsia.com/product/7bd8b92c-407a-4ae6-aa39-b8dc62d58fe3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/78771667-a2b1-4033-8226-1687d05e8cf9</loc>
+    <loc>https://stylsia.com/product/f87ac42c-83a6-41f7-a807-5a71bf9faa98</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/4b681ecd-6314-4eab-b276-59b45a817998</loc>
+    <loc>https://stylsia.com/product/f4a1c13a-3227-4962-a6c1-30a211e3f2cd</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/83eeadf8-2d2f-495f-a6cb-3fe4409197db</loc>
+    <loc>https://stylsia.com/product/fee20c04-286f-4337-9b1e-bd7fe215217f</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/8a0d3afc-c31a-448a-8745-76b01785a957</loc>
+    <loc>https://stylsia.com/product/43010e7c-1e5a-4f80-8d24-4261ce1f7461</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c0739b98-aabf-4fcd-91f7-b1c6ca65a8f5</loc>
+    <loc>https://stylsia.com/product/bb39fe73-66d4-4e46-ad09-4ff900d947e9</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/794fdb02-9c11-44f9-b678-8b21a592a93e</loc>
+    <loc>https://stylsia.com/product/a1d3909f-3c22-4d97-a0ab-3289d924ac8b</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/29fa7b7e-38e7-44c8-9984-9f426d365617</loc>
+    <loc>https://stylsia.com/product/f0475b66-cf96-47f1-a50d-0f75400a9794</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/9d77bcd7-582b-4bed-bd13-933d3b1988f7</loc>
+    <loc>https://stylsia.com/product/107e6fe1-c0af-4f56-a003-599a284d51a3</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/a7957d01-3db4-4339-b2ed-1dca0e8be529</loc>
+    <loc>https://stylsia.com/product/0b8de4ab-af83-4fc3-9c4e-61c091827495</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/738ead35-204e-442e-9aff-f9f6fe52a10b</loc>
+    <loc>https://stylsia.com/product/6752d837-e625-4942-bce1-d09a25a31315</loc>
     <lastmod>2025-07-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://stylsia.com/product/c1f529d4-87a8-402b-b114-e1320d210199</loc>
+    <loc>https://stylsia.com/product/326f5c9a-5bdb-471e-9243-b7f9bf237fdd</loc>
     <lastmod>2025-07-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/70e1b4f8-448a-48dd-8162-98251efc34b4</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/1f97467e-3639-4f2b-b49c-0cf9b91e53cf</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/89035554-5376-4606-9a2b-080de41dac08</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/a8b32ea7-9989-4325-b4e8-5ea9b238a38f</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/3ef48f0c-5047-4889-ba7f-15ab5704c218</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/4347977c-450e-4eeb-928e-78b0c5f3d3fd</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/212dc38b-2f11-477d-9140-52bd92105200</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/fc962335-a76a-4663-b9e5-bc730b28c920</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/664c7583-647d-473d-80ce-c192a40505fe</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/1c45ab93-2183-49ec-b4e8-6c487111f74b</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/596f4bde-5cd2-4d43-a2c9-eb9b789cd14b</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/f8fc0071-e919-4aac-9251-a3ca89ce6c1b</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/ea52ce26-f28c-4eca-bfb7-d3ce27e389e6</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/d1719d66-932e-496b-ad88-a59868b35ed1</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/947807dc-edeb-4996-91fa-c9474ca8f2da</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/728ef479-c8ba-4590-9591-fd7e528f4733</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/db170e18-94ec-4794-8c9d-3d73f9d78f74</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/53570f4c-4ccb-439f-9925-a2c050666316</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/ecdc61ec-897a-436e-b07a-a0154a1ab686</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/a35370d4-eeb6-41ba-8dfb-07a076a56a9e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/67004ff0-b21f-461f-be37-a5b5265b5a21</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/cf3c895e-c804-4201-bd02-5321ee91a824</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/15b84075-4faf-424c-9ca1-4574bcb38b80</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/c47c095d-a89b-4dd6-b054-7edbe83c399d</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/fbe317a5-f32a-45ea-8f02-a9f0d52339fd</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/ceba0573-a061-4b39-9cba-dc3eca91df35</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/841e76f7-500e-430f-80a6-850cd17be8b3</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/f1a5c11b-22a6-44e4-a068-879d069e2726</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/f3885dbf-6d7b-4644-ae74-9ce7385fbec4</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/e5870f1d-37b2-4d5f-94fb-fcfe012c4f60</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/8e5017f8-de63-4e42-b37a-d2cb402ee4cf</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/550f072f-523f-4613-864e-f5946f7b1bc9</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/89adb008-dd2e-4f10-9073-7e02b4fdab21</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/15a7f200-6eae-4cd1-ab8a-4a25b1190e0d</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/5b7d9919-ef00-4779-9eb7-36aa17fd8a0f</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/257b0814-e3dc-47e8-920e-4fda856807df</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/99dcc909-07f9-4262-b0c9-2e4aead0efea</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/9a9621b4-f75a-47eb-aa74-24c3cc222a63</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/d98980aa-cbfc-47f7-bbb2-405ca1d8860e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/e9778643-8c9d-4729-b5c9-b385f7ac411d</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/f13f6dad-c900-42db-952a-ba0a8894db56</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/eb2d247d-4e78-4ed7-a373-9e35da724f6f</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/b12488fc-20fa-45dc-b745-6ba29e35f51c</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/c6c20f5b-a549-460c-a620-207d40c38758</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/9f203749-43a8-44e4-b6e6-08127d47cd69</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/9181fde9-4f15-4153-8a78-d45a5a3b2b19</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/8e4c2ab4-f33a-4e8c-9b9a-78348b4f51d3</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/8cd215a9-bcb8-4eae-b746-81ca60d1dbee</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/4074f841-d6a4-4b6d-8a4c-51a9e21f978d</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/839c44ec-8502-4a2f-8027-b67e5d771989</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/7467c207-034c-48ae-a27b-a83fde06182e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/c11f2fbb-b991-40e5-8d88-b8dda619ff0c</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/9db19194-923f-43a6-8a94-fcff8bffbc6a</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/faa61b46-de99-435d-ada4-847ec5beaf73</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/23ed37ed-c634-49ad-8783-05dfce6dc2b5</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/1393e187-8715-4710-b4ea-e529f40a4664</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/cd87a148-03f0-4e65-b8af-7ca320a74a85</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/c0d311af-a80b-4464-935a-812b47e51d9a</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/98f758c7-2c37-431f-9eda-57f83e70d420</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/508eaa2b-9e16-4259-a9a9-7ed29de5d97e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/b567b6c8-5f63-48aa-9793-5615c283d8fb</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/0c0da77e-e4d8-4dda-a376-ed1aaf4a8603</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/69650267-9a02-4c91-9438-a97eec9cda07</loc>
-    <lastmod>2025-07-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/367f3dc6-11a1-4332-b218-18b49092ae51</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/8280dbfb-a561-4869-a680-6e52c7ec2c5e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/1aa42e4e-6b52-4bef-b452-b6f229d443cf</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/317e6fca-3d73-4043-b1c2-d69456505e1e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/9104f717-27af-4d85-a89b-d0d6097865a1</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/2cb4799f-8eeb-4460-a1ee-22b6f78f2a77</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/dcd5d28e-7c9c-4766-a14f-10cce08af59f</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/cfdaca68-a01e-4e20-b037-e506d9dc10d0</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/db12bf8e-12de-4523-8e2e-13e072326b87</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/faf189fe-7045-4414-b4bb-025f53c2ceba</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/fcf7caba-dbce-4c5a-8a08-bce0b5bd067d</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/f6b05d2d-2ef6-4a50-842d-66996ca2af9e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/85c4c5fc-3fe4-4921-bf47-ed1582b1611b</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/d40d7774-f2b2-4bcc-8ed2-4e526ec20e4e</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://stylsia.com/product/de7c9681-326b-4e6f-bfc7-622101c61ce5</loc>
-    <lastmod>2025-07-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>
