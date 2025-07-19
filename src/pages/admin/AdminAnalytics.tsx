@@ -21,6 +21,7 @@ import {
   DollarSign,
   AlertTriangle,
   MousePointer,
+  PieChart as PieChartIcon,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import { useAdminAnalytics } from "../../hooks/useAdminAnalytics";
@@ -354,45 +355,117 @@ export default function AdminAnalytics() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Categories */}
           <div className="bg-white rounded-lg border border-slate-200 p-6">
-            <h3 className="text-lg font-semibold text-slate-900 mb-4">
+            <h3 className="text-lg font-semibold text-slate-900 mb-6">
               Product Categories
             </h3>
             {analytics.categoryDistribution.length > 0 ? (
-              <div className="h-48">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={analytics.categoryDistribution}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={60}
-                      dataKey="value"
-                      label={({ name, value }) => `${name}: ${value}%`}
-                    >
-                      {analytics.categoryDistribution.map((_, index) => {
-                        const colors = [
-                          "#3b82f6",
-                          "#10b981",
-                          "#f59e0b",
-                          "#ef4444",
-                          "#8b5cf6",
-                          "#06b6d4",
-                        ];
-                        return (
-                          <Cell
-                            key={`cell-${index}`}
-                            fill={colors[index % colors.length]}
+              <div className="space-y-4">
+                {/* Pie Chart */}
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={analytics.categoryDistribution}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={80}
+                        innerRadius={40}
+                        dataKey="value"
+                        startAngle={90}
+                        endAngle={450}
+                      >
+                        {analytics.categoryDistribution.map((_, index) => {
+                          const colors = [
+                            "#3b82f6", // Blue
+                            "#10b981", // Green
+                            "#f59e0b", // Amber
+                            "#ef4444", // Red
+                            "#8b5cf6", // Purple
+                            "#06b6d4", // Cyan
+                            "#f97316", // Orange
+                            "#84cc16", // Lime
+                          ];
+                          return (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={colors[index % colors.length]}
+                              stroke="#ffffff"
+                              strokeWidth={2}
+                            />
+                          );
+                        })}
+                      </Pie>
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: "white",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "8px",
+                          fontSize: "14px",
+                          boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                        }}
+                        formatter={(value, name, props) => [
+                          `${value}% (${props.payload.count} products)`,
+                          name,
+                        ]}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* Custom Legend */}
+                <div className="space-y-2">
+                  {analytics.categoryDistribution.map((category, index) => {
+                    const colors = [
+                      "#3b82f6",
+                      "#10b981",
+                      "#f59e0b",
+                      "#ef4444",
+                      "#8b5cf6",
+                      "#06b6d4",
+                      "#f97316",
+                      "#84cc16",
+                    ];
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between py-1"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{
+                              backgroundColor: colors[index % colors.length],
+                            }}
                           />
-                        );
-                      })}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+                          <span className="text-sm font-medium text-slate-700 truncate">
+                            {category.name}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-sm font-semibold text-slate-900">
+                            {category.value}%
+                          </span>
+                          <span className="text-xs text-slate-500 ml-1">
+                            ({category.count})
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ) : (
-              <div className="h-48 flex items-center justify-center text-slate-500">
-                <p>No category data</p>
+              <div className="h-64 flex flex-col items-center justify-center text-slate-500">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+                  <PieChartIcon className="h-8 w-8 text-slate-400" />
+                </div>
+                <h4 className="text-sm font-medium text-slate-700 mb-1">
+                  No Category Data
+                </h4>
+                <p className="text-xs text-slate-500 text-center max-w-48">
+                  Category information will appear here once products are added
+                  with categories
+                </p>
               </div>
             )}
           </div>
