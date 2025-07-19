@@ -81,14 +81,6 @@ const Footer: React.FC = () => {
       {/* Logo and Description Section */}
       <div className="px-4 py-8">
         <div className="max-w-7xl mx-auto text-center">
-          <button onClick={() => navigate('/')} className="focus:outline-none hover:opacity-80 transition-opacity inline-block mb-6">
-            <img 
-              src="/img/logo.png" 
-              alt="Stylsia" 
-              className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover mx-auto"
-            />
-          </button>
-          
           <div className="border-t border-white/20 pt-8">
             <p className="text-base md:text-lg leading-relaxed max-w-4xl mx-auto">
               Your destination for the latest fashion trends and timeless classics.
