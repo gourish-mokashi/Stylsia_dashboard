@@ -6,6 +6,8 @@ import {
   Tooltip,
   LineChart,
   Line,
+  AreaChart,
+  Area,
   ResponsiveContainer,
   PieChart,
   Pie,
@@ -18,6 +20,7 @@ import {
   Package,
   DollarSign,
   AlertTriangle,
+  MousePointer,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import { useAdminAnalytics } from "../../hooks/useAdminAnalytics";
@@ -34,7 +37,6 @@ export default function AdminAnalytics() {
       ["Metric", "Value"],
       ["Total Brands", analytics.overview.totalBrands.toString()],
       ["Active Brands", analytics.statusDistribution.activeBrands.toString()],
-      ["Paused Brands", analytics.statusDistribution.pausedBrands.toString()],
       [
         "Suspended Brands",
         analytics.statusDistribution.suspendedBrands.toString(),
@@ -45,11 +47,10 @@ export default function AdminAnalytics() {
         analytics.statusDistribution.activeProducts.toString(),
       ],
       [
-        "Pending Products",
-        analytics.statusDistribution.pendingProducts.toString(),
+        "Inactive Products",
+        analytics.statusDistribution.inactiveProducts.toString(),
       ],
-      ["Total Revenue", `$${analytics.overview.totalRevenue}`],
-      ["Conversion Rate", `${analytics.overview.conversionRate}%`],
+      ["Total Clicks", analytics.overview.totalViews.toString()],
     ]
       .map((row) => row.join(","))
       .join("\n");
@@ -146,6 +147,7 @@ export default function AdminAnalytics() {
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
               className="px-3 py-2 border border-slate-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              title="Select date range for analytics"
             >
               <option value="7d">Last 7 days</option>
               <option value="30d">Last 30 days</option>
@@ -165,23 +167,13 @@ export default function AdminAnalytics() {
           </div>
         </div>
         {/* Key Metrics */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           <div className="bg-white rounded-lg border border-slate-200 p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-600">Total Brands</p>
                 <p className="text-2xl font-bold text-slate-900">
                   {analytics.overview.totalBrands.toLocaleString()}
-                </p>
-                <p
-                  className={`text-xs ${
-                    analytics.overview.brandGrowth >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {analytics.overview.brandGrowth >= 0 ? "+" : ""}
-                  {analytics.overview.brandGrowth.toFixed(1)}%
                 </p>
               </div>
               <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -197,16 +189,6 @@ export default function AdminAnalytics() {
                 <p className="text-2xl font-bold text-slate-900">
                   {analytics.overview.totalProducts.toLocaleString()}
                 </p>
-                <p
-                  className={`text-xs ${
-                    analytics.overview.productGrowth >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {analytics.overview.productGrowth >= 0 ? "+" : ""}
-                  {analytics.overview.productGrowth.toFixed(1)}%
-                </p>
               </div>
               <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
                 <Package className="h-5 w-5 text-green-600" />
@@ -217,20 +199,22 @@ export default function AdminAnalytics() {
           <div className="bg-white rounded-lg border border-slate-200 p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-slate-600">Total Revenue</p>
+                <p className="text-sm text-slate-600">Total Clicks</p>
                 <p className="text-2xl font-bold text-slate-900">
-                  ${analytics.overview.totalRevenue.toLocaleString()}
+                  {analytics.overview.totalViews.toLocaleString()}
                 </p>
-                <p
-                  className={`text-xs ${
-                    analytics.overview.revenueGrowth >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {analytics.overview.revenueGrowth >= 0 ? "+" : ""}
-                  {analytics.overview.revenueGrowth.toFixed(1)}%
-                </p>
+              </div>
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                <MousePointer className="h-5 w-5 text-purple-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-slate-200 p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-slate-600">Total Revenue</p>
+                <p className="text-2xl font-bold text-slate-500">Coming Soon</p>
               </div>
               <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
                 <DollarSign className="h-5 w-5 text-amber-600" />
@@ -242,25 +226,21 @@ export default function AdminAnalytics() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-600">Conversion Rate</p>
-                <p className="text-2xl font-bold text-slate-900">
-                  {analytics.overview.conversionRate.toFixed(1)}%
-                </p>
-                <p className="text-xs text-slate-500">
-                  {analytics.statusDistribution.activeProducts} active
-                </p>
+                <p className="text-2xl font-bold text-slate-500">Coming Soon</p>
               </div>
               <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
                 <TrendingUp className="h-5 w-5 text-purple-600" />
               </div>
             </div>
           </div>
-        </div>{" "}
+        </div>
+
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Growth Chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Brand Growth Chart */}
           <div className="bg-white rounded-lg border border-slate-200 p-6">
             <h3 className="text-lg font-semibold text-slate-900 mb-4">
-              Growth Trends
+              Brand Growth Trends
             </h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
@@ -279,20 +259,45 @@ export default function AdminAnalytics() {
                   <Line
                     type="monotone"
                     dataKey="brands"
-                    stroke="#3b82f6"
-                    strokeWidth={2}
+                    stroke="#2563eb"
+                    strokeWidth={3}
                     name="Brands"
-                    dot={{ fill: "#3b82f6", strokeWidth: 2, r: 4 }}
+                    dot={{ fill: "#2563eb", strokeWidth: 2, r: 5 }}
                   />
-                  <Line
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Product Growth Chart */}
+          <div className="bg-white rounded-lg border border-slate-200 p-6">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">
+              Product Growth Trends
+            </h3>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={analytics.brandGrowthData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="month" stroke="#64748b" fontSize={12} />
+                  <YAxis stroke="#64748b" fontSize={12} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: "white",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "8px",
+                      fontSize: "14px",
+                    }}
+                  />
+                  <Area
                     type="monotone"
                     dataKey="products"
                     stroke="#10b981"
                     strokeWidth={2}
+                    fill="#10b981"
+                    fillOpacity={0.1}
                     name="Products"
-                    dot={{ fill: "#10b981", strokeWidth: 2, r: 4 }}
                   />
-                </LineChart>
+                </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
@@ -315,12 +320,6 @@ export default function AdminAnalytics() {
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-slate-600">Paused</span>
-                    <span className="font-medium text-amber-600">
-                      {analytics.statusDistribution.pausedBrands}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
                     <span className="text-slate-600">Suspended</span>
                     <span className="font-medium text-red-600">
                       {analytics.statusDistribution.suspendedBrands}
@@ -338,12 +337,6 @@ export default function AdminAnalytics() {
                     <span className="text-slate-600">Active</span>
                     <span className="font-medium text-green-600">
                       {analytics.statusDistribution.activeProducts}
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-600">Pending</span>
-                    <span className="font-medium text-amber-600">
-                      {analytics.statusDistribution.pendingProducts}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
@@ -431,7 +424,7 @@ export default function AdminAnalytics() {
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-slate-900">
-                        ${brand.revenue.toLocaleString()}
+                        {brand.clicks.toLocaleString()} clicks
                       </p>
                       <span
                         className={`text-xs px-2 py-1 rounded-full font-medium ${
