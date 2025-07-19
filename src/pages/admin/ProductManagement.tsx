@@ -7,7 +7,6 @@ import {
   Eye,
   MoreVertical,
   Pause,
-  Trash2,
   AlertTriangle,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
@@ -29,7 +28,7 @@ export default function ProductManagement() {
   );
   const [showConfirmDialog, setShowConfirmDialog] = useState<{
     show: boolean;
-    type: "pause" | "remove";
+    type: "pause";
     product: AdminProduct | null;
   }>({ show: false, type: "pause", product: null });
 
@@ -39,14 +38,6 @@ export default function ProductManagement() {
     setShowConfirmDialog({
       show: true,
       type: "pause",
-      product,
-    });
-  };
-
-  const handleRemoveProduct = (product: AdminProduct) => {
-    setShowConfirmDialog({
-      show: true,
-      type: "remove",
       product,
     });
   };
@@ -62,10 +53,6 @@ export default function ProductManagement() {
         // Update product status to inactive
         console.log("Pausing product:", product.id);
         // await updateProductStatus(product.id, "inactive");
-      } else if (type === "remove") {
-        // Remove/delete product
-        console.log("Removing product:", product.id);
-        // await removeProduct(product.id);
       }
 
       // Refresh the data after action
@@ -249,10 +236,6 @@ export default function ProductManagement() {
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
               </select>
-
-              <Button variant="outline" icon={Filter}>
-                More Filters
-              </Button>
             </div>
           </div>
         </div>
@@ -382,16 +365,6 @@ export default function ProductManagement() {
                                 {product.status === "active"
                                   ? "Pause"
                                   : "Activate"}
-                              </button>
-                              <button
-                                onClick={() => {
-                                  handleRemoveProduct(product);
-                                  setShowProductActions(null);
-                                }}
-                                className="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 flex items-center text-red-600"
-                              >
-                                <Trash2 className="h-3 w-3 mr-2" />
-                                Remove
                               </button>
                             </div>
                           )}
@@ -576,7 +549,7 @@ function ConfirmationDialog({
   onConfirm,
   onCancel,
 }: {
-  type: "pause" | "remove";
+  type: "pause";
   product: AdminProduct;
   onConfirm: () => void;
   onCancel: () => void;
@@ -596,13 +569,6 @@ function ConfirmationDialog({
             product.status === "active"
               ? "bg-amber-600 hover:bg-amber-700"
               : "bg-green-600 hover:bg-green-700",
-        };
-      case "remove":
-        return {
-          title: "Remove Product",
-          message: `Are you sure you want to remove "${product.name}"? This action cannot be undone.`,
-          confirmText: "Remove",
-          confirmClass: "bg-red-600 hover:bg-red-700",
         };
       default:
         return {
