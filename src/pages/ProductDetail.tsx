@@ -168,14 +168,14 @@ const ProductDetail: React.FC = () => {
             {/* Product Images */}
             <div className="space-y-4">
               {/* Main Image */}
-              <div className="relative bg-white rounded-lg overflow-hidden shadow-sm">
+              <div className="relative bg-gray-50 rounded-lg overflow-hidden shadow-sm">
                 <img
                   src={
                     mainImage?.image_url ||
                     "https://via.placeholder.com/600x800"
                   }
                   alt={product.name}
-                  className="w-full h-96 md:h-[600px] object-cover"
+                  className="w-full h-96 md:h-[600px] object-contain"
                 />
 
                 {/* Image Navigation */}
@@ -213,7 +213,7 @@ const ProductDetail: React.FC = () => {
                       <img
                         src={image.image_url}
                         alt={`${product.name} ${index + 1}`}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain bg-gray-50"
                       />
                     </button>
                   ))}
