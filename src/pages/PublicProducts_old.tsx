@@ -371,16 +371,18 @@ const ProductCard: React.FC<{
         <div className="flex-1">
           <h3 className="font-medium text-gray-900 mb-1">{product.name}</h3>
           <p className="text-sm text-gray-600 mb-2">{product.brand?.name}</p>
-          <div className="flex items-center space-x-2 mb-2">
-            <span className="text-lg font-bold text-gray-900">₹{product.current_price}</span>
-            {product.original_price && product.original_price > product.current_price && (
-              <>
-                <span className="text-sm text-gray-500 line-through">₹{product.original_price}</span>
-                <span className="text-sm text-green-600 font-medium">
-                  {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
-                </span>
-              </>
-            )}
+          <div className="space-y-1 mb-2">
+            <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1">
+              <span className="text-lg font-bold text-gray-900">₹{product.current_price}</span>
+              {product.original_price && product.original_price > product.current_price && (
+                <>
+                  <span className="text-sm text-gray-500 line-through">₹{product.original_price}</span>
+                  <span className="text-sm text-green-600 font-medium whitespace-nowrap">
+                    {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
+                  </span>
+                </>
+              )}
+            </div>
           </div>
           <div className="flex items-center space-x-1">
             <Star className="h-4 w-4 text-yellow-400 fill-current" />
@@ -408,11 +410,18 @@ const ProductCard: React.FC<{
       <div className="p-4">
         <h3 className="font-medium text-gray-900 mb-1 truncate">{product.name}</h3>
         <p className="text-sm text-gray-600 mb-2">{product.brand?.name}</p>
-        <div className="flex items-center space-x-2 mb-2">
-          <span className="text-lg font-bold text-gray-900">₹{product.current_price}</span>
-          {product.original_price && product.original_price > product.current_price && (
-            <span className="text-sm text-gray-500 line-through">₹{product.original_price}</span>
-          )}
+        <div className="space-y-1 mb-2">
+          <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1">
+            <span className="text-lg font-bold text-gray-900">₹{product.current_price}</span>
+            {product.original_price && product.original_price > product.current_price && (
+              <>
+                <span className="text-sm text-gray-500 line-through">₹{product.original_price}</span>
+                <span className="text-sm text-green-600 font-medium whitespace-nowrap">
+                  {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
+                </span>
+              </>
+            )}
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-1">

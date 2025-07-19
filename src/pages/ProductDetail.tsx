@@ -217,12 +217,12 @@ const ProductDetail: React.FC = () => {
 
             {/* Price */}
             <div className="border-t border-gray-200 pt-6">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center flex-wrap gap-x-4 gap-y-2">
                 <span className="text-3xl font-bold text-gray-900">₹{product.current_price}</span>
                 {hasDiscount && (
                   <>
                     <span className="text-xl text-gray-500 line-through">₹{product.original_price}</span>
-                    <span className="text-lg text-green-600 font-medium">
+                    <span className="text-lg text-green-600 font-medium whitespace-nowrap">
                       {Math.round(((product.original_price - product.current_price) / product.original_price) * 100)}% off
                     </span>
                   </>

@@ -338,12 +338,19 @@ function ProductCard({
                 {product.name}
               </h3>
               <p className="text-sm font-semibold text-gray-900 mt-1">
-                ₹{product.current_price.toLocaleString("en-IN")}
-                {product.discount_percentage > 0 && (
-                  <span className="ml-2 text-xs line-through text-gray-500">
-                    ₹{product.original_price.toLocaleString("en-IN")}
-                  </span>
-                )}
+                <div className="space-y-0.5">
+                  <div>₹{product.current_price.toLocaleString("en-IN")}</div>
+                  {product.discount_percentage > 0 && (
+                    <div className="flex items-center gap-1 flex-wrap">
+                      <span className="text-xs line-through text-gray-500">
+                        ₹{product.original_price.toLocaleString("en-IN")}
+                      </span>
+                      <span className="text-xs font-medium text-green-600 whitespace-nowrap">
+                        {product.discount_percentage}% off
+                      </span>
+                    </div>
+                  )}
+                </div>
               </p>
             </div>
             <span
@@ -422,17 +429,19 @@ function ProductRow({
         </div>
       </td>
       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 lg:px-6">
-        ₹{product.current_price.toLocaleString("en-IN")}
-        {product.discount_percentage > 0 && (
-          <div className="flex items-center space-x-2">
-            <span className="text-xs line-through text-gray-500">
-              ₹{product.original_price.toLocaleString("en-IN")}
-            </span>
-            <span className="text-xs font-medium text-green-600">
-              {product.discount_percentage}% off
-            </span>
-          </div>
-        )}
+        <div className="space-y-1">
+          <div>₹{product.current_price.toLocaleString("en-IN")}</div>
+          {product.discount_percentage > 0 && (
+            <div className="flex items-center gap-1 flex-wrap">
+              <span className="text-xs line-through text-gray-500">
+                ₹{product.original_price.toLocaleString("en-IN")}
+              </span>
+              <span className="text-xs font-medium text-green-600 whitespace-nowrap">
+                {product.discount_percentage}% off
+              </span>
+            </div>
+          )}
+        </div>
       </td>
       <td className="px-4 py-4 whitespace-nowrap lg:px-6">
         <span
