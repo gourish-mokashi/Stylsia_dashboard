@@ -67,7 +67,7 @@ const Tab = ({ children, tab, handleSetSelected, selected }: {
       id={`shift-tab-${tab}`}
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
-      className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors ${
+      className={`flex items-center gap-1 rounded-full px-6 py-2 text-base transition-colors ${
         selected === tab
           ? " bg-gray-100 text-gray-900"
           : "text-gray-700 hover:text-gray-900"
@@ -75,7 +75,7 @@ const Tab = ({ children, tab, handleSetSelected, selected }: {
     >
       <span className="font-medium">{children}</span>
       <FiChevronDown
-        className={`transition-transform ${
+        className={`transition-transform h-4 w-4 ${
           selected === tab ? "rotate-180" : ""
         }`}
       />

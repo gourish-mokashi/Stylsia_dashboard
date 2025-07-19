@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
 
       {/* Featured Products Section */}
       <section id="featured" className="bg-gray-50 py-12 xl:py-20 mt-8 lg:mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-3">
               Featured Products

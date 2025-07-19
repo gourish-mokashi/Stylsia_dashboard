@@ -143,7 +143,7 @@ const ProductDetail: React.FC = () => {
         />
 
         {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
           <nav className="text-sm text-gray-500">
             <span
               className="cursor-pointer hover:text-gray-900"
@@ -163,7 +163,7 @@ const ProductDetail: React.FC = () => {
           </nav>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="w-full px-4 sm:px-6 lg:px-8 pb-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Product Images */}
             <div className="space-y-4">

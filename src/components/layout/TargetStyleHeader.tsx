@@ -78,21 +78,21 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
           {/* Desktop Header */}
-          <div className="hidden lg:flex items-center justify-between px-6 py-3 border-b border-gray-100">
+          <div className="hidden lg:flex items-center justify-between px-12 py-5 border-b border-gray-100">
             {/* Left Side: Back Button or Logo */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
               {showBackButton ? (
                 <>
                   <motion.button
                     onClick={handleBack}
-                    className="flex items-center space-x-2 p-2 text-gray-600 hover:text-red-600 transition-colors"
+                    className="flex items-center space-x-4 p-2 text-gray-600 hover:text-red-600 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <ArrowLeft className="h-5 w-5" />
-                    <span className="font-helvetica font-medium">{backButtonText}</span>
+                    <ArrowLeft className="h-7 w-7" />
+                    <span className="font-helvetica font-medium text-xl">{backButtonText}</span>
                   </motion.button>
                   <motion.button 
                     onClick={() => navigate('/')} 
@@ -127,13 +127,13 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
 
             {/* Navigation Menu - Only show when not in back button mode */}
             {!showBackButton && (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-6">
                 <ShiftingDropDown onCategorySelect={handleCategoryNavigation} />
                 {menuItems.map((item, index) => (
                   <motion.button
                     key={item.category}
                     onClick={() => handleCategoryNavigation(item.category)}
-                    className="flex items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                    className="flex items-center gap-1 rounded-full px-6 py-2 text-base transition-colors text-gray-700 hover:text-gray-900 hover:bg-gray-100"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: (index + 2) * 0.1 }}
@@ -147,20 +147,20 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
             {/* Search Bar */}
             {showSearchBar && (
               <motion.div 
-                className="flex-1 max-w-lg mx-8"
+                className="flex-1 max-w-4xl mx-12"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
               >
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
-                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 h-7 w-7 text-gray-400" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search for products, brands and more"
-                      className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none focus:bg-white focus:shadow-sm text-base placeholder-gray-500 border-0"
+                      className="w-full pl-16 pr-8 py-4 bg-gray-100 rounded-full focus:outline-none focus:bg-white focus:shadow-sm text-xl placeholder-gray-500 border-0"
                     />
                   </div>
                 </form>
@@ -168,14 +168,14 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
             )}
 
             {/* Right Icons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-6">
               <motion.button
                 className="p-2 text-gray-600 hover:text-red-600 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleComingSoon('Profile')}
               >
-                <User className="h-6 w-6" />
+                <User className="h-7 w-7" />
               </motion.button>
               <motion.button
                 className="p-2 text-gray-600 hover:text-red-600 transition-colors"
@@ -183,7 +183,7 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
                 whileTap={{ scale: 0.9 }}
                 onClick={() => handleComingSoon('Wishlist')}
               >
-                <Heart className="h-6 w-6" />
+                <Heart className="h-7 w-7" />
               </motion.button>
             </div>
           </div>

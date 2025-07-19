@@ -350,7 +350,7 @@ const ProductsShowcase: React.FC = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
         {loading && products.length === 0 ? (
           // Show skeleton on initial load
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
