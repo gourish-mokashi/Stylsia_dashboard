@@ -117,13 +117,13 @@ const PublicHeader: React.FC<PublicHeaderProps> = ({
               <div className="flex-1 max-w-xl ml-8">
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search for products, brands and more"
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base"
+                      className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none focus:bg-white focus:shadow-sm text-base placeholder-gray-500 border-0"
                     />
                   </div>
                 </form>

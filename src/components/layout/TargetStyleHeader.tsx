@@ -154,20 +154,14 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
               >
                 <form onSubmit={handleSearch} className="w-full">
                   <div className="relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="What can we help you find?"
-                      className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-base font-helvetica placeholder-gray-500"
+                      placeholder="Search for products, brands and more"
+                      className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none focus:bg-white focus:shadow-sm text-base placeholder-gray-500 border-0"
                     />
-                    <motion.button
-                      type="submit"
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600 transition-colors"
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Search className="h-6 w-6" />
-                    </motion.button>
                   </div>
                 </form>
               </motion.div>
@@ -263,20 +257,14 @@ const TargetStyleHeader: React.FC<TargetStyleHeaderProps> = ({
             >
               <form onSubmit={handleSearch} className="w-full">
                 <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="What can we help you find?"
-                    className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent text-base font-helvetica placeholder-gray-500"
+                    placeholder="Search for products, brands and more"
+                    className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-full focus:outline-none focus:bg-white focus:shadow-sm text-base placeholder-gray-500 border-0"
                   />
-                  <motion.button
-                    type="submit"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 text-gray-600 hover:text-red-600 transition-colors"
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Search className="h-6 w-6" />
-                  </motion.button>
                 </div>
               </form>
             </motion.div>
