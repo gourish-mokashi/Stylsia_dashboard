@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Filter, Grid, List, ChevronDown, Star, RefreshCw } from 'lucide-react';
 import { usePublicProducts } from '../hooks/usePublicProducts';
-import PublicHeader from '../components/layout/PublicHeader';
+import TargetStyleHeader from '../components/layout/TargetStyleHeader';
 import type { ProductWithDetails } from '../types/database';
 
 const PublicProducts: React.FC = () => {
@@ -129,8 +129,8 @@ const PublicProducts: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* New Myntra-style Header */}
-      <PublicHeader onSearch={handleSearch} showSearchBar={true} />
+      {/* New Target-style Header */}
+      <TargetStyleHeader onSearch={handleSearch} showSearchBar={true} />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -419,9 +419,6 @@ const ProductCard: React.FC<{
             <Star className="h-4 w-4 text-yellow-400 fill-current" />
             <span className="text-sm text-gray-600">4.2</span>
           </div>
-          <button className="text-primary-600 hover:text-primary-700 text-sm font-medium">
-            Quick View
-          </button>
         </div>
       </div>
     </div>

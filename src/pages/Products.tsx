@@ -5,10 +5,8 @@ import {
   Search,
   AlertCircle,
   RefreshCw,
-  ExternalLink,
-  Eye,
 } from "lucide-react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Button from "../components/ui/Button";
 import { useProductData } from "../hooks/useProductData";
@@ -17,9 +15,9 @@ import { productsMeta } from "../config/metaData";
 import type { ProductWithDetails } from "../types/database";
 
 export default function Products() {
-  const [searchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedProduct, setSelectedProduct] = useState<ProductWithDetails | null>(null);
+  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
 
   // Use the partner product data hook to show only products for this brand
   const {
@@ -64,10 +62,6 @@ export default function Products() {
       ...filters,
       offset: newOffset,
     });
-  };
-
-  const handleViewProduct = (productId: string) => {
-    navigate(`/product/${productId}`);
   };
 
   // Error state
@@ -191,7 +185,6 @@ export default function Products() {
                     <ProductCard
                       key={product.id}
                       product={product}
-                      onView={() => handleViewProduct(product.id)}
                     />
                   ))}
                 </div>
@@ -225,7 +218,6 @@ export default function Products() {
                         <ProductRow
                           key={product.id}
                           product={product}
-                          onView={() => handleViewProduct(product.id)}
                         />
                       ))}
                     </tbody>
@@ -309,10 +301,8 @@ export default function Products() {
 // Product Card Component for Mobile
 function ProductCard({
   product,
-  onView,
 }: {
   product: ProductWithDetails;
-  onView: () => void;
 }) {
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -371,12 +361,6 @@ function ProductCard({
           </div>
 
           <div className="flex items-center space-x-3 mt-3">
-            <button
-              className="text-primary-600 hover:text-primary-900 touch-target"
-              onClick={onView}
-            >
-              <Eye className="h-4 w-4" />
-            </button>
             <button className="text-gray-400 hover:text-gray-600 touch-target">
               <MoreVertical className="h-4 w-4" />
             </button>
@@ -390,10 +374,8 @@ function ProductCard({
 // Product Row Component for Desktop
 function ProductRow({
   product,
-  onView,
 }: {
   product: ProductWithDetails;
-  onView: () => void;
 }) {
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -464,15 +446,7 @@ function ProductRow({
       </td>
       <td className="px-4 py-4 whitespace-nowrap text-sm font-medium lg:px-6">
         <div className="flex items-center space-x-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={onView}
-            icon={ExternalLink}
-            className="text-primary-600 hover:text-primary-900"
-          >
-            View
-          </Button>
+          {/* View button removed */}
         </div>
       </td>
     </tr>

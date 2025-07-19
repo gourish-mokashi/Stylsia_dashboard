@@ -7,7 +7,7 @@ import {
   Zap
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import PublicHeader from '../components/layout/PublicHeader';
+import TargetStyleHeader from '../components/layout/TargetStyleHeader';
 import { PageMeta } from '../components/seo/PageMeta';
 import { generateProductMeta } from '../config/metaData';
 import type { ProductWithDetails } from '../types/database';
@@ -130,7 +130,7 @@ const ProductDetail: React.FC = () => {
       <PageMeta {...productMeta} />
       <div className="min-h-screen bg-gray-50">
       {/* Header with Back Button */}
-      <PublicHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
+      <TargetStyleHeader showSearchBar={false} showBackButton={true} backButtonText="Products" />
 
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">

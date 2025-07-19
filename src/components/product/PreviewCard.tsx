@@ -229,15 +229,7 @@ export const PreviewCard: React.FC<PreviewCardProps> = ({
         
         {/* Rating and Additional Info */}
         <div className="flex items-center justify-end pt-1">
-          <button 
-            className="text-primary-600 hover:text-primary-700 text-xs font-medium transition-colors duration-200 px-2 py-1 rounded hover:bg-primary-50"
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick();
-            }}
-          >
-            View
-          </button>
+          {/* View button removed */}
         </div>
       </div>
     </div>
