@@ -4,19 +4,26 @@ import {
   Settings as SettingsIcon,
   Activity,
   FileText,
+  AlertTriangle,
 } from "lucide-react";
 import Button from "../../components/ui/Button";
 import AuditLogViewer from "../../components/common/AuditLogViewer";
 import { useMaintenanceMode } from "../../contexts/MaintenanceContext";
 
 export default function AdminSettings() {
-  const { maintenanceMode, setMaintenanceMode, loading: maintenanceLoading } = useMaintenanceMode();
+  const {
+    maintenanceMode,
+    setMaintenanceMode,
+    loading: maintenanceLoading,
+    error: maintenanceError,
+  } = useMaintenanceMode();
   const [activeTab, setActiveTab] = useState("global");
   const [globalSettings, setGlobalSettings] = useState({
     maintenanceMode: false,
   });
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   const tabs = [
     { id: "global", name: "Global Settings", icon: SettingsIcon },
@@ -28,9 +35,9 @@ export default function AdminSettings() {
     const fetchSettings = async () => {
       try {
         // Update local state with maintenance context
-        setGlobalSettings(prev => ({
+        setGlobalSettings((prev) => ({
           ...prev,
-          maintenanceMode: maintenanceMode
+          maintenanceMode: maintenanceMode,
         }));
         console.log("Settings synced with maintenance context");
       } catch (error) {
@@ -43,18 +50,46 @@ export default function AdminSettings() {
     }
   }, [maintenanceMode, maintenanceLoading]);
 
-  const handleGlobalSettingsChange = (key: string, value: any) => {
+  const handleGlobalSettingsChange = async (
+    key: string,
+    value: boolean | string | number
+  ) => {
     setGlobalSettings((prev) => ({
       ...prev,
       [key]: value,
     }));
 
     // If changing maintenance mode, update the context immediately
-    if (key === 'maintenanceMode') {
-      setMaintenanceMode(value);
+    if (key === "maintenanceMode" && typeof value === "boolean") {
+      try {
+        setSaving(true);
+        setSaveError(null);
+        await setMaintenanceMode(value);
+        setSaveSuccess(true);
+
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          setSaveSuccess(false);
+        }, 3000);
+      } catch (error) {
+        console.error("Error updating maintenance mode:", error);
+        setSaveError("Failed to update maintenance mode");
+
+        // Revert the local state
+        setGlobalSettings((prev) => ({
+          ...prev,
+          maintenanceMode: !value,
+        }));
+
+        setTimeout(() => {
+          setSaveError(null);
+        }, 5000);
+      } finally {
+        setSaving(false);
+      }
     }
 
-    // Clear success message when user makes changes
+    // Clear success message when user makes other changes
     if (saveSuccess) {
       setSaveSuccess(false);
     }
@@ -131,6 +166,14 @@ export default function AdminSettings() {
               </div>
             )}
 
+            {/* Error message */}
+            {saveError && (
+              <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3 animate-fade-in">
+                <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-red-700 text-sm">{saveError}</p>
+              </div>
+            )}
+
             <div className="space-y-6">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -139,13 +182,16 @@ export default function AdminSettings() {
                       Maintenance Mode
                     </h3>
                     <p className="text-sm text-slate-600">
-                      Temporarily disable the platform
+                      {saving
+                        ? "Updating..."
+                        : "Temporarily disable the platform for all users"}
                     </p>
                   </div>
                   <label className="relative inline-flex items-center cursor-pointer">
                     <input
                       type="checkbox"
                       checked={globalSettings.maintenanceMode}
+                      disabled={saving || maintenanceLoading}
                       onChange={(e) =>
                         handleGlobalSettingsChange(
                           "maintenanceMode",
@@ -153,8 +199,19 @@ export default function AdminSettings() {
                         )
                       }
                       className="sr-only peer"
+                      title="Toggle maintenance mode for the entire platform"
                     />
-                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                    <div
+                      className={`w-11 h-6 ${
+                        saving || maintenanceLoading
+                          ? "bg-slate-300 cursor-not-allowed"
+                          : "bg-slate-200"
+                      } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600 ${
+                        saving || maintenanceLoading
+                          ? "peer-checked:bg-red-300"
+                          : ""
+                      }`}
+                    ></div>
                   </label>
                 </div>
               </div>

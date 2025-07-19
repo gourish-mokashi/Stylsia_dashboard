@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Mode Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #f8fafc;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .active {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .inactive {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.25rem;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        .refresh {
+            background: #10b981;
+        }
+
+        .refresh:hover {
+            background: #059669;
+        }
+
+        .log {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.875rem;
+            border: 1px solid #e2e8f0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .instructions {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>🔧 Maintenance Mode Test</h1>
+        <p>Use this page to test the global maintenance mode functionality.</p>
+
+        <div class="instructions">
+            <strong>Setup Instructions:</strong>
+            <ol>
+                <li>Run the SQL script in your Supabase dashboard (see setup_system_settings.sql)</li>
+                <li>Make sure your Stylsia dashboard is running</li>
+                <li>Open admin panel in another tab/window</li>
+                <li>Toggle maintenance mode from admin settings</li>
+                <li>Watch this page update in real-time!</li>
+            </ol>
+        </div>
+
+        <div>
+            <h3>Current Status</h3>
+            <div class="status" id="status">Checking...</div>
+            <div>
+                <button onclick="checkStatus()" class="refresh">🔄 Refresh Status</button>
+                <button onclick="testMainSite()">🌐 Open Main Site</button>
+                <button onclick="testAdminPanel()">⚙️ Open Admin Panel</button>
+            </div>
+        </div>
+
+        <div>
+            <h3>Test Log</h3>
+            <div class="log" id="log"></div>
+            <button onclick="clearLog()">Clear Log</button>
+        </div>
+    </div>
+
+    <script>
+        // Check maintenance status by trying to fetch from the main site
+        async function checkStatus() {
+            const statusEl = document.getElementById('status');
+            const logEl = document.getElementById('log');
+
+            try {
+                log('Checking maintenance status...');
+
+                // Check localStorage first
+                const localStatus = localStorage.getItem('maintenance_mode');
+                log(`localStorage maintenance_mode: ${localStatus}`);
+
+                // Try to fetch from the main dashboard page
+                const response = await fetch('http://localhost:5175/', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+
+                const text = await response.text();
+
+                if (text.includes('Under Maintenance') || text.includes('maintenance')) {
+                    statusEl.textContent = 'MAINTENANCE MODE ACTIVE';
+                    statusEl.className = 'status active';
+                    log('✅ Maintenance mode is ACTIVE - users will see maintenance page');
+                } else {
+                    statusEl.textContent = 'NORMAL OPERATION';
+                    statusEl.className = 'status inactive';
+                    log('✅ Maintenance mode is INACTIVE - website is accessible');
+                }
+
+            } catch (error) {
+                statusEl.textContent = 'ERROR CHECKING STATUS';
+                statusEl.className = 'status';
+                log(`❌ Error checking status: ${error.message}`);
+            }
+        }
+
+        function testMainSite() {
+            window.open('http://localhost:5175/', '_blank');
+            log('📱 Opened main site in new tab');
+        }
+
+        function testAdminPanel() {
+            window.open('http://localhost:5175/admin', '_blank');
+            log('⚙️ Opened admin panel in new tab');
+        }
+
+        function log(message) {
+            const logEl = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logEl.innerHTML += `[${timestamp}] ${message}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        // Auto-check status every 10 seconds
+        setInterval(checkStatus, 10000);
+
+        // Initial check
+        checkStatus();
+
+        log('🚀 Maintenance Mode Test Tool Started');
+        log('Auto-refreshing every 10 seconds...');
+    </script>
+</body>
+
+</html>
